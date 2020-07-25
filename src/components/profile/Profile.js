@@ -81,7 +81,7 @@ class Profile extends Component {
     const {
       classes,
       user: {
-        credentials: {
+        profile: {
           about,
           birthday,
           created,

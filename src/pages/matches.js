@@ -35,9 +35,8 @@ class matches extends Component {
     const {
       classes,
       data: { matches },
-      UI: { loading },
+      UI: { loading, errors },
     } = this.props;
-    const errors = this.state.errors;
 
     return (
       <Grid container spacing={5}>

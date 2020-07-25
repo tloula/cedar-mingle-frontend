@@ -9,7 +9,7 @@ import {
 const initialState = {
   authenticated: false,
   uploading: false,
-  credentials: {},
+  profile: {},
   settings: {},
   notifications: [],
 };

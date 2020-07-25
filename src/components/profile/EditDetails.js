@@ -56,31 +56,31 @@ class EditDetails extends Component {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
-  mapUserDetailsToState = (credentials) => {
+  mapUserDetailsToState = (profile) => {
     this.setState({
-      about: credentials.about ? credentials.about : "",
-      birthday: credentials.birthday ? credentials.birthday : new Date(),
-      gender: credentials.gender ? credentials.gender : "",
-      hometown: credentials.hometown ? credentials.hometown : "",
-      interests: credentials.interests ? credentials.interests : [],
-      major: credentials.major ? credentials.major : "",
-      name: credentials.name ? credentials.name : "",
-      occupation: credentials.occupation ? credentials.occupation : "",
-      website: credentials.website ? credentials.website : "",
-      year: credentials.year ? credentials.year : new Date(),
+      about: profile.about ? profile.about : "",
+      birthday: profile.birthday ? profile.birthday : new Date(),
+      gender: profile.gender ? profile.gender : "",
+      hometown: profile.hometown ? profile.hometown : "",
+      interests: profile.interests ? profile.interests : [],
+      major: profile.major ? profile.major : "",
+      name: profile.name ? profile.name : "",
+      occupation: profile.occupation ? profile.occupation : "",
+      website: profile.website ? profile.website : "",
+      year: profile.year ? profile.year : new Date(),
       errors: {},
     });
   };
   handleOpen = () => {
     this.setState({ open: true });
-    this.mapUserDetailsToState(this.props.credentials);
+    this.mapUserDetailsToState(this.props.profile);
   };
   handleClose = () => {
     this.setState({ open: false });
   };
   componentDidMount() {
-    const { credentials } = this.props;
-    this.mapUserDetailsToState(credentials);
+    const { profile } = this.props;
+    this.mapUserDetailsToState(profile);
   }
   handleChange = (event) => {
     this.setState({
@@ -325,16 +325,20 @@ class EditDetails extends Component {
   }
 }
 
-EditDetails.propTypes = {
-  editUserDetails: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
-  UI: PropTypes.object.isRequired,
-};
-
 const mapStateToProps = (state) => ({
-  credentials: state.user.credentials,
+  profile: state.user.profile,
+  user: state.user,
+  data: state.data,
   UI: state.UI,
 });
+
+EditDetails.propTypes = {
+  user: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+  editUserDetails: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, { editUserDetails })(
   withStyles(styles)(EditDetails)

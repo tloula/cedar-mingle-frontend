@@ -20,6 +20,7 @@ export const getUserData = (uid) => (dispatch) => {
         type: SET_PROFILE,
         payload: res.data.profile,
       });
+      dispatch({ type: STOP_LOADING_UI });
     })
     .catch(() => {
       dispatch({

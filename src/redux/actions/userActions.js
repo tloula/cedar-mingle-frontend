@@ -7,6 +7,7 @@ import {
   SET_UNAUTHENTICATED,
   UPLOADING_PHOTO,
   MARK_NOTIFICATIONS_READ,
+  CLEAR_DATA,
 } from "../types";
 import axios from "axios";
 
@@ -50,6 +51,7 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("FBIdToken");
   delete axios.defaults.headers.common["Authorization"];
   dispatch({ type: SET_UNAUTHENTICATED });
+  dispatch({ type: CLEAR_DATA });
 };
 
 export const getUserData = () => (dispatch) => {

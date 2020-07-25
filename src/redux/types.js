@@ -21,3 +21,4 @@ export const LOADING_MATCHES = "LOADING_MATCHES";
 export const SET_MATCHES = "SET_MATCHES";
 export const SET_UNMATCH = "SET_UNMATCH";
 export const SET_PROFILE = "SET_PROFILE";
+export const CLEAR_DATA = "CLEAR_DATA";

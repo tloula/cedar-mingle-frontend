@@ -8,6 +8,7 @@ import {
   LIKE_USER,
   PASS_USER,
   SET_MATCHES,
+  SET_CONVERSATIONS,
 } from "../types";
 import axios from "axios";
 
@@ -154,6 +155,26 @@ export const unmatchUser = (match) => (dispatch) => {
             payload: err.response.data,
           });
         });
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
+// Conversations
+export const getConversations = () => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .get("/conversations")
+    .then((res) => {
+      dispatch({
+        type: SET_CONVERSATIONS,
+        payload: res.data,
+      });
+      dispatch({ type: STOP_LOADING_UI });
     })
     .catch((err) => {
       dispatch({

@@ -24,7 +24,7 @@ const styles = (theme) => ({
   ...theme.spread,
   card: {
     maxWidth: 450,
-    margin: "10px 0px 10px 0px",
+    margin: "0px 0px 20px 0px",
   },
   gridItem: {
     position: "relative",
@@ -44,7 +44,7 @@ const styles = (theme) => ({
   },
 });
 
-class ExploreAction extends Component {
+class MatchItem extends Component {
   handleUnmatch = (match) => {
     this.props.unmatchUser(match);
   };
@@ -116,7 +116,7 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = { unmatchUser };
 
-ExploreAction.propTypes = {
+MatchItem.propTypes = {
   match: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
@@ -126,4 +126,4 @@ ExploreAction.propTypes = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withStyles(styles)(ExploreAction));
+)(withStyles(styles)(MatchItem));

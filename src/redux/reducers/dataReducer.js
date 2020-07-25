@@ -5,11 +5,14 @@ import {
   SET_MATCHES,
   SET_UNMATCH,
   SET_PROFILE,
+  SET_CONVERSATIONS,
+  CLEAR_DATA,
 } from "../types";
 
 const initialState = {
   profile: {},
   matches: [],
+  conversations: [],
   match: false,
 };
 
@@ -45,6 +48,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
       };
+    case SET_CONVERSATIONS:
+      return {
+        ...state,
+        conversations: action.payload.conversations,
+      };
+    case CLEAR_DATA:
+      return initialState;
     default:
       return state;
   }

@@ -12,12 +12,16 @@ class profile extends Component {
   }
 }
 
-profile.propTypes = {
-  data: PropTypes.object.isRequired,
-};
-
 const mapStateToProps = (state) => ({
+  user: state.user,
   data: state.data,
+  UI: state.UI,
 });
+
+profile.propTypes = {
+  user: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps)(profile);

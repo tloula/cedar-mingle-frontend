@@ -8,12 +8,11 @@ import {
   LIKE_USER,
   PASS_USER,
   SET_MATCHES,
-  LOADING_DATA,
 } from "../types";
 import axios from "axios";
 
 export const getUserData = (uid) => (dispatch) => {
-  dispatch({ type: LOADING_DATA });
+  dispatch({ type: LOADING_UI });
   axios
     .get(`/user/${uid}`)
     .then((res) => {
@@ -116,7 +115,7 @@ export const passUser = (uid) => (dispatch) => {
 
 // Matches
 export const getMatches = () => (dispatch) => {
-  dispatch({ type: LOADING_DATA });
+  dispatch({ type: LOADING_UI });
   axios
     .get("/matches")
     .then((res) => {
@@ -135,7 +134,7 @@ export const getMatches = () => (dispatch) => {
 };
 
 export const unmatchUser = (match) => (dispatch) => {
-  dispatch({ type: LOADING_DATA });
+  dispatch({ type: LOADING_UI });
   axios
     .post("/matches", match)
     .then((res) => {

@@ -95,10 +95,10 @@ class Profile extends Component {
           website,
           year,
         },
-        loading,
         uploading,
         authenticated,
       },
+      UI: { loading },
     } = this.props;
 
     let imgSrcs = [];
@@ -245,14 +245,18 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  data: state.data,
+  UI: state.UI,
 });
 
 const mapActionsToProps = { uploadImage, deleteImage };
 
 Profile.propTypes = {
+  user: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
   uploadImage: PropTypes.func.isRequired,
   deleteImage: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

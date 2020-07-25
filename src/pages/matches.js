@@ -38,7 +38,8 @@ class matches extends Component {
   render() {
     const {
       classes,
-      data: { matches, loading },
+      data: { matches },
+      UI: { loading },
     } = this.props;
     const errors = this.state.errors;
 
@@ -72,6 +73,7 @@ class matches extends Component {
 }
 
 matches.propTypes = {
+  user: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
   getMatches: PropTypes.func.isRequired,
@@ -79,6 +81,7 @@ matches.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  user: state.user,
   data: state.data,
   UI: state.UI,
 });

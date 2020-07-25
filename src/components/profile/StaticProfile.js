@@ -58,7 +58,8 @@ class StaticProfile extends Component {
         website,
         year,
       },
-      user: { authenticated, loading },
+      user: { authenticated },
+      UI: { loading },
     } = this.props;
 
     let imgSrcs = [];
@@ -160,14 +161,18 @@ class StaticProfile extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  user: state.user,
+  data: state.data,
+  UI: state.UI,
+});
+
 StaticProfile.propTypes = {
   user: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
-
-const mapStateToProps = (state) => ({
-  user: state.user,
-});
 
 export default connect(mapStateToProps)(withStyles(styles)(StaticProfile));

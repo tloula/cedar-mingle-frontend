@@ -3,8 +3,8 @@ import {
   SET_ERRORS,
   CLEAR_ERRORS,
   LOADING_UI,
+  STOP_LOADING_UI,
   SET_UNAUTHENTICATED,
-  LOADING_USER,
   UPLOADING_PHOTO,
   MARK_NOTIFICATIONS_READ,
 } from "../types";
@@ -53,7 +53,7 @@ export const logoutUser = () => (dispatch) => {
 };
 
 export const getUserData = () => (dispatch) => {
-  dispatch({ type: LOADING_USER });
+  dispatch({ type: LOADING_UI });
   axios
     .get("/user")
     .then((res) => {
@@ -61,6 +61,7 @@ export const getUserData = () => (dispatch) => {
         type: SET_USER,
         payload: res.data,
       });
+      dispatch({ type: STOP_LOADING_UI });
     })
     .catch((err) => console.log(err));
 };
@@ -76,7 +77,7 @@ export const uploadImage = (formData) => (dispatch) => {
 };
 
 export const deleteImage = (photo) => (dispatch) => {
-  dispatch({ type: LOADING_USER });
+  dispatch({ type: LOADING_UI });
   axios
     .post("/user/photo/delete", { photo: photo.image })
     .then(() => {
@@ -86,10 +87,10 @@ export const deleteImage = (photo) => (dispatch) => {
 };
 
 export const editUserDetails = (userDetails) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
   axios
     .patch("/user", userDetails)
     .then(() => {
-      dispatch({ type: LOADING_USER });
       dispatch({ type: CLEAR_ERRORS });
       dispatch(getUserData());
     })

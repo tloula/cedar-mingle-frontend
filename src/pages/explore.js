@@ -52,7 +52,8 @@ class explore extends Component {
   render() {
     const {
       classes,
-      data: { match, profile, loading },
+      data: { match, profile },
+      UI: { loading },
     } = this.props;
     const errors = this.state.errors;
     return (
@@ -79,17 +80,19 @@ class explore extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  user: state.user,
+  data: state.data,
+  UI: state.UI,
+});
+
 explore.propTypes = {
+  user: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
   getExplore: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
-
-const mapStateToProps = (state) => ({
-  data: state.data,
-  UI: state.UI,
-});
 
 export default connect(mapStateToProps, { getExplore })(
   withStyles(styles)(explore)

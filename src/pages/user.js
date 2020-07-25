@@ -19,7 +19,8 @@ class user extends Component {
   }
   render() {
     const {
-      data: { profile, loading },
+      data: { profile },
+      UI: { loading },
     } = this.props;
 
     return (
@@ -28,13 +29,17 @@ class user extends Component {
   }
 }
 
-user.propTypes = {
-  getUserData: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
-};
-
 const mapStateToProps = (state) => ({
+  user: state.user,
   data: state.data,
+  UI: state.UI,
 });
+
+user.propTypes = {
+  user: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+  getUserData: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, { getUserData })(user);

@@ -53,7 +53,6 @@ class explore extends Component {
     const {
       classes,
       data: { match, profile },
-      UI: { loading },
     } = this.props;
     const errors = this.state.errors;
     return (

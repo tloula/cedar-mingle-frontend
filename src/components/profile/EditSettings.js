@@ -21,10 +21,6 @@ import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-// Icons
-import SettingsIcon from "@material-ui/icons/Settings";
-// Custom
-import MyButton from "../../util/MyButton";
 
 const styles = (theme) => ({
   ...theme.spread,

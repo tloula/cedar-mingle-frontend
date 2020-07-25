@@ -23,6 +23,7 @@ const styles = (theme) => ({
   },
   matchPaper: {
     backgroundColor: "#3f50b5",
+    padding: 0,
   },
   alert: {
     margin: "",
@@ -74,7 +75,7 @@ class ExploreAction extends Component {
     return (
       <>
         {match ? (
-          <Paper className={classes.Paper} className={classes.matchPaper}>
+          <Paper className={classes.matchPaper}>
             <Grid container className={classes.container} spacing={5}>
               <Grid item sm={6} xs={12}>
                 <Button
@@ -100,7 +101,7 @@ class ExploreAction extends Component {
             </Grid>
           </Paper>
         ) : (
-          <Paper className={classes.Paper} className={classes.matchPaper}>
+          <Paper className={classes.matchPaper}>
             <Grid container className={classes.container} spacing={5}>
               <Grid item sm={6} xs={12}>
                 <Button

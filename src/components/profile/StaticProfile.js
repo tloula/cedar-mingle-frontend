@@ -22,10 +22,6 @@ import { Scrollbars } from "react-custom-scrollbars";
 import dayjs from "dayjs";
 // Components
 import ProfileSkeleton from "../../util/ProfileSkeleton";
-// Helpers
-import { age } from "../../util/helpers";
-// Blob reducer for photo upload
-const reduce = require("image-blob-reduce")();
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -58,7 +54,6 @@ class StaticProfile extends Component {
         website,
         year,
       },
-      user: { authenticated },
       UI: { loading },
     } = this.props;
 

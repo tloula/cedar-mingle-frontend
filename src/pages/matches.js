@@ -6,9 +6,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
 import { getMatches } from "../redux/actions/dataActions";
 // Material-UI
-import Alert from "@material-ui/lab/Alert";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 // Components
 import MatchItem from "../components/matches/MatchItem";
@@ -23,7 +20,6 @@ const styles = (theme) => ({
 });
 
 class matches extends Component {
-  state = { errors: {} };
   componentDidMount() {
     this.props.getMatches();
   }

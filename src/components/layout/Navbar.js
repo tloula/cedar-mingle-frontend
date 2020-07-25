@@ -1,5 +1,5 @@
 // React
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // Redux
 import { connect } from "react-redux";
@@ -12,7 +12,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 // Components
-import Notifications from "./Notifications";
 import EditSettings from "../profile/EditSettings";
 // New Stuff
 import IconButton from "@material-ui/core/IconButton";
@@ -90,7 +89,7 @@ class Navbar extends Component {
       <Menu
         anchorEl={this.state.anchorEl}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        id={this.menuId}
+        id={menuId}
         keepMounted
         transformOrigin={{ vertical: "top", horizontal: "right" }}
         open={this.state.anchorEl}
@@ -118,7 +117,7 @@ class Navbar extends Component {
       <Menu
         anchorEl={this.mobileMoreAnchorEl}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        id={this.mobileMenuId}
+        id={mobileMenuId}
         keepMounted
         transformOrigin={{ vertical: "top", horizontal: "right" }}
         open={this.state.mobileMoreAnchorEl}

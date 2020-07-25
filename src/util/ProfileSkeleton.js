@@ -1,11 +1,11 @@
+// React
 import React from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
-// MUI
+// Material-UI
 import Paper from "@material-ui/core/Paper";
 import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import withStyles from "@material-ui/core/styles/withStyles";
 // Icons
 import LocationOn from "@material-ui/icons/LocationOn";
 import SchoolIcon from "@material-ui/icons/School";
@@ -51,25 +51,21 @@ const ProfileSkeleton = (props) => {
             <div className={classes.fullLine} />
             <div className="profileItems">
               <SchoolIcon color="primary" />{" "}
-              <div
-                className={classes.halfLine}
-                className={classes.profileItem}
-              />
+              <div className={classes.profileItem}>
+                <div className={classes.halfLine}></div>
+              </div>
               <WorkIcon color="primary" />{" "}
-              <div
-                className={classes.halfLine}
-                className={classes.profileItem}
-              />
+              <div className={classes.profileItem}>
+                <div className={classes.halfLine}></div>
+              </div>
               <LocationOn color="primary" />{" "}
-              <div
-                className={classes.halfLine}
-                className={classes.profileItem}
-              />
+              <div className={classes.profileItem}>
+                <div className={classes.halfLine}></div>
+              </div>
               <LanguageIcon color="primary" />{" "}
-              <div
-                className={classes.halfLine}
-                className={classes.profileItem}
-              />
+              <div className={classes.profileItem}>
+                <div className={classes.halfLine}></div>
+              </div>
             </div>
             <div className="interests">
               <Chip label={"          "} color="primary" className="interest" />

@@ -21,6 +21,7 @@ import user from "./pages/user";
 import profile from "./pages/profile";
 import explore from "./pages/explore";
 import matches from "./pages/matches";
+import conversations from "./pages/conversations";
 
 import axios from "axios";
 
@@ -160,6 +161,12 @@ class App extends Component {
                 <AuthRoute exact path="/signup" component={signup} />
                 <Route exact path="/explore" component={explore} />
                 <Route exact path="/matches" component={matches} />
+                <Route exact path="/conversations" component={conversations} />
+                <Route
+                  exact
+                  path="/conversations/:uid"
+                  component={conversations}
+                />
                 <Route exact path="/users/:uid" component={user} />
                 <Route exact path="/profile" component={profile} />
               </Switch>

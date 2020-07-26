@@ -6,12 +6,10 @@ import { Link } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-// Icons
 //Redux
 import { connect } from "react-redux";
 // Helpers
@@ -29,65 +27,79 @@ const styles = (theme) => ({
   inline: {
     display: "inline",
   },
+  ListItemText: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
 });
 
 class Conversations extends Component {
-  state = { selectedIndex: 0 };
-  handleListItemClick = (event, index) => {
-    this.setState({ selectedIndex: index });
-  };
   isSelected = (index) => {
     return this.state.selectedIndex === index;
   };
 
   render() {
-    const { classes, conversations } = this.props;
+    const { classes, conversations, uid } = this.props;
 
-    return conversations
-      .sort(function (x, y) {
-        return x.updated < y.updated;
-      })
-      .map((conversation) => (
-        <List
-          className={classes.container}
-          style={{ paddingTop: "0px", paddingBottom: "0px" }}
-        >
-          <ListItem
-            alignItems="flex-start"
-            button
-            selected={this.isSelected(conversation.cid)}
-            onClick={(event) =>
-              this.handleListItemClick(event, conversation.cid)
-            }
-          >
-            <ListItemAvatar>
-              <Avatar
-                alt={conversation.name}
-                src="/static/images/avatar/1256.jpg"
-              />
-            </ListItemAvatar>
-            <ListItemText
-              primary={conversation.name}
-              secondary={
-                <React.Fragment>
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    className={classes.inline}
-                    color="textPrimary"
+    return (
+      <List className={classes.container}>
+        {conversations
+          .sort(function (x, y) {
+            return x.updated < y.updated;
+          })
+          .map((conversation) => (
+            <ListItem
+              alignItems="flex-start"
+              button
+              selected={conversation.uid === uid}
+              component={Link}
+              to={`/conversations/${conversation.uid}`}
+            >
+              <ListItemAvatar>
+                <Avatar
+                  alt={conversation.name}
+                  src="/static/images/avatar/1256.jpg"
+                />
+              </ListItemAvatar>
+              <ListItemText
+                primary={
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <>
-                      {conversation.latest.sender.name !== conversation.name &&
-                        "You: "}
-                    </>
-                  </Typography>
-                  {conversation.latest.text}
-                </React.Fragment>
-              }
-            />
-          </ListItem>
-        </List>
-      ));
+                    <React.Fragment>
+                      <>{conversation.name}</>
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        className={classes.inline}
+                        color="textSecondary"
+                      >
+                        {dayjs(conversation.latest.created).fromNow()}
+                      </Typography>
+                    </React.Fragment>
+                  </div>
+                }
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      className={classes.inline}
+                      color="textPrimary"
+                    >
+                      <>
+                        {conversation.latest.sender.name !==
+                          conversation.name && "You: "}
+                      </>
+                    </Typography>
+                    {conversation.latest.text}
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
+          ))}
+      </List>
+    );
   }
 }
 

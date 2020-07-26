@@ -169,6 +169,9 @@ class Navbar extends Component {
                   <Button color="inherit" component={Link} to="/matches">
                     Matches
                   </Button>
+                  <Button color="inherit" component={Link} to="/conversations">
+                    Messages
+                  </Button>
                 </>
               ) : (
                 <>

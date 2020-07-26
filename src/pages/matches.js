@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 // Redux
 import { connect } from "react-redux";
-import { getMatches, getConversations } from "../redux/actions/dataActions";
+import { getMatches } from "../redux/actions/dataActions";
 // Material-UI
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -12,7 +12,6 @@ import Paper from "@material-ui/core/Paper";
 import MatchItem from "../components/matches/MatchItem";
 // 3rd Party
 import { Scrollbars } from "react-custom-scrollbars";
-import Conversations from "../components/matches/Conversations";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -24,7 +23,6 @@ const styles = (theme) => ({
 class matches extends Component {
   componentDidMount() {
     this.props.getMatches();
-    this.props.getConversations();
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
@@ -37,7 +35,7 @@ class matches extends Component {
   render() {
     const {
       classes,
-      data: { matches, conversations },
+      data: { matches },
       UI: { loading, errors },
     } = this.props;
 
@@ -64,21 +62,6 @@ class matches extends Component {
             )}
           </Scrollbars>
         </Grid>
-        <Grid item sm={4} xs={12}>
-          {loading ? (
-            <p>Loading Conversations</p>
-          ) : conversations[0] ? (
-            <Paper className={classes.paper}>
-              <Conversations
-                className={classes.conversations}
-                conversations={conversations}
-              />
-            </Paper>
-          ) : (
-            <p>No Conversations</p>
-          )}
-        </Grid>
-        <Grid item sm={4} xs={12}></Grid>
       </Grid>
     );
   }
@@ -89,7 +72,6 @@ matches.propTypes = {
   data: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
   getMatches: PropTypes.func.isRequired,
-  getConversations: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -99,6 +81,6 @@ const mapStateToProps = (state) => ({
   UI: state.UI,
 });
 
-export default connect(mapStateToProps, { getMatches, getConversations })(
-  withStyles(styles)(matches)
-);
+export default connect(mapStateToProps, {
+  getMatches,
+})(withStyles(styles)(matches));

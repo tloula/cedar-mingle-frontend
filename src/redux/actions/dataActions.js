@@ -8,6 +8,7 @@ import {
   LIKE_USER,
   PASS_USER,
   SET_MATCHES,
+  SET_CONVERSATION,
   SET_CONVERSATIONS,
 } from "../types";
 import axios from "axios";
@@ -174,6 +175,41 @@ export const getConversations = () => (dispatch) => {
         type: SET_CONVERSATIONS,
         payload: res.data,
       });
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
+export const getConversation = (uid) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .get(`/conversations/${uid}`)
+    .then((res) => {
+      dispatch({
+        type: SET_CONVERSATION,
+        payload: res.data,
+      });
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
+export const sendMessage = (message) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post(`/conversations`, message)
+    .then((res) => {
+      dispatch(getConversation(message.uid));
       dispatch({ type: STOP_LOADING_UI });
     })
     .catch((err) => {

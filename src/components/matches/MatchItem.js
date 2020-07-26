@@ -48,9 +48,6 @@ class MatchItem extends Component {
   handleUnmatch = (match) => {
     this.props.unmatchUser(match);
   };
-  handleMessageUser = () => {
-    alert("TODO: handleMessageUser");
-  };
 
   render() {
     const {
@@ -95,7 +92,8 @@ class MatchItem extends Component {
                   size="small"
                   color="primary"
                   className={classes.matchButton}
-                  onClick={this.handleMessageUser}
+                  component={Link}
+                  to={`/conversations/${uid}`}
                 >
                   Message
                 </Button>

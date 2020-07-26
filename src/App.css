@@ -5,6 +5,10 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;*/
   background-color: rgb(245, 245, 245);
+  min-height: 100%;
+}
+body {
+  height: 100vh;
 }
 .container {
   margin: 80px auto 0 auto;

@@ -67,7 +67,13 @@ class Conversations extends Component {
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <React.Fragment>
-                      <>{conversation.name}</>
+                      <Typography
+                        component="span"
+                        variant="h6"
+                        color="secondary"
+                      >
+                        {conversation.name}
+                      </Typography>
                       <Typography
                         component="span"
                         variant="body2"

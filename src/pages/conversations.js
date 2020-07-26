@@ -60,7 +60,7 @@ class conversations extends Component {
 
     return (
       <Grid container spacing={5}>
-        <Grid item sm={4} xs={12}>
+        <Grid item md={4} sm={12}>
           {loading ? (
             <p>Loading Conversations</p>
           ) : conversations[0] ? (
@@ -75,11 +75,14 @@ class conversations extends Component {
             <p>No Conversations</p>
           )}
         </Grid>
-        <Grid item sm={8} xs={12}>
+        <Grid item md={8} sm={12}>
           {loading ? (
             <p>Loading Conversation</p>
           ) : conversation ? (
-            <Paper className={classes.paper}>
+            <Paper
+              className={classes.paper}
+              style={{ padding: "25px", overflow: "hidden" }}
+            >
               <Conversation
                 className={classes.conversation}
                 conversation={conversation}

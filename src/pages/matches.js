@@ -16,7 +16,12 @@ import { Scrollbars } from "react-custom-scrollbars";
 const styles = (theme) => ({
   ...theme.spread,
   matchItem: {
-    margin: "10px 0px 10px 0px",
+    //margin: "10px 0px 10px 0px",
+  },
+  container: {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gridGap: "10px",
   },
 });
 
@@ -39,30 +44,24 @@ class matches extends Component {
       UI: { loading, errors },
     } = this.props;
 
-    return (
-      <Grid container spacing={5}>
-        <Grid item sm={4} xs={12}>
-          <Scrollbars style={{ maxHeight: 650 }} autoHeightMax={650} autoHeight>
-            {loading ? (
-              <p>Loading Matches</p>
-            ) : matches[0] ? (
-              matches
-                .sort(function (x, y) {
-                  return x.created < y.created;
-                })
-                .map((match) => (
-                  <MatchItem
-                    className={classes.matchItem}
-                    key={match.uid}
-                    match={match}
-                  />
-                ))
-            ) : (
-              <p>No matches found, get exploring!</p>
-            )}
-          </Scrollbars>
-        </Grid>
-      </Grid>
+    return loading ? (
+      <p>Loading Matches</p>
+    ) : matches[0] ? (
+      <div className={classes.container}>
+        {matches
+          .sort(function (x, y) {
+            return x.created < y.created;
+          })
+          .map((match) => (
+            <MatchItem
+              className={classes.matchItem}
+              key={match.uid}
+              match={match}
+            />
+          ))}
+      </div>
+    ) : (
+      <p>No matches found, get exploring!</p>
     );
   }
 }

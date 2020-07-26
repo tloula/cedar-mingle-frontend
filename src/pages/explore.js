@@ -1,5 +1,5 @@
 // React
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 // Redux
@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 // Components
 import StaticProfile from "../components/profile/StaticProfile";
 import ExploreAction from "../components/explore/ExploreAction";
+import ResendVerification from "../components/matches/ResendVerification";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -58,9 +59,12 @@ class explore extends Component {
     return (
       <>
         {errors.explore ? (
-          <Alert severity="error" className={classes.alert}>
-            {errors.explore}
-          </Alert>
+          <>
+            <Alert severity="error" className={classes.alert}>
+              {errors.explore}
+            </Alert>
+            <ResendVerification />
+          </>
         ) : (
           <>
             <StaticProfile key={profile.uid} profile={profile} />

@@ -21,6 +21,7 @@ import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
+import ResendVerification from "../matches/ResendVerification";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -31,53 +32,60 @@ const styles = (theme) => ({
 
 class EditSettings extends Component {
   state = {
-    visible: false,
+    boost: false,
     emails: {
       messages: false,
       notifications: false,
       matches: false,
     },
-    premium: false,
-    boost: false,
-    recycle: false,
     password: "",
+    premium: false,
+    recycle: false,
+    visible: false,
     errors: {},
     open: false,
   };
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
+
   mapUserSettingsToState = (settings) => {
     this.setState({
-      visible: settings.visible ? settings.visible : false,
+      boost: settings.boost ? settings.boost : false,
       emails: settings.emails
         ? settings.emails
         : { messages: false, notifications: false, matches: false },
-      premium: settings.premium ? settings.premium : false,
-      boost: settings.boost ? settings.boost : false,
-      recycle: settings.recycle ? settings.recycle : false,
       password: settings.password ? settings.password : false,
+      premium: settings.premium ? settings.premium : false,
+      recycle: settings.recycle ? settings.recycle : false,
+      visible: settings.visible ? settings.visible : false,
       errors: {},
     });
   };
+
   handleOpen = () => {
     this.setState({ open: true });
     this.mapUserSettingsToState(this.props.settings);
   };
+
   handleClose = () => {
     this.setState({ open: false });
   };
+
   componentDidMount() {
     const { settings } = this.props;
     this.mapUserSettingsToState(settings);
   }
+
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.checked,
     });
   };
+
   handleEmailNotificationToggle = (event) => {
     let messages = this.state.emails.messages;
     let matches = this.state.emails.matches;
@@ -89,6 +97,7 @@ class EditSettings extends Component {
       },
     });
   };
+
   handleEmailMessageToggle = (event) => {
     let notifications = this.state.emails.notifications;
     let matches = this.state.emails.matches;
@@ -100,6 +109,7 @@ class EditSettings extends Component {
       },
     });
   };
+
   handleEmailMatchToggle = (event) => {
     let messages = this.state.emails.messages;
     let notifications = this.state.emails.notifications;
@@ -111,6 +121,7 @@ class EditSettings extends Component {
       },
     });
   };
+
   handleSubmit = () => {
     const userSettings = {
       visible: this.state.visible,
@@ -121,6 +132,7 @@ class EditSettings extends Component {
     };
     this.props.editUserSettings(userSettings);
   };
+
   render() {
     const { classes } = this.props;
     const { errors } = this.state;
@@ -296,8 +308,8 @@ class EditSettings extends Component {
                     {errors.visible}
                   </FormHelperText>
                 </Grid>
-                <Grid item sm={4} xs={12}></Grid>
               </Grid>
+              <ResendVerification />
             </form>
           </DialogContent>
           <DialogActions>

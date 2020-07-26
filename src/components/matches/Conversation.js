@@ -192,7 +192,7 @@ class Conversation extends Component {
                 color="secondary"
                 multiline
                 rowsMax={4}
-                label={"Send Message to " + conversation.user.name}
+                label={"Send a message to " + conversation.user.name}
                 placeholder="Be creative..."
                 className={classes.textField}
                 onChange={this.handleChange}

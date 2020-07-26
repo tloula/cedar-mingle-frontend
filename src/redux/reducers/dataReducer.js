@@ -7,6 +7,7 @@ import {
   SET_PROFILE,
   SET_CONVERSATION,
   SET_CONVERSATIONS,
+  SET_VERIFICATION_RESENT,
   CLEAR_DATA,
 } from "../types";
 
@@ -16,6 +17,7 @@ const initialState = {
   conversations: [],
   conversation: {},
   match: false,
+  resent: false,
 };
 
 export default function (state = initialState, action) {
@@ -59,6 +61,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         conversations: action.payload.conversations,
+      };
+    case SET_VERIFICATION_RESENT:
+      return {
+        ...state,
+        resent: true,
       };
     case CLEAR_DATA:
       return initialState;

@@ -10,6 +10,7 @@ import {
   SET_MATCHES,
   SET_CONVERSATION,
   SET_CONVERSATIONS,
+  SET_VERIFICATION_RESENT,
 } from "../types";
 import axios from "axios";
 
@@ -211,6 +212,25 @@ export const sendMessage = (message) => (dispatch) => {
     .then((res) => {
       dispatch(getConversation(message.uid));
       dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
+// Resend Verification Email
+// Matches
+export const resendVerification = () => (dispatch) => {
+  axios
+    .post("/resendVerification")
+    .then((res) => {
+      dispatch({
+        type: SET_VERIFICATION_RESENT,
+        payload: res.data,
+      });
     })
     .catch((err) => {
       dispatch({

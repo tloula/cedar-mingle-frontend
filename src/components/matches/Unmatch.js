@@ -73,7 +73,7 @@ class Unmatch extends Component {
 }
 
 Unmatch.propTypes = {
-  deleteScream: PropTypes.func.isRequired,
+  unmatchUser: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   match: PropTypes.string.isRequired,
 };

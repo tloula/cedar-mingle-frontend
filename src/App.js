@@ -13,6 +13,7 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 import Navbar from "./components/layout/Navbar";
 import themeObject from "./util/theme";
 import AuthRoute from "./util/AuthRoute";
+import PrivateRoute from "./util/PrivateRoute";
 // Pages
 import home from "./pages/home";
 import login from "./pages/login";
@@ -159,16 +160,20 @@ class App extends Component {
                 <Route exact path="/" component={home} />
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signup" component={signup} />
-                <Route exact path="/explore" component={explore} />
-                <Route exact path="/matches" component={matches} />
-                <Route exact path="/conversations" component={conversations} />
-                <Route
+                <PrivateRoute exact path="/explore" component={explore} />
+                <PrivateRoute exact path="/matches" component={matches} />
+                <PrivateRoute
+                  exact
+                  path="/conversations"
+                  component={conversations}
+                />
+                <PrivateRoute
                   exact
                   path="/conversations/:uid"
                   component={conversations}
                 />
-                <Route exact path="/users/:uid" component={user} />
-                <Route exact path="/profile" component={profile} />
+                <PrivateRoute exact path="/users/:uid" component={user} />
+                <PrivateRoute exact path="/profile" component={profile} />
               </Switch>
             </div>
           </Router>

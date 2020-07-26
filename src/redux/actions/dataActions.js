@@ -11,6 +11,7 @@ import {
   SET_CONVERSATION,
   SET_CONVERSATIONS,
   SET_VERIFICATION_RESENT,
+  SET_REPORT_USER,
 } from "../types";
 import axios from "axios";
 
@@ -39,6 +40,7 @@ export const getExplore = () => (dispatch) => {
   axios
     .get("/explore")
     .then((res) => {
+      dispatch({ type: CLEAR_ERRORS });
       dispatch({
         type: SET_EXPLORE,
         payload: res.data,
@@ -64,6 +66,7 @@ export const likeUser = (uid) => (dispatch) => {
         axios
           .get("/explore")
           .then((res) => {
+            dispatch({ type: CLEAR_ERRORS });
             dispatch({
               type: SET_EXPLORE,
               payload: res.data,
@@ -96,6 +99,7 @@ export const passUser = (uid) => (dispatch) => {
       axios
         .get("/explore")
         .then((res) => {
+          dispatch({ type: CLEAR_ERRORS });
           dispatch({
             type: SET_EXPLORE,
             payload: res.data,
@@ -123,6 +127,7 @@ export const getMatches = () => (dispatch) => {
   axios
     .get("/matches")
     .then((res) => {
+      dispatch({ type: CLEAR_ERRORS });
       dispatch({
         type: SET_MATCHES,
         payload: res.data,
@@ -145,6 +150,7 @@ export const unmatchUser = (match) => (dispatch) => {
       axios
         .get("/matches")
         .then((res) => {
+          dispatch({ type: CLEAR_ERRORS });
           dispatch({
             type: SET_MATCHES,
             payload: res.data,
@@ -172,6 +178,7 @@ export const getConversations = () => (dispatch) => {
   axios
     .get("/conversations")
     .then((res) => {
+      dispatch({ type: CLEAR_ERRORS });
       dispatch({
         type: SET_CONVERSATIONS,
         payload: res.data,
@@ -191,6 +198,7 @@ export const getConversation = (uid) => (dispatch) => {
   axios
     .get(`/conversations/${uid}`)
     .then((res) => {
+      dispatch({ type: CLEAR_ERRORS });
       dispatch({
         type: SET_CONVERSATION,
         payload: res.data,
@@ -210,6 +218,7 @@ export const sendMessage = (message) => (dispatch) => {
   axios
     .post(`/conversations`, message)
     .then((res) => {
+      dispatch({ type: CLEAR_ERRORS });
       dispatch(getConversation(message.uid));
       dispatch({ type: STOP_LOADING_UI });
     })
@@ -222,13 +231,32 @@ export const sendMessage = (message) => (dispatch) => {
 };
 
 // Resend Verification Email
-// Matches
 export const resendVerification = () => (dispatch) => {
   axios
     .post("/resendVerification")
     .then((res) => {
+      dispatch({ type: CLEAR_ERRORS });
       dispatch({
         type: SET_VERIFICATION_RESENT,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
+// Report User
+export const reportUser = (report) => (dispatch) => {
+  axios
+    .post("/report", report)
+    .then((res) => {
+      dispatch({ type: CLEAR_ERRORS });
+      dispatch({
+        type: SET_REPORT_USER,
         payload: res.data,
       });
     })

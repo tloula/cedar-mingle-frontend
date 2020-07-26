@@ -22,6 +22,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import dayjs from "dayjs";
 // Components
 import ProfileSkeleton from "../../util/ProfileSkeleton";
+import ReportUser from "../ReportUser";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -143,6 +144,11 @@ class StaticProfile extends Component {
                       className="interest"
                     />
                   ))}
+                <div className="profileButtons">
+                  <div style={{ float: "right" }}>
+                    <ReportUser uid={uid} name={name} />
+                  </div>
+                </div>
               </div>
             </div>
           </Grid>

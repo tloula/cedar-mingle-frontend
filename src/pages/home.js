@@ -7,7 +7,11 @@ class home extends Component {
   componentDidMount() {}
   render() {
     const { loading } = this.props.UI;
-    return <p>Home Page</p>;
+    return (
+      <>
+        <p>Home Page</p>
+      </>
+    );
   }
 }
 

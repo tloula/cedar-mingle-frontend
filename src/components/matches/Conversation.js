@@ -3,19 +3,19 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 //Redux
 import { connect } from "react-redux";
-import { sendMessage } from "../../redux/actions/dataActions";
+import { sendMessage, markMessagesRead } from "../../redux/actions/dataActions";
 // MUI stuff
+import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-// Icons
 // 3rd Party
 import { Scrollbars } from "react-custom-scrollbars";
 import dayjs from "dayjs";
@@ -42,20 +42,49 @@ const styles = (theme) => ({
 });
 
 class Conversation extends Component {
-  state = { messageToSend: "" };
+  state = { message: "", sending: false };
 
   componentDidMount() {
-    // Scroll to bottom of messages
-    const { scrollbars } = this.refs;
-    scrollbars.scrollToBottom();
+    this.refs.scrollbars.scrollToBottom();
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.UI.errors) {
+      this.setState({ errors: nextProps.UI.errors });
+    }
+    if (nextProps.data.sent) {
+      this.setState({ sending: false });
+      this.setState({ message: "" });
+      this.refs.scrollbars.scrollToBottom();
+    }
+  }
+
+  handleMarkMessagesRead = (conversation, uid) => {
+    function compileIds(message) {
+      return { mid: message.mid, cid: message.cid };
+    }
+
+    function determineEligibility(message) {
+      if (message.sender.uid !== uid && !message.read) return !message.read;
+      else return;
+    }
+
+    if (conversation.user) {
+      let unreadMessageIds = conversation.messages
+        .filter((message) => determineEligibility(message))
+        .map((message) => compileIds(message));
+      if (Array.isArray(unreadMessageIds) && unreadMessageIds.length)
+        this.props.markMessagesRead(unreadMessageIds);
+    }
+  };
 
   handleSendMessage = (user) => {
     let message = {
-      text: this.state.messageToSend,
+      text: this.state.message,
       uid: user.uid,
       name: user.name,
     };
+    this.setState({ sending: true });
     this.props.sendMessage(message);
   };
 
@@ -70,6 +99,8 @@ class Conversation extends Component {
     const {
       UI: { loading, errors },
     } = this.props;
+    const { sent } = this.props;
+    const { message, sending } = this.state;
 
     let otherSenderMessage = (name, body, date) => (
       <ListItem alignItems="flex-start" style={{ width: "75%" }}>
@@ -96,11 +127,12 @@ class Conversation extends Component {
             <React.Fragment>
               <Typography
                 component="span"
-                variant="body2"
+                variant="caption"
                 className={classes.inline}
                 color="textSecondary"
-              ></Typography>
-              {dayjs(date).fromNow()}
+              >
+                {dayjs(date).fromNow()}
+              </Typography>
             </React.Fragment>
           }
         />
@@ -130,11 +162,12 @@ class Conversation extends Component {
             <React.Fragment>
               <Typography
                 component="span"
-                variant="body2"
+                variant="caption"
                 className={classes.inline}
                 color="textSecondary"
-              ></Typography>
-              {dayjs(date).fromNow()}
+              >
+                {dayjs(date).fromNow()}
+              </Typography>
             </React.Fragment>
           }
           style={{ textAlign: "right", paddingRight: "10px" }}
@@ -150,10 +183,13 @@ class Conversation extends Component {
     return (
       <>
         <Scrollbars
-          style={{ maxHeight: 650 }}
-          autoHeightMax={650}
+          style={{ maxHeight: 600 }}
+          autoHeightMax={600}
           autoHeight
           ref="scrollbars"
+          onScrollStop={() => {
+            this.handleMarkMessagesRead(conversation, uid);
+          }}
         >
           <List className={classes.container}>
             {conversation.messages ? (
@@ -186,12 +222,13 @@ class Conversation extends Component {
           {conversation && conversation.user && (
             <>
               <TextField
-                name="messageToSend"
+                name="message"
                 type="text"
                 variant="outlined"
                 color="secondary"
                 multiline
                 rowsMax={4}
+                value={message}
                 label={"Send a message to " + conversation.user.name}
                 placeholder="Be creative..."
                 className={classes.textField}
@@ -205,8 +242,15 @@ class Conversation extends Component {
                 color="secondary"
                 variant="contained"
                 style={{ float: "right" }}
+                disabled={sending}
               >
                 Send
+                {sending && (
+                  <CircularProgress
+                    size={30}
+                    style={{ position: "absolute" }}
+                  />
+                )}
               </Button>
             </>
           )}
@@ -220,15 +264,17 @@ const mapStateToProps = (state) => ({
   user: state.user,
   data: state.data,
   UI: state.UI,
+  sent: state.data.sent,
 });
 
-const mapActionsToProps = { sendMessage };
+const mapActionsToProps = { sendMessage, markMessagesRead };
 
 Conversation.propTypes = {
   user: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
   sendMessage: PropTypes.func.isRequired,
+  markMessagesRead: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

@@ -1,17 +1,19 @@
 import {
-  SET_PROFILE,
-  SET_EXPLORE,
-  SET_ERRORS,
   CLEAR_ERRORS,
-  LOADING_UI,
-  STOP_LOADING_UI,
   LIKE_USER,
+  LOADING_UI,
+  MARK_MESSAGES_READ,
   PASS_USER,
-  SET_MATCHES,
   SET_CONVERSATION,
   SET_CONVERSATIONS,
-  SET_VERIFICATION_RESENT,
+  SET_ERRORS,
+  SET_EXPLORE,
+  SET_MATCHES,
+  SET_MESSAGE,
+  SET_PROFILE,
   SET_REPORT_USER,
+  SET_VERIFICATION_RESENT,
+  STOP_LOADING_UI,
 } from "../types";
 import axios from "axios";
 
@@ -55,6 +57,7 @@ export const getExplore = () => (dispatch) => {
     });
 };
 
+// Like
 export const likeUser = (uid) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
@@ -89,6 +92,7 @@ export const likeUser = (uid) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+// Pass
 export const passUser = (uid) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
@@ -142,6 +146,7 @@ export const getMatches = () => (dispatch) => {
     });
 };
 
+// Unmatch User
 export const unmatchUser = (match) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
@@ -172,7 +177,7 @@ export const unmatchUser = (match) => (dispatch) => {
     });
 };
 
-// Conversations
+// Get All Conversations
 export const getConversations = () => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
@@ -193,8 +198,8 @@ export const getConversations = () => (dispatch) => {
     });
 };
 
+// Get Specific conversation
 export const getConversation = (uid) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
   axios
     .get(`/conversations/${uid}`)
     .then((res) => {
@@ -203,7 +208,6 @@ export const getConversation = (uid) => (dispatch) => {
         type: SET_CONVERSATION,
         payload: res.data,
       });
-      dispatch({ type: STOP_LOADING_UI });
     })
     .catch((err) => {
       dispatch({
@@ -213,14 +217,14 @@ export const getConversation = (uid) => (dispatch) => {
     });
 };
 
+// Send Message
 export const sendMessage = (message) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
   axios
     .post(`/conversations`, message)
     .then((res) => {
       dispatch({ type: CLEAR_ERRORS });
+      dispatch({ type: SET_MESSAGE });
       dispatch(getConversation(message.uid));
-      dispatch({ type: STOP_LOADING_UI });
     })
     .catch((err) => {
       dispatch({
@@ -228,6 +232,18 @@ export const sendMessage = (message) => (dispatch) => {
         payload: err.response.data,
       });
     });
+};
+
+// Mark Messages Read
+export const markMessagesRead = (messageIds) => (dispatch) => {
+  axios
+    .post("/messages", messageIds)
+    .then((res) => {
+      dispatch({
+        type: MARK_MESSAGES_READ,
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 // Resend Verification Email

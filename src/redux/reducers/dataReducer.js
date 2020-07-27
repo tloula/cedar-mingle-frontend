@@ -1,8 +1,10 @@
 import {
   SET_EXPLORE,
   LIKE_USER,
+  MARK_MESSAGES_READ,
   PASS_USER,
   SET_MATCHES,
+  SET_MESSAGE,
   SET_UNMATCH,
   SET_PROFILE,
   SET_CONVERSATION,
@@ -20,6 +22,7 @@ const initialState = {
   match: false,
   resent: false,
   reported: false,
+  sent: false,
 };
 
 export default function (state = initialState, action) {
@@ -73,6 +76,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         reported: true,
+      };
+    case SET_MESSAGE:
+      return {
+        ...state,
+        sent: true,
+      };
+    case MARK_MESSAGES_READ:
+      state.conversation.messages.forEach((not) => (not.read = true));
+      return {
+        ...state,
       };
     case CLEAR_DATA:
       return initialState;

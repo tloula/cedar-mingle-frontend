@@ -1,15 +1,15 @@
 // React
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 // MUI stuff
-import withStyles from "@material-ui/core/styles/withStyles";
+import Avatar from "@material-ui/core/Avatar";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import withStyles from "@material-ui/core/styles/withStyles";
 //Redux
 import { connect } from "react-redux";
 // Helpers
@@ -36,6 +36,17 @@ const styles = (theme) => ({
 class Conversations extends Component {
   isSelected = (index) => {
     return this.state.selectedIndex === index;
+  };
+
+  isBold = (conversation) => {
+    if (
+      !conversation.latest.read &&
+      conversation.latest.sender.uid == conversation.uid
+    ) {
+      return { fontWeight: "bold", display: "inline" };
+    } else {
+      return { display: "inline" };
+    }
   };
 
   render() {
@@ -86,20 +97,22 @@ class Conversations extends Component {
                   </div>
                 }
                 secondary={
-                  <React.Fragment>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      className={classes.inline}
-                      color="textPrimary"
-                    >
-                      <>
-                        {conversation.latest.sender.name !==
-                          conversation.name && "You: "}
-                      </>
-                    </Typography>
-                    {conversation.latest.text}
-                  </React.Fragment>
+                  conversation.latest && (
+                    <Fragment>
+                      <Typography
+                        component="span"
+                        variant={"body2"}
+                        className={classes.inline}
+                        color="textPrimary"
+                      >
+                        {conversation.latest.sender.uid !== conversation.uid &&
+                          "You: "}
+                      </Typography>
+                      <div style={this.isBold(conversation)}>
+                        {conversation.latest.text}
+                      </div>
+                    </Fragment>
+                  )
                 }
               />
             </ListItem>

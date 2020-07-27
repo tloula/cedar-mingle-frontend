@@ -1,8 +1,9 @@
 import {
+  MARK_NOTIFICATIONS_READ,
   SET_USER,
   SET_AUTHENTICATED,
+  SET_SETTINGS,
   SET_UNAUTHENTICATED,
-  MARK_NOTIFICATIONS_READ,
   UPLOADING_PHOTO,
 } from "../types";
 
@@ -11,6 +12,7 @@ const initialState = {
   uploading: false,
   profile: {},
   settings: {},
+  edited: false,
   notifications: [],
 };
 
@@ -33,6 +35,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         uploading: true,
+      };
+    case SET_SETTINGS:
+      return {
+        ...state,
+        edited: true,
+        ...action.payload,
       };
     case MARK_NOTIFICATIONS_READ:
       state.notifications.forEach((not) => (not.read = true));

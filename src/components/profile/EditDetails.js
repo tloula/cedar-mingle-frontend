@@ -51,11 +51,13 @@ class EditDetails extends Component {
     errors: {},
     open: false,
   };
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
+
   mapUserDetailsToState = (profile) => {
     this.setState({
       about: profile.about ? profile.about : "",
@@ -71,28 +73,35 @@ class EditDetails extends Component {
       errors: {},
     });
   };
+
   handleOpen = () => {
     this.setState({ open: true });
     this.mapUserDetailsToState(this.props.profile);
   };
+
   handleClose = () => {
     this.setState({ open: false });
   };
+
   componentDidMount() {
     const { profile } = this.props;
     this.mapUserDetailsToState(profile);
   }
+
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
+
   handleBirthdayChange = (date) => {
     this.setState({ birthday: new Date(date) });
   };
+
   handleYearChange = (date) => {
     this.setState({ year: new Date(date.setMonth(4, 1)) });
   };
+
   handleSubmit = () => {
     const userDetails = {
       about: this.state.about,
@@ -107,8 +116,8 @@ class EditDetails extends Component {
       website: this.state.website,
     };
     this.props.editUserDetails(userDetails);
-    //this.handleClose();
   };
+
   render() {
     const { classes } = this.props;
     const { errors } = this.state;

@@ -50,6 +50,9 @@ class EditSettings extends Component {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
+    if (nextProps.user.edited) {
+      this.handleClose();
+    }
   }
 
   mapUserSettingsToState = (settings) => {
@@ -327,13 +330,17 @@ class EditSettings extends Component {
 }
 
 EditSettings.propTypes = {
+  user: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
   editUserSettings: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  UI: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   settings: state.user.settings,
+  user: state.user,
+  data: state.data,
   UI: state.UI,
 });
 

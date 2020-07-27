@@ -1,13 +1,14 @@
 import {
-  SET_USER,
-  SET_ERRORS,
+  CLEAR_DATA,
   CLEAR_ERRORS,
   LOADING_UI,
-  STOP_LOADING_UI,
-  SET_UNAUTHENTICATED,
-  UPLOADING_PHOTO,
   MARK_NOTIFICATIONS_READ,
-  CLEAR_DATA,
+  SET_ERRORS,
+  SET_SETTINGS,
+  SET_UNAUTHENTICATED,
+  SET_USER,
+  STOP_LOADING_UI,
+  UPLOADING_PHOTO,
 } from "../types";
 import axios from "axios";
 
@@ -68,6 +69,18 @@ export const getUserData = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+export const getSettings = () => (dispatch) => {
+  axios
+    .get("/settings")
+    .then((res) => {
+      dispatch({
+        type: SET_SETTINGS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
 export const uploadImage = (formData) => (dispatch) => {
   dispatch({ type: UPLOADING_PHOTO });
   axios
@@ -109,7 +122,7 @@ export const editUserSettings = (userSettings) => (dispatch) => {
     .patch("/settings", userSettings)
     .then(() => {
       dispatch({ type: CLEAR_ERRORS });
-      dispatch(getUserData());
+      dispatch(getSettings());
     })
     .catch((err) => {
       dispatch({

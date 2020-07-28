@@ -30,6 +30,7 @@ import MyButton from "../../util/MyButton";
 import ProfileSkeleton from "../../util/ProfileSkeleton";
 // Helpers
 import { age } from "../../util/helpers";
+import { Tooltip } from "@material-ui/core";
 // Blob reducer for photo upload
 const reduce = require("image-blob-reduce")();
 
@@ -49,6 +50,7 @@ class Profile extends Component {
     const fileInput = document.getElementById("imageInput");
     fileInput.click();
   };
+
   // Upload new photo
   handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -61,6 +63,7 @@ class Profile extends Component {
       this.props.uploadImage(formData);
     });
   };
+
   // Photo selected
   handlePhotoSelect = (mode, image, index) => {
     if (mode) {
@@ -71,6 +74,7 @@ class Profile extends Component {
       this.setState({ toggler: !this.state.toggler, slide: index });
     }
   };
+
   // Toggle photo deletion option
   toggleDeletePhotos = (event) => {
     this.setState({ deletePhotos: !this.state.deletePhotos });
@@ -95,10 +99,9 @@ class Profile extends Component {
           website,
           year,
         },
-        uploading,
         authenticated,
       },
-      UI: { loading },
+      UI: { loading, loadingSecondary },
     } = this.props;
 
     let imgSrcs = [];
@@ -202,8 +205,16 @@ class Profile extends Component {
                   hidden="hidden"
                   onChange={this.handleImageChange}
                 />
-                {uploading && <CircularProgress tip="Uploading" />}
-                {!uploading && (
+                {loadingSecondary && (
+                  <Tooltip placement="top" title="Uploading Photo">
+                    <CircularProgress
+                      size={30}
+                      className={classes.button}
+                      style={{ verticalAlign: "middle" }}
+                    />
+                  </Tooltip>
+                )}
+                {!loadingSecondary && (
                   <MyButton
                     tip="Add Photos"
                     onClick={this.handleEditPicture}

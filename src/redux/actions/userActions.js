@@ -2,6 +2,7 @@ import {
   CLEAR_DATA,
   CLEAR_ERRORS,
   LOADING_UI,
+  LOADING_SECONDARY_UI,
   MARK_MESSAGES_READ,
   MARK_NOTIFICATIONS_READ,
   SET_ERRORS,
@@ -10,7 +11,6 @@ import {
   SET_UNAUTHENTICATED,
   SET_USER,
   STOP_LOADING_UI,
-  UPLOADING_PHOTO,
 } from "../types";
 import axios from "axios";
 
@@ -96,7 +96,7 @@ export const getSettings = () => (dispatch) => {
 };
 
 export const uploadImage = (formData) => (dispatch) => {
-  dispatch({ type: UPLOADING_PHOTO });
+  dispatch({ type: LOADING_SECONDARY_UI });
   axios
     .post("/user/photo", formData)
     .then(() => {
@@ -106,7 +106,6 @@ export const uploadImage = (formData) => (dispatch) => {
 };
 
 export const deleteImage = (photo) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
   axios
     .post("/user/photo/delete", { photo: photo.image })
     .then(() => {

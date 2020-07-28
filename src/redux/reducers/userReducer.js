@@ -6,12 +6,10 @@ import {
   SET_SETTINGS,
   SET_NOTIFICATIONS,
   SET_UNAUTHENTICATED,
-  UPLOADING_PHOTO,
 } from "../types";
 
 const initialState = {
   authenticated: false,
-  uploading: false,
   profile: {},
   settings: {},
   edited: false,
@@ -37,11 +35,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         ...action.payload,
-      };
-    case UPLOADING_PHOTO:
-      return {
-        ...state,
-        uploading: true,
       };
     case SET_SETTINGS:
       return {

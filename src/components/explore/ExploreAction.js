@@ -68,7 +68,7 @@ class ExploreAction extends Component {
   render() {
     const {
       classes,
-      UI: { loading },
+      UI: { loadingSecondary },
       data: { match },
     } = this.props;
 
@@ -82,7 +82,7 @@ class ExploreAction extends Component {
                   variant="outlined"
                   className={classes.button}
                   onClick={this.handleMessage}
-                  disabled={loading}
+                  disabled={loadingSecondary}
                 >
                   Message User
                 </Button>
@@ -93,7 +93,7 @@ class ExploreAction extends Component {
                   color="secondary"
                   className={classes.button}
                   onClick={this.handleContinue}
-                  disabled={loading}
+                  disabled={loadingSecondary}
                 >
                   Continue Exploring
                 </Button>
@@ -108,7 +108,7 @@ class ExploreAction extends Component {
                   variant="outlined"
                   className={classes.button}
                   onClick={this.handlePass}
-                  disabled={loading}
+                  disabled={loadingSecondary}
                 >
                   Pass
                 </Button>
@@ -119,7 +119,7 @@ class ExploreAction extends Component {
                   color="secondary"
                   className={classes.button}
                   onClick={this.handleLike}
-                  disabled={loading}
+                  disabled={loadingSecondary}
                 >
                   Like
                 </Button>

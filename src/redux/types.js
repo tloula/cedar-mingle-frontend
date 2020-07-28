@@ -7,6 +7,7 @@ export const MARK_NOTIFICATIONS_READ = "MARK_NOTIFICATIONS_READ";
 // UI reducer types
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const LOADING_UI = "LOADING_UI";
+export const LOADING_SECONDARY_UI = "LOADING_SECONDARY_UI";
 export const SET_ERRORS = "SET_ERRORS";
 export const STOP_LOADING_UI = "STOP_LOADING_UI";
 // Data reducer types

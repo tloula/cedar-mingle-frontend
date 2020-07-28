@@ -39,9 +39,11 @@ const styles = (theme) => ({
 
 class explore extends Component {
   state = { errors: {} };
+
   componentDidMount() {
     this.props.getExplore();
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
@@ -50,12 +52,15 @@ class explore extends Component {
       //this.setState({ body: "" });
     }
   }
+
   render() {
     const {
       classes,
       data: { match, profile },
+      UI: { loading },
     } = this.props;
     const errors = this.state.errors;
+
     return (
       <>
         {errors.explore ? (
@@ -68,7 +73,7 @@ class explore extends Component {
         ) : (
           <>
             <StaticProfile key={profile.uid} profile={profile} />
-            {match && (
+            {match && !loading && (
               <Paper className={classes.matchAlert}>
                 <Typography variant="h6" display="block">
                   It's a match!

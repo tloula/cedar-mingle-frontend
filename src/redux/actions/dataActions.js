@@ -2,8 +2,8 @@ import {
   CLEAR_ERRORS,
   LIKE_USER,
   LOADING_UI,
+  LOADING_SECONDARY_UI,
   MARK_MESSAGES_READ,
-  PASS_USER,
   SET_CONVERSATION,
   SET_CONVERSATIONS,
   SET_ERRORS,
@@ -17,6 +17,7 @@ import {
 } from "../types";
 import axios from "axios";
 
+// Get Any User
 export const getUserData = (uid) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
@@ -59,7 +60,7 @@ export const getExplore = () => (dispatch) => {
 
 // Like
 export const likeUser = (uid) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
+  dispatch({ type: LOADING_SECONDARY_UI });
   axios
     .get(`/explore/${uid}/like`)
     .then((res) => {
@@ -83,23 +84,22 @@ export const likeUser = (uid) => (dispatch) => {
             });
           });
       }
-      dispatch({ type: STOP_LOADING_UI });
       dispatch({
         type: LIKE_USER,
         payload: res.data,
       });
+      dispatch({ type: STOP_LOADING_UI });
     })
     .catch((err) => console.log(err));
 };
 
 // Pass
 export const passUser = (uid) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
+  dispatch({ type: LOADING_SECONDARY_UI });
   axios
     .get(`/explore/${uid}/pass`)
     .then((res) => {
       // Explore again
-      dispatch({ type: LOADING_UI });
       axios
         .get("/explore")
         .then((res) => {
@@ -116,11 +116,6 @@ export const passUser = (uid) => (dispatch) => {
             payload: err.response.data,
           });
         });
-      dispatch({ type: STOP_LOADING_UI });
-      dispatch({
-        type: PASS_USER,
-        payload: res.data,
-      });
     })
     .catch((err) => console.log(err));
 };

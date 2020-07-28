@@ -2,7 +2,6 @@ import {
   SET_EXPLORE,
   LIKE_USER,
   MARK_MESSAGES_READ,
-  PASS_USER,
   SET_MATCHES,
   SET_MESSAGE,
   SET_UNMATCH,
@@ -37,11 +36,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         match: action.payload.match,
-      };
-    case PASS_USER:
-      return {
-        ...state,
-        match: false,
       };
     case SET_MATCHES:
       return {

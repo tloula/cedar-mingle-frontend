@@ -1,4 +1,5 @@
 import {
+  MARK_MESSAGES_READ,
   MARK_NOTIFICATIONS_READ,
   SET_USER,
   SET_AUTHENTICATED,
@@ -50,6 +51,11 @@ export default function (state = initialState, action) {
       };
     case MARK_NOTIFICATIONS_READ:
       state.notifications.forEach((not) => (not.read = true));
+      return {
+        ...state,
+      };
+    case MARK_MESSAGES_READ:
+      state.messages.forEach((msg) => (msg.read = true));
       return {
         ...state,
       };

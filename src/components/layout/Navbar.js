@@ -18,6 +18,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // Components
 import EditSettings from "../profile/EditSettings";
 import Notifications from "../layout/Notifications";
+import Messages from "../layout/Messages";
 // Icons
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
@@ -125,19 +126,11 @@ class Navbar extends Component {
         onClose={this.handleMobileMenuClose}
       >
         <MenuItem>
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
+          <Messages />
           <p>Messages</p>
         </MenuItem>
         <MenuItem>
-          <IconButton aria-label="show 11 new notifications" color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <Notifications />
           <p>Notifications</p>
         </MenuItem>
         <MenuItem onClick={this.handleProfileMenuOpen}>
@@ -189,11 +182,7 @@ class Navbar extends Component {
               <>
                 <div className={classes.grow} />
                 <div className={classes.sectionDesktop}>
-                  <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={6} color="secondary">
-                      <MailIcon />
-                    </Badge>
-                  </IconButton>
+                  <Messages />
                   <Notifications />
                   <IconButton
                     edge="end"

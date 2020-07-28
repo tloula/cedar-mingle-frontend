@@ -2,6 +2,7 @@ import {
   CLEAR_DATA,
   CLEAR_ERRORS,
   LOADING_UI,
+  MARK_MESSAGES_READ,
   MARK_NOTIFICATIONS_READ,
   SET_ERRORS,
   SET_SETTINGS,
@@ -151,6 +152,17 @@ export const markNotificationsRead = (notificationIds) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: MARK_NOTIFICATIONS_READ,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const markMessagesRead = (messageIds) => (dispatch) => {
+  axios
+    .post("/notifications", messageIds)
+    .then((res) => {
+      dispatch({
+        type: MARK_MESSAGES_READ,
       });
     })
     .catch((err) => console.log(err));

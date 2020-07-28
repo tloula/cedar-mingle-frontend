@@ -15,6 +15,7 @@ import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ChatIcon from "@material-ui/icons/Chat";
+import PersonIcon from "@material-ui/icons/Person";
 // Helpers
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -72,7 +73,7 @@ class Notifications extends Component {
           const iconColor = not.read ? "primary" : "secondary";
           const icon =
             not.type === "match" ? (
-              <ChatIcon color={iconColor} style={{ marginRight: 10 }} />
+              <PersonIcon color={iconColor} style={{ marginRight: 10 }} />
             ) : (
               <FavoriteIcon color={iconColor} style={{ marginRight: 10 }} />
             );

@@ -3,6 +3,7 @@ import {
   SET_USER,
   SET_AUTHENTICATED,
   SET_SETTINGS,
+  SET_NOTIFICATIONS,
   SET_UNAUTHENTICATED,
   UPLOADING_PHOTO,
 } from "../types";
@@ -29,6 +30,11 @@ export default function (state = initialState, action) {
       return {
         authenticated: true,
         uploading: false,
+        ...action.payload,
+      };
+    case SET_NOTIFICATIONS:
+      return {
+        ...state,
         ...action.payload,
       };
     case UPLOADING_PHOTO:

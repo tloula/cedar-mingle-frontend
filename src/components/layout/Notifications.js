@@ -1,9 +1,10 @@
+// React
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import PropTypes from "prop-types";
-// MUI stuff
+// Redux
+import { connect } from "react-redux";
+import { markNotificationsRead } from "../../redux/actions/userActions";
+// Material-UI
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,26 +15,31 @@ import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ChatIcon from "@material-ui/icons/Chat";
-// Redux
-import { connect } from "react-redux";
-import { markNotificationsRead } from "../../redux/actions/userActions";
+// Helpers
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import PropTypes from "prop-types";
 
 class Notifications extends Component {
   state = {
     anchorEl: null,
   };
+
   handleOpen = (event) => {
     this.setState({ anchorEl: event.target });
   };
+
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
+
   onMenuOpened = () => {
     let unreadNotificationsIds = this.props.notifications
       .filter((not) => !not.read)
-      .map((not) => not.notificationId);
+      .map((not) => not.nid);
     this.props.markNotificationsRead(unreadNotificationsIds);
   };
+
   render() {
     const notifications = this.props.notifications;
     const anchorEl = this.state.anchorEl;
@@ -41,6 +47,7 @@ class Notifications extends Component {
     dayjs.extend(relativeTime);
 
     let notificationsIcon;
+
     if (notifications && notifications.length > 0) {
       notifications.filter((not) => not.read === false).length > 0
         ? (notificationsIcon = (
@@ -60,33 +67,33 @@ class Notifications extends Component {
     let notificationsMarkup =
       notifications && notifications.length > 0 ? (
         notifications.map((not) => {
-          const verb = not.type === "like" ? "liked" : "commented on";
-          const time = dayjs(not.createdAt).fromNow();
+          const verb = not.type === "match" ? "matched with" : "";
+          const time = dayjs(not.created).fromNow();
           const iconColor = not.read ? "primary" : "secondary";
           const icon =
-            not.type === "like" ? (
-              <FavoriteIcon color={iconColor} style={{ marginRight: 10 }} />
-            ) : (
+            not.type === "match" ? (
               <ChatIcon color={iconColor} style={{ marginRight: 10 }} />
+            ) : (
+              <FavoriteIcon color={iconColor} style={{ marginRight: 10 }} />
             );
 
           return (
-            <MenuItem key={not.createdAt} onClick={this.handleClose}>
+            <MenuItem key={not.nid} onClick={this.handleClose}>
               {icon}
               <Typography
                 component={Link}
-                color="initial"
+                color="inherit"
                 variant="body1"
-                to={`/users/${not.recipient}/scream/${not.screamId}`}
+                to={`/users/${not.sender.uid}`}
               >
-                {not.sender} {verb} your scream {time}
+                You {verb} {not.sender.name} {time}
               </Typography>
             </MenuItem>
           );
         })
       ) : (
         <MenuItem onClick={this.handleClose}>
-          You have no notifications yet
+          You have no new notifications
         </MenuItem>
       );
     return (
@@ -96,6 +103,7 @@ class Notifications extends Component {
             aria-owns={anchorEl ? "simple-menu" : undefined}
             aria-haspopup="true"
             onClick={this.handleOpen}
+            color="inherit"
           >
             {notificationsIcon}
           </IconButton>

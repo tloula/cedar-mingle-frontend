@@ -8,7 +8,11 @@ import jwtDecode from "jwt-decode";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { SET_AUTHENTICATED } from "./redux/types";
-import { logoutUser, getUserData } from "./redux/actions/userActions";
+import {
+  logoutUser,
+  getUserData,
+  getNotifications,
+} from "./redux/actions/userActions";
 // Components
 import Navbar from "./components/layout/Navbar";
 import themeObject from "./util/theme";
@@ -145,6 +149,7 @@ if (token) {
     store.dispatch({ type: SET_AUTHENTICATED });
     axios.defaults.headers.common["Authorization"] = token;
     store.dispatch(getUserData());
+    store.dispatch(getNotifications());
   }
 }
 

@@ -5,6 +5,7 @@ import {
   MARK_NOTIFICATIONS_READ,
   SET_ERRORS,
   SET_SETTINGS,
+  SET_NOTIFICATIONS,
   SET_UNAUTHENTICATED,
   SET_USER,
   STOP_LOADING_UI,
@@ -65,6 +66,18 @@ export const getUserData = () => (dispatch) => {
         payload: res.data,
       });
       dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getNotifications = () => (dispatch) => {
+  axios
+    .get("/notifications")
+    .then((res) => {
+      dispatch({
+        type: SET_NOTIFICATIONS,
+        payload: res.data,
+      });
     })
     .catch((err) => console.log(err));
 };

@@ -5,23 +5,24 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../redux/actions/userActions";
-// MUI stuff
+// Material-UI
 import AppBar from "@material-ui/core/AppBar";
+import Badge from "@material-ui/core/Badge";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 // Components
 import EditSettings from "../profile/EditSettings";
-// New Stuff
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import Notifications from "../layout/Notifications";
+// Icons
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import NotificationsIcon from "@material-ui/icons/Notifications";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -193,14 +194,7 @@ class Navbar extends Component {
                       <MailIcon />
                     </Badge>
                   </IconButton>
-                  <IconButton
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                  >
-                    <Badge badgeContent={17} color="secondary">
-                      <NotificationsIcon />
-                    </Badge>
-                  </IconButton>
+                  <Notifications />
                   <IconButton
                     edge="end"
                     aria-label="account of current user"

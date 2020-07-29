@@ -1,6 +1,7 @@
 // React
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 //Redux
 import { connect } from "react-redux";
 import {
@@ -54,13 +55,11 @@ class ExploreAction extends Component {
   handlePass = () => {
     this.props.passUser(this.props.uid);
   };
+
   handleLike = () => {
     this.props.likeUser(this.props.uid);
   };
-  handleMessage = () => {
-    // TODO: Redirect to message user
-    alert("TODO - will redirect to message page.");
-  };
+
   handleContinue = () => {
     this.props.getExplore();
   };
@@ -69,7 +68,7 @@ class ExploreAction extends Component {
     const {
       classes,
       UI: { loadingSecondary },
-      data: { match },
+      data: { match, profile },
     } = this.props;
 
     return (
@@ -83,6 +82,8 @@ class ExploreAction extends Component {
                   className={classes.button}
                   onClick={this.handleMessage}
                   disabled={loadingSecondary}
+                  component={Link}
+                  to={`/conversations/${profile.uid}`}
                 >
                   Message User
                 </Button>

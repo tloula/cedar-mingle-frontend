@@ -40,6 +40,7 @@ class EditDetails extends Component {
   state = {
     about: "",
     birthday: "",
+    dream: "",
     gender: "",
     hometown: "",
     interests: [],
@@ -62,6 +63,7 @@ class EditDetails extends Component {
     this.setState({
       about: profile.about ? profile.about : "",
       birthday: profile.birthday ? profile.birthday : new Date(),
+      dream: profile.dream ? profile.dream : "",
       gender: profile.gender ? profile.gender : "",
       hometown: profile.hometown ? profile.hometown : "",
       interests: profile.interests ? profile.interests : [],
@@ -106,6 +108,7 @@ class EditDetails extends Component {
     const userDetails = {
       about: this.state.about,
       birthday: this.state.birthday,
+      dream: this.state.dream,
       gender: this.state.gender,
       hometown: this.state.hometown,
       interests: this.state.interests,
@@ -194,6 +197,18 @@ class EditDetails extends Component {
                 error={errors.occupation ? true : false}
                 className={classes.textField}
                 value={this.state.occupation}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                name="dream"
+                type="text"
+                label="Dream Job / Career"
+                placeholder="What's the job of your dreams?"
+                helperText={errors.dream}
+                error={errors.dream ? true : false}
+                className={classes.textField}
+                value={this.state.dream}
                 onChange={this.handleChange}
                 fullWidth
               />

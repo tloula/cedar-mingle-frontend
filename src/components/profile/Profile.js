@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 // Icons
 import AddIcon from "@material-ui/icons/Add";
+import CloudIcon from "@material-ui/icons/Cloud";
 import DeleteIcon from "@material-ui/icons/Delete";
 import LanguageIcon from "@material-ui/icons/Language";
 import LocationOn from "@material-ui/icons/LocationOn";
@@ -88,6 +89,7 @@ class Profile extends Component {
         profile: {
           about,
           birthday,
+          dream,
           created,
           hometown,
           images,
@@ -169,6 +171,11 @@ class Profile extends Component {
                 {occupation && (
                   <Typography variant="body2" className={classes.profileItem}>
                     <WorkIcon color="primary" /> <span>{occupation}</span>
+                  </Typography>
+                )}
+                {dream && (
+                  <Typography variant="body2" className={classes.profileItem}>
+                    <CloudIcon color="primary" /> <span>{dream}</span>
                   </Typography>
                 )}
                 {hometown && (

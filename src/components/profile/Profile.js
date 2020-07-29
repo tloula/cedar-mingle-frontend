@@ -9,6 +9,7 @@ import Chip from "@material-ui/core/Chip";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { Tooltip } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 // Icons
@@ -30,7 +31,6 @@ import MyButton from "../../util/MyButton";
 import ProfileSkeleton from "../../util/ProfileSkeleton";
 // Helpers
 import { age } from "../../util/helpers";
-import { Tooltip } from "@material-ui/core";
 // Blob reducer for photo upload
 const reduce = require("image-blob-reduce")();
 

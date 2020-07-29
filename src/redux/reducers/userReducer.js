@@ -28,7 +28,6 @@ export default function (state = initialState, action) {
     case SET_USER:
       return {
         authenticated: true,
-        uploading: false,
         ...action.payload,
       };
     case SET_NOTIFICATIONS:

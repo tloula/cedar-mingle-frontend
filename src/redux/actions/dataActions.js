@@ -195,6 +195,7 @@ export const getConversations = () => (dispatch) => {
 
 // Get Specific conversation
 export const getConversation = (uid) => (dispatch) => {
+  dispatch({ type: LOADING_SECONDARY_UI });
   axios
     .get(`/conversations/${uid}`)
     .then((res) => {
@@ -203,6 +204,7 @@ export const getConversation = (uid) => (dispatch) => {
         type: SET_CONVERSATION,
         payload: res.data,
       });
+      dispatch({ type: STOP_LOADING_UI });
     })
     .catch((err) => {
       dispatch({

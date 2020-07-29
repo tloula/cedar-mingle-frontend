@@ -1,9 +1,13 @@
 // React
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 //Redux
 import { connect } from "react-redux";
-import { sendMessage, markMessagesRead } from "../../redux/actions/dataActions";
+import {
+  sendMessage,
+  markMessagesRead,
+  getConversation,
+} from "../../redux/actions/dataActions";
 // MUI stuff
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
@@ -14,8 +18,13 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import TextField from "@material-ui/core/TextField";
+import { Tooltip } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
+// Icons
+import RefreshIcon from "@material-ui/icons/Refresh";
+// Components
+import MyButton from "../../util/MyButton";
 // 3rd Party
 import { Scrollbars } from "react-custom-scrollbars";
 import dayjs from "dayjs";
@@ -94,10 +103,15 @@ class Conversation extends Component {
     });
   };
 
+  handleRefresh = () => {
+    let uid = this.props.conversation.user.uid;
+    if (uid) this.props.getConversation(uid);
+  };
+
   render() {
     const { classes, conversation, uid } = this.props;
     const {
-      UI: { loading, errors },
+      UI: { loading, loadingSecondary, errors },
     } = this.props;
     const { sent } = this.props;
     const { message, sending } = this.state;
@@ -235,6 +249,28 @@ class Conversation extends Component {
                 onChange={this.handleChange}
                 fullWidth
               />
+              <div style={{ float: "left" }}>
+                <MyButton
+                  tip="Refresh Messages"
+                  onClick={this.handleRefresh}
+                  btnClassName={classes.button}
+                  style={{ float: "left" }}
+                  disabled={loadingSecondary}
+                >
+                  {loadingSecondary ? (
+                    <Tooltip placement="top" title="Refreshing...">
+                      <CircularProgress
+                        size={22}
+                        className={classes.button}
+                        style={{ verticalAlign: "middle" }}
+                        color="secondary"
+                      />
+                    </Tooltip>
+                  ) : (
+                    <RefreshIcon color="secondary" />
+                  )}
+                </MyButton>
+              </div>
               <Button
                 onClick={() => {
                   this.handleSendMessage(conversation.user);
@@ -267,7 +303,7 @@ const mapStateToProps = (state) => ({
   sent: state.data.sent,
 });
 
-const mapActionsToProps = { sendMessage, markMessagesRead };
+const mapActionsToProps = { sendMessage, markMessagesRead, getConversation };
 
 Conversation.propTypes = {
   user: PropTypes.object.isRequired,
@@ -275,6 +311,7 @@ Conversation.propTypes = {
   UI: PropTypes.object.isRequired,
   sendMessage: PropTypes.func.isRequired,
   markMessagesRead: PropTypes.func.isRequired,
+  getConversation: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

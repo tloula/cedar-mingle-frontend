@@ -58,9 +58,6 @@ class StaticProfile extends Component {
       UI: { loading },
     } = this.props;
 
-    let imgSrcs = [];
-    let imgTmps = [];
-
     let profileMarkup = !loading ? (
       <Paper className={classes.paper}>
         <Grid container>
@@ -71,24 +68,15 @@ class StaticProfile extends Component {
               autoHeight
               autoHide
             >
-              {images &&
-                images.forEach((img) => {
-                  imgSrcs.push(img.src);
-                  imgTmps.push({
-                    src: img.src,
-                    width: img.width,
-                    height: img.height,
-                  });
-                })}
               <Gallery
-                photos={imgTmps}
+                photos={images && images}
                 onClick={(event, photo) => this.handlePhotoSelect(photo.index)}
                 margin={0}
               />
               <FsLightbox
                 toggler={toggler}
                 slide={slide + 1}
-                sources={imgSrcs}
+                sources={images && images.map((img) => img.src)}
                 type="image"
               />
             </Scrollbars>

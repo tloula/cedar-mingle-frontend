@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { editUserDetails } from "../../redux/actions/userActions";
 // MUI
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -28,7 +29,13 @@ import MyButton from "../../util/MyButton";
 // Helpers
 import DateFnsUtils from "@date-io/date-fns";
 // Interests
-import { sports, activities, travel, food } from "../../util/interests";
+import {
+  sports,
+  activities,
+  travel,
+  food,
+  allInterests,
+} from "../../util/interests";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -91,9 +98,11 @@ class EditDetails extends Component {
   }
 
   handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleInterestChange = (event, value) => {
+    this.setState({ interests: value });
   };
 
   handleBirthdayChange = (date) => {
@@ -136,18 +145,36 @@ class EditDetails extends Component {
           <DialogTitle>Edit Your Profile</DialogTitle>
           <DialogContent>
             <form>
-              <TextField
-                name="name"
-                type="text"
-                label="Name"
-                placeholder="Your name"
-                helperText={errors.name}
-                error={errors.name ? true : false}
-                className={classes.textField}
-                value={this.state.name}
-                onChange={this.handleChange}
-                fullWidth
-              />
+              <Grid container spacing={2}>
+                <Grid item sm={6} xs={12}>
+                  <TextField
+                    name="name"
+                    type="text"
+                    label="Name"
+                    placeholder="Your name"
+                    helperText={errors.name}
+                    error={errors.name ? true : false}
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange}
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item sm={6} xs={12}>
+                  <TextField
+                    name="hometown"
+                    type="text"
+                    label="Hometown"
+                    placeholder="Where you're originally from"
+                    helperText={errors.hometown}
+                    error={errors.hometown ? true : false}
+                    className={classes.textField}
+                    value={this.state.hometown}
+                    onChange={this.handleChange}
+                    fullWidth
+                  />
+                </Grid>
+              </Grid>
               <Grid container spacing={2}>
                 <Grid item sm={8} xs={12}>
                   <TextField
@@ -220,52 +247,24 @@ class EditDetails extends Component {
                 onChange={this.handleChange}
                 fullWidth
               />
-              <FormControl fullWidth>
-                <InputLabel>Interests</InputLabel>
-                <Select
-                  name="interests"
-                  multiple
-                  helperText={errors.interests}
-                  error={errors.interests ? true : false}
-                  className={classes.textField}
-                  value={this.state.interests}
-                  onChange={this.handleChange}
-                  fullWidth
-                >
-                  <MenuItem value="" style={{ backgroundColor: "#AAA" }}>
-                    <em>Sports &amp; Fitness</em>
-                  </MenuItem>
-                  {sports.map((interest) => (
-                    <MenuItem key={interest} value={interest}>
-                      {interest}
-                    </MenuItem>
-                  ))}
-                  <MenuItem value="" style={{ backgroundColor: "#AAA" }}>
-                    <em>Activities</em>
-                  </MenuItem>
-                  {activities.map((interest) => (
-                    <MenuItem key={interest} value={interest}>
-                      {interest}
-                    </MenuItem>
-                  ))}
-                  <MenuItem value="" style={{ backgroundColor: "#AAA" }}>
-                    <em>Travel</em>
-                  </MenuItem>
-                  {travel.map((interest) => (
-                    <MenuItem key={interest} value={interest}>
-                      {interest}
-                    </MenuItem>
-                  ))}
-                  <MenuItem value="" style={{ backgroundColor: "#AAA" }}>
-                    <em>Food &amp; Drinks</em>
-                  </MenuItem>
-                  {food.map((interest) => (
-                    <MenuItem key={interest} value={interest}>
-                      {interest}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+              <Autocomplete
+                multiple
+                name="interests"
+                limitTags={4}
+                options={allInterests}
+                defaultValue={this.state.interests}
+                className={classes.textField}
+                onChange={this.handleInterestChange}
+                error={errors.interests ? true : false}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    label="Interests"
+                    name="interests"
+                  />
+                )}
+              />
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   clearable
@@ -303,18 +302,6 @@ class EditDetails extends Component {
                   </MenuItem>
                 </Select>
               </FormControl>
-              <TextField
-                name="hometown"
-                type="text"
-                label="Hometown"
-                placeholder="Where you're originally from"
-                helperText={errors.hometown}
-                error={errors.hometown ? true : false}
-                className={classes.textField}
-                value={this.state.hometown}
-                onChange={this.handleChange}
-                fullWidth
-              />
               <TextField
                 name="website"
                 type="text"

@@ -1,4 +1,4 @@
-exports.sports = [
+const sports = [
   "Basketball",
   "Biking",
   "Bouldering",
@@ -21,7 +21,9 @@ exports.sports = [
   "Weight Training",
   "Yoga",
 ];
-exports.activities = [
+exports.sports = sports;
+
+const activities = [
   "Blogging",
   "Board Games",
   "Engineering",
@@ -32,8 +34,12 @@ exports.activities = [
   "Writing",
   "Woodwork",
 ];
-exports.travel = ["Backpacking", "Camping", "Cruises", "Mountains", "Ocean"];
-exports.music = [
+exports.activities = activities;
+
+const travel = ["Backpacking", "Camping", "Cruises", "Mountains", "Ocean"];
+exports.travel = travel;
+
+const music = [
   "Blues",
   "CCM",
   "Classical",
@@ -49,7 +55,9 @@ exports.music = [
   "Rock",
   "Worship",
 ];
-exports.food = [
+exports.music = music;
+
+const food = [
   "Baking",
   "Coffee",
   "Cooking",
@@ -57,3 +65,11 @@ exports.food = [
   "Vegan",
   "Vegitarian",
 ];
+exports.food = food;
+
+exports.allInterests = sports
+  .concat(activities)
+  .concat(travel)
+  .concat(music)
+  .concat(food)
+  .sort();

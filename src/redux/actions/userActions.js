@@ -114,6 +114,12 @@ export const deleteImage = (photo) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+export const rearrangeImage = (originalImages) => () => {
+  axios
+    .post("/user/photo/rearrange", { images: originalImages })
+    .catch((err) => console.log(err));
+};
+
 export const editUserDetails = (userDetails) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios

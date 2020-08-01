@@ -56,7 +56,7 @@ class Conversations extends Component {
       <List className={classes.container}>
         {conversations
           .sort(function (x, y) {
-            return x.updated < y.updated;
+            return x.latest.created < y.latest.created;
           })
           .map((conversation) => (
             <ListItem

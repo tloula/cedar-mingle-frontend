@@ -57,6 +57,10 @@ class Conversation extends Component {
     this.refs.scrollbars.scrollToBottom();
   }
 
+  componentDidUpdate() {
+    this.refs.scrollbars.scrollToBottom();
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });

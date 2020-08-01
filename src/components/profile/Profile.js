@@ -93,6 +93,7 @@ class Profile extends Component {
     originalImages: [],
     galleryMode: LIGHTBOX,
     speedDialOpen: false,
+    lines: [],
   };
 
   // So these three functions are weird...
@@ -108,6 +109,7 @@ class Profile extends Component {
         JSON.stringify(this.props.user.profile.images)
       );
       this.setState({ images, originalImages });
+      this.setState({ lines: this.props.user.profile.about.split("\n") });
     }
   }
 
@@ -118,6 +120,7 @@ class Profile extends Component {
         JSON.stringify(this.props.user.profile.images)
       );
       this.setState({ images, originalImages });
+      this.setState({ lines: this.props.user.profile.about.split("\n") });
     }
   }
 
@@ -128,6 +131,7 @@ class Profile extends Component {
         JSON.stringify(this.props.user.profile.images)
       );
       this.setState({ images, originalImages });
+      this.setState({ lines: this.props.user.profile.about.split("\n") });
     }
   }
 
@@ -212,7 +216,14 @@ class Profile extends Component {
   ));
 
   render() {
-    const { toggler, slide, galleryMode, speedDialOpen, images } = this.state;
+    const {
+      toggler,
+      slide,
+      galleryMode,
+      speedDialOpen,
+      images,
+      lines,
+    } = this.state;
     const {
       classes,
       user: {
@@ -271,11 +282,12 @@ class Profile extends Component {
                 <span>{birthday && ", " + age(birthday)}</span>
               </Typography>
               <hr />
-              {about && (
-                <Typography variant="body2" className={classes.profileItem}>
-                  {about}
-                </Typography>
-              )}
+              {about &&
+                lines.map((line) => (
+                  <Typography variant="body2" className={classes.profileItem}>
+                    {line}
+                  </Typography>
+                ))}
               <div className="profileItems">
                 {major && (
                   <Typography variant="body2" className={classes.profileItem}>

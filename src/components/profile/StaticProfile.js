@@ -83,7 +83,7 @@ class StaticProfile extends Component {
               )}
             </Scrollbars>
           </Grid>
-          <Grid item sm={6} xs={12} style={{ padding: "40px" }}>
+          <Grid item sm={6} xs={12} className={classes.rightGrid}>
             <div className={classes.profile}>
               <Typography variant="h4" color="primary">
                 <span>{name}</span>

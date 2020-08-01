@@ -92,6 +92,9 @@ const theme = createMuiTheme({
     profileItem: {
       margin: "10px 0px 10px 0px",
     },
+    rightGrid: {
+      padding: "40px",
+    },
     profile: {
       position: "relative",
       height: "100%",

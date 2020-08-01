@@ -126,13 +126,7 @@ class EditDetails extends Component {
     const { errors } = this.state;
     return (
       <Fragment>
-        <MyButton
-          tip="Edit Details"
-          onClick={this.handleOpen}
-          btnClassName={classes.button}
-        >
-          <EditIcon color="primary" />
-        </MyButton>
+        <EditIcon onClick={this.handleOpen} />
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

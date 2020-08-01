@@ -69,16 +69,18 @@ class StaticProfile extends Component {
               autoHide
             >
               <Gallery
-                photos={images && images}
+                photos={images}
                 onClick={(event, photo) => this.handlePhotoSelect(photo.index)}
                 margin={0}
               />
-              <FsLightbox
-                toggler={toggler}
-                slide={slide + 1}
-                sources={images && images.map((img) => img.src)}
-                type="image"
-              />
+              {images && (
+                <FsLightbox
+                  toggler={toggler}
+                  slide={slide + 1}
+                  sources={images && images.map((img) => img.src)}
+                  type="image"
+                />
+              )}
             </Scrollbars>
           </Grid>
           <Grid item sm={6} xs={12} style={{ padding: "40px" }}>

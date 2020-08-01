@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 //Redux
 import { connect } from "react-redux";
-import { deleteImage, uploadImage } from "../../redux/actions/userActions";
+import {
+  deleteImage,
+  uploadImage,
+  rearrangeImage,
+} from "../../redux/actions/userActions";
 // Material-UI
 import Chip from "@material-ui/core/Chip";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -12,6 +16,10 @@ import Paper from "@material-ui/core/Paper";
 import { Tooltip } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
+// Speed Dial
+import SpeedDial from "@material-ui/lab/SpeedDial";
+import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
+import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 // Icons
 import AddIcon from "@material-ui/icons/Add";
 import CloudIcon from "@material-ui/icons/Cloud";
@@ -22,34 +30,163 @@ import SchoolIcon from "@material-ui/icons/School";
 import WorkIcon from "@material-ui/icons/Work";
 // Photo Gallery
 import Gallery from "react-photo-gallery";
+import Photo from "./Photo";
+import arrayMove from "array-move";
+import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import FsLightbox from "fslightbox-react";
 import { Scrollbars } from "react-custom-scrollbars";
 // Misc
 import dayjs from "dayjs";
 // Components
 import EditDetails from "./EditDetails";
-import MyButton from "../../util/MyButton";
 import ProfileSkeleton from "../../util/ProfileSkeleton";
 // Helpers
 import { age } from "../../util/helpers";
+
 // Blob reducer for photo upload
 const reduce = require("image-blob-reduce")();
 
 const styles = (theme) => ({
   ...theme.spread,
+
+  speedDial: {
+    position: "absolute",
+    "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
+    },
+    "&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
+      top: theme.spacing(2),
+      left: theme.spacing(2),
+    },
+  },
+  alert: {
+    width: "75%",
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+  },
 });
+
+const LIGHTBOX = "LIGHTBOX";
+const DELETE = "DELETE";
+
+const SortablePhoto = SortableElement(
+  ({ photoIndex, direction, margin, photo, onClick }) => (
+    <Photo
+      index={photoIndex}
+      direction={direction}
+      margin={margin}
+      photo={photo}
+      onClick={(event, { photo, index }) => {
+        onClick(index);
+      }}
+    />
+  )
+);
 
 class Profile extends Component {
   state = {
     toggler: false,
     slide: 0,
-    deletePhotos: false,
+    images: [],
+    originalImages: [],
+    galleryMode: LIGHTBOX,
+    speedDialOpen: false,
   };
 
-  // Open new photo uploader
-  handleEditPicture = () => {
-    const fileInput = document.getElementById("imageInput");
-    fileInput.click();
+  actions = [
+    { icon: <EditDetails />, name: "Edit Profile" },
+    {
+      icon: <AddIcon />,
+      name:
+        this.state.images.length < 8
+          ? "Upload Photo"
+          : "You may only upload 8 photos",
+      handler: () => {
+        this.handleUploadPhoto();
+      },
+      disabled: this.state.images.length < 8,
+    },
+    {
+      icon: <DeleteIcon />,
+      name: "Delete Photo",
+      handler: () => {
+        this.handleDeletePhoto();
+      },
+    },
+  ];
+
+  componentWillReceiveProps() {
+    this.setState({
+      images: this.props.user.profile.images,
+      originalImages: this.props.user.profile.images,
+    });
+  }
+
+  componentDidMount() {
+    this.setState({
+      images: this.props.user.profile.images,
+      originalImages: this.props.user.profile.images,
+    });
+  }
+
+  componentWillMount() {
+    this.setState({
+      images: this.props.user.profile.images,
+      originalImages: this.props.user.profile.images,
+    });
+  }
+
+  onSortEnd = (oldIndex, newIndex) => {
+    if (oldIndex === newIndex) return;
+    this.setState({ images: arrayMove(this.state.images, oldIndex, newIndex) });
+    this.setState({
+      originalImages: arrayMove(this.state.originalImages, oldIndex, newIndex),
+    });
+    this.props.rearrangeImage(this.state.originalImages);
+  };
+
+  handlePhotoSelect = (index) => {
+    if (this.state.galleryMode === DELETE) {
+      // Delete photo
+      this.props.deleteImage(this.state.originalImages[index]);
+      this.setState({ galleryMode: LIGHTBOX });
+    } else if (this.state.galleryMode === LIGHTBOX) {
+      // Open Lightbox
+      this.setState({ toggler: !this.state.toggler, slide: index });
+    }
+  };
+
+  handleDeletePhoto = (event) => {
+    this.setState({ galleryMode: DELETE });
+  };
+
+  handleCancelDeletePhoto = () => {
+    this.setState({ galleryMode: LIGHTBOX });
+  };
+
+  handleUploadPhoto = () => {
+    if (this.props.user.profile.images.length >= 8) {
+      this.setState({
+        errors: { photoLimit: "You may only upload 8 photos." },
+      });
+    } else {
+      const fileInput = document.getElementById("imageInput");
+      fileInput.click();
+    }
+  };
+
+  handlePhotoLimitAlertClose = () => {
+    this.setState({ errors: {} });
+  };
+
+  handleClose = () => {
+    this.setState({ speedDialOpen: false });
+  };
+
+  handleOpen = () => {
+    this.setState({ speedDialOpen: true });
   };
 
   // Upload new photo
@@ -65,24 +202,25 @@ class Profile extends Component {
     });
   };
 
-  // Photo selected
-  handlePhotoSelect = (mode, image, index) => {
-    if (mode) {
-      // Delete photo
-      this.props.deleteImage({ image });
-    } else {
-      // Open Lightbox
-      this.setState({ toggler: !this.state.toggler, slide: index });
-    }
-  };
-
-  // Toggle photo deletion option
-  toggleDeletePhotos = (event) => {
-    this.setState({ deletePhotos: !this.state.deletePhotos });
-  };
+  SortableGallery = SortableContainer(({ items, onClick }) => (
+    <Gallery
+      photos={items}
+      margin={0}
+      renderImage={(props) => (
+        <SortablePhoto
+          index={props.index}
+          photoIndex={props.index}
+          direction={props.direction}
+          margin={props.margin}
+          photo={props.photo}
+          onClick={(index) => onClick(index)}
+        />
+      )}
+    />
+  ));
 
   render() {
-    const { toggler, slide, deletePhotos } = this.state;
+    const { toggler, slide, galleryMode, speedDialOpen, images } = this.state;
     const {
       classes,
       user: {
@@ -92,7 +230,6 @@ class Profile extends Component {
           dream,
           created,
           hometown,
-          images,
           interests,
           major,
           name,
@@ -106,9 +243,6 @@ class Profile extends Component {
       UI: { loading, loadingSecondary },
     } = this.props;
 
-    let imgSrcs = [];
-    let imgTmps = [];
-
     let profileMarkup = !loading ? (
       <Paper className={classes.paper}>
         <Grid container>
@@ -119,30 +253,19 @@ class Profile extends Component {
               autoHeight
               autoHide
             >
-              {images.forEach((img) => {
-                imgSrcs.push(img.src);
-                // Created imgTmps b/c Gallery was messing with the size properties which are needed for delete
-                imgTmps.push({
-                  src: img.src,
-                  width: img.width,
-                  height: img.height,
-                });
-              })}
-              <Gallery
-                photos={imgTmps}
-                onClick={(event, photo) =>
-                  this.handlePhotoSelect(
-                    deletePhotos,
-                    images[photo.index],
-                    photo.index
-                  )
-                }
-                margin={0}
+              <this.SortableGallery
+                items={images}
+                onSortEnd={({ oldIndex, newIndex }) => {
+                  this.onSortEnd(oldIndex, newIndex);
+                }}
+                axis={"xy"}
+                distance={10}
+                onClick={this.handlePhotoSelect}
               />
               <FsLightbox
                 toggler={toggler}
                 slide={slide + 1}
-                sources={imgSrcs}
+                sources={images.map((img) => img.src)}
                 type="image"
               />
             </Scrollbars>
@@ -221,33 +344,39 @@ class Profile extends Component {
                     />
                   </Tooltip>
                 )}
-                {!loadingSecondary && (
-                  <MyButton
-                    tip="Add Photos"
-                    onClick={this.handleEditPicture}
-                    btnClassName={classes.button}
-                  >
-                    <AddIcon color="primary" />
-                  </MyButton>
-                )}
-                {deletePhotos && (
+                {galleryMode === DELETE && (
                   <Chip
                     icon={<DeleteIcon />}
                     label="Select Photo to Remove"
-                    onDelete={this.toggleDeletePhotos}
+                    onDelete={this.handleCancelDeletePhoto}
                     color="primary"
                   />
                 )}
-                {!deletePhotos && (
-                  <MyButton
-                    tip="Remove Photos"
-                    onClick={this.toggleDeletePhotos}
-                    btnClassName={classes.button}
-                  >
-                    <DeleteIcon color="primary" />
-                  </MyButton>
-                )}
-                <EditDetails />
+                <div className={classes.root}>
+                  <div className={classes.exampleWrapper}>
+                    <SpeedDial
+                      ariaLabel="SpeedDial example"
+                      className={classes.speedDial}
+                      hidden={false}
+                      icon={<SpeedDialIcon />}
+                      onClose={this.handleClose}
+                      onOpen={this.handleOpen}
+                      open={speedDialOpen}
+                      direction={"left"}
+                    >
+                      {this.actions.map((action) => (
+                        <SpeedDialAction
+                          key={action.name}
+                          icon={action.icon}
+                          disabled={action.disabled}
+                          tooltipTitle={action.name}
+                          tooltipPlacement={"bottom"}
+                          onClick={action.handler}
+                        />
+                      ))}
+                    </SpeedDial>
+                  </div>
+                </div>
               </div>
             </div>
           </Grid>
@@ -256,7 +385,6 @@ class Profile extends Component {
     ) : (
       <ProfileSkeleton />
     );
-
     return profileMarkup;
   }
 }
@@ -267,7 +395,7 @@ const mapStateToProps = (state) => ({
   UI: state.UI,
 });
 
-const mapActionsToProps = { uploadImage, deleteImage };
+const mapActionsToProps = { uploadImage, deleteImage, rearrangeImage };
 
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
@@ -275,6 +403,7 @@ Profile.propTypes = {
   UI: PropTypes.object.isRequired,
   uploadImage: PropTypes.func.isRequired,
   deleteImage: PropTypes.func.isRequired,
+  rearrangeImage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

@@ -95,28 +95,6 @@ class Profile extends Component {
     speedDialOpen: false,
   };
 
-  actions = [
-    { icon: <EditDetails />, name: "Edit Profile" },
-    {
-      icon: <AddIcon />,
-      name:
-        this.state.images.length < 8
-          ? "Upload Photo"
-          : "You may only upload 8 photos",
-      handler: () => {
-        this.handleUploadPhoto();
-      },
-      disabled: this.state.images.length < 8,
-    },
-    {
-      icon: <DeleteIcon />,
-      name: "Delete Photo",
-      handler: () => {
-        this.handleDeletePhoto();
-      },
-    },
-  ];
-
   componentWillReceiveProps() {
     this.setState({
       images: this.props.user.profile.images,
@@ -158,7 +136,7 @@ class Profile extends Component {
     }
   };
 
-  handleDeletePhoto = (event) => {
+  handleDeletePhoto = () => {
     this.setState({ galleryMode: DELETE });
   };
 
@@ -167,14 +145,8 @@ class Profile extends Component {
   };
 
   handleUploadPhoto = () => {
-    if (this.props.user.profile.images.length >= 8) {
-      this.setState({
-        errors: { photoLimit: "You may only upload 8 photos." },
-      });
-    } else {
-      const fileInput = document.getElementById("imageInput");
-      fileInput.click();
-    }
+    const fileInput = document.getElementById("imageInput");
+    fileInput.click();
   };
 
   handlePhotoLimitAlertClose = () => {
@@ -260,7 +232,9 @@ class Profile extends Component {
                 }}
                 axis={"xy"}
                 distance={10}
-                onClick={this.handlePhotoSelect}
+                onClick={(index) => {
+                  this.handlePhotoSelect(index);
+                }}
               />
               <FsLightbox
                 toggler={toggler}
@@ -364,16 +338,32 @@ class Profile extends Component {
                       open={speedDialOpen}
                       direction={"left"}
                     >
-                      {this.actions.map((action) => (
-                        <SpeedDialAction
-                          key={action.name}
-                          icon={action.icon}
-                          disabled={action.disabled}
-                          tooltipTitle={action.name}
-                          tooltipPlacement={"bottom"}
-                          onClick={action.handler}
-                        />
-                      ))}
+                      <SpeedDialAction
+                        icon={<EditDetails />}
+                        tooltipTitle={"Edit Profile"}
+                        tooltipPlacement={"bottom"}
+                      />
+                      <SpeedDialAction
+                        icon={<AddIcon />}
+                        tooltipTitle={
+                          images.length < 8
+                            ? "Upload Photo"
+                            : "You may only upload 8 photos"
+                        }
+                        tooltipPlacement={"bottom"}
+                        onClick={() => {
+                          this.handleUploadPhoto();
+                        }}
+                        disabled={images.length >= 8}
+                      />
+                      <SpeedDialAction
+                        icon={<DeleteIcon />}
+                        tooltipTitle={"Delete Photo"}
+                        tooltipPlacement={"bottom"}
+                        onClick={() => {
+                          this.handleDeletePhoto();
+                        }}
+                      />
                     </SpeedDial>
                   </div>
                 </div>

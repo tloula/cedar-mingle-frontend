@@ -107,7 +107,7 @@ export const uploadImage = (formData) => (dispatch) => {
 
 export const deleteImage = (photo) => (dispatch) => {
   axios
-    .post("/user/photo/delete", { photo: photo.image })
+    .post("/user/photo/delete", photo)
     .then(() => {
       dispatch(getUserData());
     })

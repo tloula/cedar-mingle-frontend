@@ -5,23 +5,19 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // Redux
 import { connect } from "react-redux";
 import { getMatches } from "../redux/actions/dataActions";
-// Material-UI
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 // Components
 import MatchItem from "../components/matches/MatchItem";
+import MatchItemSkeleton from "../util/MatchItemSkeleton";
 // 3rd Party
 import { Scrollbars } from "react-custom-scrollbars";
 
 const styles = (theme) => ({
   ...theme.spread,
-  matchItem: {
-    //margin: "10px 0px 10px 0px",
-  },
+  matchItem: {},
   container: {
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
-    gridGap: "10px",
+    gridGap: "15px",
   },
 });
 
@@ -45,7 +41,14 @@ class matches extends Component {
     } = this.props;
 
     return loading ? (
-      <p>Loading Matches</p>
+      <div className={classes.container}>
+        <MatchItemSkeleton className={classes.matchItem} />
+        <MatchItemSkeleton className={classes.matchItem} />
+        <MatchItemSkeleton className={classes.matchItem} />
+        <MatchItemSkeleton className={classes.matchItem} />
+        <MatchItemSkeleton className={classes.matchItem} />
+        <MatchItemSkeleton className={classes.matchItem} />
+      </div>
     ) : matches[0] ? (
       <div className={classes.container}>
         {matches

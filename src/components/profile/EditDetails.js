@@ -239,6 +239,7 @@ class EditDetails extends Component {
                 label="About"
                 multiline
                 rows="5"
+                maxLength={500}
                 placeholder="A short description of yourself"
                 helperText={errors.about}
                 error={errors.about ? true : false}

@@ -93,7 +93,7 @@ const theme = createMuiTheme({
       margin: "10px 0px 10px 0px",
     },
     rightGrid: {
-      padding: "40px",
+      padding: "40px 40px 20px 40px",
     },
     profile: {
       position: "relative",

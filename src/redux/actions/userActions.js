@@ -116,7 +116,6 @@ export const rearrangeImage = (originalImages) => () => {
 };
 
 export const editUserDetails = (userDetails) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
   axios
     .patch("/user", userDetails)
     .then(() => {

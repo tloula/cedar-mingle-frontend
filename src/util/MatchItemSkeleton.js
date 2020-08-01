@@ -55,7 +55,6 @@ const MatchItem = (props) => {
                 <Skeleton variant="text" />
               </Typography>
             </CardContent>
-
             <CardActions className={classes.cardActions}></CardActions>
           </Grid>
         </Grid>

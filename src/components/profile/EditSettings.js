@@ -38,7 +38,6 @@ class EditSettings extends Component {
       notifications: false,
       matches: false,
     },
-    password: "",
     premium: false,
     recycle: false,
     visible: false,
@@ -61,7 +60,6 @@ class EditSettings extends Component {
       emails: settings.emails
         ? settings.emails
         : { messages: false, notifications: false, matches: false },
-      password: settings.password ? settings.password : false,
       premium: settings.premium ? settings.premium : false,
       recycle: settings.recycle ? settings.recycle : false,
       visible: settings.visible ? settings.visible : false,
@@ -158,28 +156,6 @@ class EditSettings extends Component {
           <DialogTitle>Change Settings</DialogTitle>
           <DialogContent>
             <form>
-              <TextField
-                name="password"
-                type="password"
-                label="New Password"
-                placeholder="New password"
-                helperText={errors.password}
-                error={errors.password ? true : false}
-                className={classes.textField}
-                onChange={this.handleChange}
-                fullWidth
-              />
-              <TextField
-                name="confirmPassword"
-                type="password"
-                label="Confirm Password"
-                placeholder="Confirm password"
-                helperText={errors.confirmPassword}
-                error={errors.confirmPassword ? true : false}
-                className={classes.textField}
-                onChange={this.handleChange}
-                fullWidth
-              />
               <Grid container spacing={2}>
                 <Grid item sm={6} xs={12}>
                   <FormControl

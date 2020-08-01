@@ -146,6 +146,21 @@ export const editUserSettings = (userSettings) => (dispatch) => {
     });
 };
 
+export const changePassword = (data) => (dispatch) => {
+  axios
+    .post("/password", data)
+    .then(() => {
+      dispatch({ type: CLEAR_ERRORS });
+      dispatch(getSettings());
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
 export const markNotificationsRead = (notificationIds) => (dispatch) => {
   axios
     .post("/notifications", notificationIds)

@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import { logoutUser } from "../../redux/actions/userActions";
 // Material-UI
 import AppBar from "@material-ui/core/AppBar";
-import Badge from "@material-ui/core/Badge";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
@@ -17,13 +16,12 @@ import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 // Components
 import EditSettings from "../profile/EditSettings";
+import EditAccount from "../profile/EditAccount";
 import Notifications from "../layout/Notifications";
 import Messages from "../layout/Messages";
 // Icons
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -102,6 +100,9 @@ class Navbar extends Component {
         </MenuItem>
         <MenuItem onClick={this.handleMenuClose}>
           <EditSettings />
+        </MenuItem>
+        <MenuItem onClick={this.handleMenuClose}>
+          <EditAccount />
         </MenuItem>
         <MenuItem
           onClick={() => {

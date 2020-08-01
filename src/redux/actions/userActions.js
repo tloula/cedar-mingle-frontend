@@ -106,12 +106,7 @@ export const uploadImage = (formData) => (dispatch) => {
 };
 
 export const deleteImage = (photo) => (dispatch) => {
-  axios
-    .post("/user/photo/delete", photo)
-    .then(() => {
-      dispatch(getUserData());
-    })
-    .catch((err) => console.log(err));
+  axios.post("/user/photo/delete", photo).catch((err) => console.log(err));
 };
 
 export const rearrangeImage = (originalImages) => () => {

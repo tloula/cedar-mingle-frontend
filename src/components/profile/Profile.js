@@ -95,25 +95,40 @@ class Profile extends Component {
     speedDialOpen: false,
   };
 
+  // So these three functions are weird...
+  // Basically some image component will fail if any of them are removed
+  // Also, the gallery component kept resizing images
+  //    and setState was modifiying the props with the new image dimensions
+  //    this breaks the delete image route because we need the original sizes
+  //    the JSON.parse(JSON.stringify()) creates a deep copy of the images array
   componentWillReceiveProps() {
-    this.setState({
-      images: this.props.user.profile.images,
-      originalImages: this.props.user.profile.images,
-    });
+    if (this.props.user.profile.images) {
+      let images = JSON.parse(JSON.stringify(this.props.user.profile.images));
+      let originalImages = JSON.parse(
+        JSON.stringify(this.props.user.profile.images)
+      );
+      this.setState({ images, originalImages });
+    }
   }
 
   componentDidMount() {
-    this.setState({
-      images: this.props.user.profile.images,
-      originalImages: this.props.user.profile.images,
-    });
+    if (this.props.user.profile.images) {
+      let images = JSON.parse(JSON.stringify(this.props.user.profile.images));
+      let originalImages = JSON.parse(
+        JSON.stringify(this.props.user.profile.images)
+      );
+      this.setState({ images, originalImages });
+    }
   }
 
   componentWillMount() {
-    this.setState({
-      images: this.props.user.profile.images,
-      originalImages: this.props.user.profile.images,
-    });
+    if (this.props.user.profile.images) {
+      let images = JSON.parse(JSON.stringify(this.props.user.profile.images));
+      let originalImages = JSON.parse(
+        JSON.stringify(this.props.user.profile.images)
+      );
+      this.setState({ images, originalImages });
+    }
   }
 
   onSortEnd = (oldIndex, newIndex) => {
@@ -127,8 +142,13 @@ class Profile extends Component {
 
   handlePhotoSelect = (index) => {
     if (this.state.galleryMode === DELETE) {
-      // Delete photo
+      // Remove photo from server
       this.props.deleteImage(this.state.originalImages[index]);
+
+      // Remove photo from client
+      this.state.images.splice(index, 1);
+      this.state.originalImages.splice(index, 1);
+
       this.setState({ galleryMode: LIGHTBOX });
     } else if (this.state.galleryMode === LIGHTBOX) {
       // Open Lightbox

@@ -1,7 +1,7 @@
 // React
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-//Redux
+// Redux
 import { connect } from "react-redux";
 import {
   sendMessage,
@@ -13,10 +13,13 @@ import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Snackbar from "@material-ui/core/Snackbar";
 import TextField from "@material-ui/core/TextField";
 import { Tooltip } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -25,7 +28,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import RefreshIcon from "@material-ui/icons/Refresh";
 // Components
 import MyButton from "../../util/MyButton";
-// 3rd Party
+// Helpers
 import { Scrollbars } from "react-custom-scrollbars";
 import dayjs from "dayjs";
 var relativeTime = require("dayjs/plugin/relativeTime");
@@ -51,7 +54,7 @@ const styles = (theme) => ({
 });
 
 class Conversation extends Component {
-  state = { message: "", sending: false };
+  state = { message: "", sending: false, snackbarOpen: false };
 
   componentDidMount() {
     this.refs.scrollbars.scrollToBottom();
@@ -66,8 +69,7 @@ class Conversation extends Component {
       this.setState({ errors: nextProps.UI.errors });
     }
     if (nextProps.data.sent) {
-      this.setState({ sending: false });
-      this.setState({ message: "" });
+      this.setState({ sending: false, message: "", snackbarOpen: true });
       this.refs.scrollbars.scrollToBottom();
     }
   }
@@ -112,12 +114,19 @@ class Conversation extends Component {
     if (uid) this.props.getConversation(uid);
   };
 
+  handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState({ snackbarOpen: false });
+  };
+
   render() {
     const { classes, conversation, uid } = this.props;
     const {
       UI: { loadingSecondary },
     } = this.props;
-    const { message, sending } = this.state;
+    const { message, sending, snackbarOpen } = this.state;
 
     let otherSenderMessage = (name, body, date) => (
       <ListItem key={date} alignItems="flex-start" style={{ width: "75%" }}>
@@ -295,6 +304,28 @@ class Conversation extends Component {
             </>
           )}
         </div>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={snackbarOpen}
+          autoHideDuration={5000}
+          onClose={this.handleCloseSnackbar}
+          message="Message sent"
+          action={
+            <React.Fragment>
+              <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={this.handleCloseSnackbar}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </React.Fragment>
+          }
+        />
       </>
     );
   }

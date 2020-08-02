@@ -38,9 +38,9 @@ export default {
       fontWeight: "505",
     },
     customError: {
-      color: "#ab003c",
+      color: "#f50057",
       fontSize: "0.8rem",
-      marginTop: 10,
+      margin: 10,
     },
     progress: {
       position: "absolute",

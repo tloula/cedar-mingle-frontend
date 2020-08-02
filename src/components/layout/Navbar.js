@@ -8,9 +8,11 @@ import { logoutUser } from "../../redux/actions/userActions";
 // Material-UI
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
+import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Snackbar from "@material-ui/core/Snackbar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -58,7 +60,14 @@ class Navbar extends Component {
   state = {
     anchorEl: false,
     mobileMoreAnchorEl: false,
+    snackbarOpen: false,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user && nextProps.user.edited) {
+      this.setState({ snackbarOpen: true });
+    }
+  }
 
   handleLogout = () => {
     this.props.logoutUser();
@@ -81,8 +90,16 @@ class Navbar extends Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
+  handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState({ snackbarOpen: false });
+  };
+
   render() {
     const { classes, authenticated } = this.props;
+    const { snackbarOpen } = this.state;
 
     let menuId = "primary-search-account-menu";
     let renderMenu = (
@@ -149,77 +166,106 @@ class Navbar extends Component {
     );
 
     let menubar = (
-      <div className={classes.grow}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography className={classes.title} variant="h6" noWrap>
-              Cedar Mingle
-            </Typography>
-            <div className={classes.centerButtons}>
-              {authenticated ? (
+      <>
+        <div className={classes.grow}>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography className={classes.title} variant="h6" noWrap>
+                Cedar Mingle
+              </Typography>
+              <div className={classes.centerButtons}>
+                {authenticated ? (
+                  <>
+                    <Button color="inherit" component={Link} to="/explore">
+                      Explore
+                    </Button>
+                    <Button color="inherit" component={Link} to="/matches">
+                      Matches
+                    </Button>
+                    <Button
+                      color="inherit"
+                      component={Link}
+                      to="/conversations"
+                    >
+                      Messages
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button color="inherit" component={Link} to="/login">
+                      Login
+                    </Button>
+                    <Button color="inherit" component={Link} to="/signup">
+                      Signup
+                    </Button>
+                  </>
+                )}
+              </div>
+              {authenticated && (
                 <>
-                  <Button color="inherit" component={Link} to="/explore">
-                    Explore
-                  </Button>
-                  <Button color="inherit" component={Link} to="/matches">
-                    Matches
-                  </Button>
-                  <Button color="inherit" component={Link} to="/conversations">
-                    Messages
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button color="inherit" component={Link} to="/login">
-                    Login
-                  </Button>
-                  <Button color="inherit" component={Link} to="/signup">
-                    Signup
-                  </Button>
+                  <div className={classes.grow} />
+                  <div className={classes.sectionDesktop}>
+                    <Messages />
+                    <Notifications />
+                    <IconButton
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls={this.menuId}
+                      aria-haspopup="true"
+                      onClick={this.handleProfileMenuOpen}
+                      color="inherit"
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                  </div>
+                  <div className={classes.sectionMobile}>
+                    <IconButton
+                      aria-label="show more"
+                      aria-controls={this.mobileMenuId}
+                      aria-haspopup="true"
+                      onClick={this.handleMobileMenuOpen}
+                      color="inherit"
+                    >
+                      <MoreIcon />
+                    </IconButton>
+                  </div>
                 </>
               )}
-            </div>
-            {authenticated && (
-              <>
-                <div className={classes.grow} />
-                <div className={classes.sectionDesktop}>
-                  <Messages />
-                  <Notifications />
-                  <IconButton
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-controls={this.menuId}
-                    aria-haspopup="true"
-                    onClick={this.handleProfileMenuOpen}
-                    color="inherit"
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                </div>
-                <div className={classes.sectionMobile}>
-                  <IconButton
-                    aria-label="show more"
-                    aria-controls={this.mobileMenuId}
-                    aria-haspopup="true"
-                    onClick={this.handleMobileMenuOpen}
-                    color="inherit"
-                  >
-                    <MoreIcon />
-                  </IconButton>
-                </div>
-              </>
-            )}
-          </Toolbar>
-        </AppBar>
-        {renderMenu}
-        {renderMobileMenu}
-      </div>
+            </Toolbar>
+          </AppBar>
+          {renderMenu}
+          {renderMobileMenu}
+        </div>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={snackbarOpen}
+          autoHideDuration={5000}
+          onClose={this.handleCloseSnackbar}
+          message="Settings saved"
+          action={
+            <React.Fragment>
+              <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={this.handleCloseSnackbar}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </React.Fragment>
+          }
+        />
+      </>
     );
     return menubar;
   }
 }
 
 Navbar.propTypes = {
+  user: PropTypes.object.isRequired,
   authenticated: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
@@ -227,6 +273,7 @@ Navbar.propTypes = {
 
 const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated,
+  user: state.user,
 });
 
 const mapActionsToProps = { logoutUser };

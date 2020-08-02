@@ -38,6 +38,10 @@ class StaticProfile extends Component {
     this.setState({ toggler: !this.state.toggler, slide: index });
   };
 
+  handleContextMenu = function (e) {
+    e.preventDefault();
+  };
+
   render() {
     const { toggler, slide } = this.state;
     const {
@@ -60,7 +64,7 @@ class StaticProfile extends Component {
 
     let profileMarkup = !loading ? (
       <Paper className={classes.paper}>
-        <Grid container>
+        <Grid container onContextMenu={this.handleContextMenu}>
           <Grid item sm={6} xs={12}>
             <Scrollbars
               style={{ maxHeight: 650 }}

@@ -83,7 +83,7 @@ class EditAccount extends Component {
         <Typography
           tip="Edit Account"
           onClick={this.handleOpen}
-          btnClassName={classes.button}
+          className={classes.button}
         >
           Account
         </Typography>

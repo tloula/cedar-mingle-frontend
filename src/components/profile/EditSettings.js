@@ -143,7 +143,7 @@ class EditSettings extends Component {
         <Typography
           tip="Edit Settings"
           onClick={this.handleOpen}
-          btnClassName={classes.button}
+          className={classes.button}
         >
           Settings
         </Typography>

@@ -30,7 +30,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         match: false,
-        profile: action.payload.profile,
+        profile: action.payload,
       };
     case LIKE_USER:
       return {

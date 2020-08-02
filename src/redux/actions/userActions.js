@@ -11,6 +11,7 @@ import {
   SET_UNAUTHENTICATED,
   SET_USER,
   STOP_LOADING_UI,
+  SET_FORGOT_PASSWORD_SENT,
 } from "../types";
 import axios from "axios";
 
@@ -151,6 +152,21 @@ export const changePassword = (data) => (dispatch) => {
     .then(() => {
       dispatch({ type: CLEAR_ERRORS });
       dispatch(getSettings());
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
+export const forgotPassword = (email) => (dispatch) => {
+  axios
+    .post("/forgot", email)
+    .then(() => {
+      dispatch({ type: SET_FORGOT_PASSWORD_SENT });
+      dispatch({ type: CLEAR_ERRORS });
     })
     .catch((err) => {
       dispatch({

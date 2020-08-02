@@ -22,6 +22,7 @@ export const loginUser = (userData, history) => (dispatch) => {
     .then((res) => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
+      dispatch(getNotifications());
       dispatch({ type: CLEAR_ERRORS });
       history.push("/");
     })

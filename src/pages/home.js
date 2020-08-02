@@ -19,7 +19,6 @@ home.propTypes = {
   user: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
-  getScreams: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

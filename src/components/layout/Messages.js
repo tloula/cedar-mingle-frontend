@@ -41,18 +41,18 @@ class Messages extends Component {
   };
 
   render() {
-    const messages = this.props.messages;
-    const anchorEl = this.state.anchorEl;
+    const { messages } = this.props;
+    const { anchorEl } = this.state;
 
     dayjs.extend(relativeTime);
 
     let mailIcon;
 
     if (messages && messages.length > 0) {
-      messages.filter((not) => not.read === false).length > 0
+      messages.filter((msg) => msg.read === false).length > 0
         ? (mailIcon = (
             <Badge
-              badgeContent={messages.filter((not) => not.read === false).length}
+              badgeContent={messages.filter((msg) => msg.read === false).length}
               color="secondary"
             >
               <MailIcon />
@@ -62,29 +62,25 @@ class Messages extends Component {
     } else {
       mailIcon = <MailIcon />;
     }
+
     let messagesMarkup =
       messages && messages.length > 0 ? (
-        messages.map((msg) => {
-          const time = dayjs(msg.created).fromNow();
-          const iconColor = msg.read ? "primary" : "secondary";
-          const icon = (
-            <ChatIcon color={iconColor} style={{ marginRight: 10 }} />
-          );
-
-          return (
-            <MenuItem key={msg.nid} onClick={this.handleClose}>
-              {icon}
-              <Typography
-                component={Link}
-                color="inherit"
-                variant="body1"
-                to={`/conversations/${msg.sender.uid}`}
-              >
-                {msg.sender.name}: {msg.text} - {time}
-              </Typography>
-            </MenuItem>
-          );
-        })
+        messages.map((msg) => (
+          <MenuItem key={msg.nid} onClick={this.handleClose}>
+            <ChatIcon
+              color={msg.read ? "primary" : "secondary"}
+              style={{ marginRight: 10 }}
+            />
+            <Typography
+              component={Link}
+              color="inherit"
+              variant="body1"
+              to={`/conversations/${msg.sender.uid}`}
+            >
+              {msg.sender.name}: {msg.text} - {dayjs(msg.created).fromNow()}
+            </Typography>
+          </MenuItem>
+        ))
       ) : (
         <MenuItem onClick={this.handleClose}>You have no new messages</MenuItem>
       );

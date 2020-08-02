@@ -140,7 +140,7 @@ EditAccount.propTypes = {
   user: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
-  editUserSettings: PropTypes.func.isRequired,
+  changePassword: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

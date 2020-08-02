@@ -19,6 +19,7 @@ const Photo = ({ index, onClick, photo, margin, direction, top, left }) => {
       style={onClick ? { ...imgStyle, ...imgWithClick } : imgStyle}
       {...photo}
       onClick={onClick ? handleClick : null}
+      alt=""
     />
   );
 };

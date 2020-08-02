@@ -14,7 +14,6 @@ import Badge from "@material-ui/core/Badge";
 // Icons
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ChatIcon from "@material-ui/icons/Chat";
 import PersonIcon from "@material-ui/icons/Person";
 // Helpers
 import dayjs from "dayjs";
@@ -44,7 +43,9 @@ class Notifications extends Component {
   };
 
   render() {
-    const notifications = this.props.notifications;
+    const notifications = this.props.user.notifications
+      ? this.props.user.notifications
+      : null;
     const anchorEl = this.state.anchorEl;
 
     dayjs.extend(relativeTime);
@@ -126,11 +127,11 @@ class Notifications extends Component {
 
 Notifications.propTypes = {
   markNotificationsRead: PropTypes.func.isRequired,
-  notifications: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  notifications: state.user.notifications,
+  user: state.user,
 });
 
 export default connect(mapStateToProps, { markNotificationsRead })(

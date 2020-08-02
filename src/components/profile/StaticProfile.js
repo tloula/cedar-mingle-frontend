@@ -68,18 +68,22 @@ class StaticProfile extends Component {
               autoHeight
               autoHide
             >
-              <Gallery
-                photos={images}
-                onClick={(event, photo) => this.handlePhotoSelect(photo.index)}
-                margin={0}
-              />
               {images && (
-                <FsLightbox
-                  toggler={toggler}
-                  slide={slide + 1}
-                  sources={images && images.map((img) => img.src)}
-                  type="image"
-                />
+                <>
+                  <Gallery
+                    photos={images}
+                    onClick={(event, photo) =>
+                      this.handlePhotoSelect(photo.index)
+                    }
+                    margin={0}
+                  />
+                  <FsLightbox
+                    toggler={toggler}
+                    slide={slide + 1}
+                    sources={images && images.map((img) => img.src)}
+                    type="image"
+                  />
+                </>
               )}
             </Scrollbars>
           </Grid>

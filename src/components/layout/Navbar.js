@@ -92,7 +92,7 @@ class Navbar extends Component {
         id={menuId}
         keepMounted
         transformOrigin={{ vertical: "top", horizontal: "right" }}
-        open={this.state.anchorEl}
+        open={Boolean(this.state.anchorEl)}
         onClose={this.handleMenuClose}
       >
         <MenuItem onClick={this.handleMenuClose} component={Link} to="/profile">
@@ -123,7 +123,7 @@ class Navbar extends Component {
         id={mobileMenuId}
         keepMounted
         transformOrigin={{ vertical: "top", horizontal: "right" }}
-        open={this.state.mobileMoreAnchorEl}
+        open={Boolean(this.state.mobileMoreAnchorEl)}
         onClose={this.handleMobileMenuClose}
       >
         <MenuItem>

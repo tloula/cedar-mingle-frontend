@@ -75,7 +75,7 @@ class Unmatch extends Component {
 Unmatch.propTypes = {
   unmatchUser: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  match: PropTypes.string.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default connect(null, { unmatchUser })(withStyles(styles)(Unmatch));

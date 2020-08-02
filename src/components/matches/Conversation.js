@@ -1,6 +1,6 @@
 // React
 import PropTypes from "prop-types";
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 //Redux
 import { connect } from "react-redux";
 import {
@@ -115,21 +115,20 @@ class Conversation extends Component {
   render() {
     const { classes, conversation, uid } = this.props;
     const {
-      UI: { loading, loadingSecondary, errors },
+      UI: { loadingSecondary },
     } = this.props;
-    const { sent } = this.props;
     const { message, sending } = this.state;
 
     let otherSenderMessage = (name, body, date) => (
-      <ListItem alignItems="flex-start" style={{ width: "75%" }}>
+      <ListItem key={date} alignItems="flex-start" style={{ width: "75%" }}>
         <Box component="span" display={{ xs: "none", sm: "none", md: "block" }}>
           <ListItemAvatar display={{ xs: "none", sm: "none", md: "block" }}>
-            <Avatar alt={name} src="/static/images/avatar/1256.jpg" />
+            <Avatar>{name[0]}</Avatar>
           </ListItemAvatar>
         </Box>
         <ListItemText
           primary={
-            <div className={classes.bubble}>
+            <span className={classes.bubble}>
               <React.Fragment>
                 <Typography
                   component="span"
@@ -139,7 +138,7 @@ class Conversation extends Component {
                 ></Typography>
                 {body}
               </React.Fragment>
-            </div>
+            </span>
           }
           secondary={
             <React.Fragment>
@@ -159,12 +158,13 @@ class Conversation extends Component {
 
     let authenticatedSenderMessage = (name, body, date) => (
       <ListItem
+        key={date}
         alignItems="flex-start"
         style={{ width: "75%", marginRight: "0px", marginLeft: "auto" }}
       >
         <ListItemText
           primary={
-            <div className={classes.bubble}>
+            <span className={classes.bubble}>
               <React.Fragment>
                 <Typography
                   component="span"
@@ -174,7 +174,7 @@ class Conversation extends Component {
                 ></Typography>
                 {body}
               </React.Fragment>
-            </div>
+            </span>
           }
           secondary={
             <React.Fragment>
@@ -192,7 +192,7 @@ class Conversation extends Component {
         />
         <Box component="span" display={{ xs: "none", sm: "none", md: "block" }}>
           <ListItemAvatar>
-            <Avatar alt={name} src="/static/images/avatar/1256.jpg" />
+            <Avatar>{name[0]}</Avatar>
           </ListItemAvatar>
         </Box>
       </ListItem>

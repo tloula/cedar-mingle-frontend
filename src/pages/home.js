@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 class home extends Component {
   componentDidMount() {}
   render() {
-    const { loading } = this.props.UI;
     return (
       <>
         <p>Home Page</p>

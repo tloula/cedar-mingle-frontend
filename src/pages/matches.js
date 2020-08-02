@@ -8,8 +8,6 @@ import { getMatches } from "../redux/actions/dataActions";
 // Components
 import MatchItem from "../components/matches/MatchItem";
 import MatchItemSkeleton from "../util/MatchItemSkeleton";
-// 3rd Party
-import { Scrollbars } from "react-custom-scrollbars";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -37,7 +35,7 @@ class matches extends Component {
     const {
       classes,
       data: { matches },
-      UI: { loading, errors },
+      UI: { loading },
     } = this.props;
 
     return loading ? (

@@ -27,6 +27,7 @@ class EditAccount extends Component {
     email: "",
     password: "",
     confirmPassword: "",
+    open: false,
     errors: {},
   };
 

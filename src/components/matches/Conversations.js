@@ -41,7 +41,7 @@ class Conversations extends Component {
   isBold = (conversation) => {
     if (
       !conversation.latest.read &&
-      conversation.latest.sender.uid == conversation.uid
+      conversation.latest.sender.uid === conversation.uid
     ) {
       return { fontWeight: "bold", display: "inline" };
     } else {
@@ -60,21 +60,19 @@ class Conversations extends Component {
           })
           .map((conversation) => (
             <ListItem
-              alignItems="flex-start"
               button
+              alignItems="flex-start"
+              key={conversation.uid}
               selected={conversation.uid === uid}
               component={Link}
               to={`/conversations/${conversation.uid}`}
             >
               <ListItemAvatar>
-                <Avatar
-                  alt={conversation.name}
-                  src="/static/images/avatar/1256.jpg"
-                />
+                <Avatar>{conversation.name[0]}</Avatar>
               </ListItemAvatar>
               <ListItemText
                 primary={
-                  <div
+                  <span
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <React.Fragment>
@@ -94,7 +92,7 @@ class Conversations extends Component {
                         {dayjs(conversation.latest.created).fromNow()}
                       </Typography>
                     </React.Fragment>
-                  </div>
+                  </span>
                 }
                 secondary={
                   conversation.latest && (
@@ -108,9 +106,9 @@ class Conversations extends Component {
                         {conversation.latest.sender.uid !== conversation.uid &&
                           "You: "}
                       </Typography>
-                      <div style={this.isBold(conversation)}>
+                      <span style={this.isBold(conversation)}>
                         {conversation.latest.text}
-                      </div>
+                      </span>
                     </Fragment>
                   )
                 }

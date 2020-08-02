@@ -14,8 +14,6 @@ import Paper from "@material-ui/core/Paper";
 // Components
 import Conversations from "../components/matches/Conversations";
 import Conversation from "../components/matches/Conversation";
-// 3rd Party
-import { Scrollbars } from "react-custom-scrollbars";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -55,7 +53,7 @@ class conversations extends Component {
       user: {
         profile: { uid },
       },
-      UI: { loading, errors },
+      UI: { loading },
     } = this.props;
 
     return (

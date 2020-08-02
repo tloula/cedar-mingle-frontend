@@ -26,7 +26,6 @@ class ResendVerification extends Component {
   };
 
   render() {
-    const { classes } = this.props;
     const {
       settings: { verified },
     } = this.props;

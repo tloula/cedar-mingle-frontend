@@ -7,10 +7,10 @@ export default {
       contrastText: "#fff",
     },
     secondary: {
-      light: "#ff7961",
-      main: "#f44336",
-      dark: "#ba000d",
-      contrastText: "#000",
+      light: "#f73378",
+      main: "#f50057",
+      dark: "#ab003c",
+      contrastText: "#fff",
     },
   },
   spread: {
@@ -34,8 +34,8 @@ export default {
       fullWidth: true,
     },
     button: {
-      marginTop: 20,
       position: "relative",
+      fontWeight: "505",
     },
     customError: {
       color: "#ab003c",
@@ -55,45 +55,48 @@ export default {
       marginBottom: 20,
     },
     paper: {
-      padding: 20,
+      padding: 0,
+    },
+    profileItem: {
+      margin: "10px 0px 10px 0px",
+    },
+    rightGrid: {
+      padding: "40px 40px 20px 40px",
     },
     profile: {
-      "& .image-wrapper": {
-        textAlign: "center",
-        position: "relative",
-        "& button": {
-          position: "absolute",
-          top: "80%",
-          left: "70%",
-        },
+      position: "relative",
+      height: "100%",
+      marginBottom: "50px",
+      textAlign: "left",
+      "& span, svg": {
+        verticalAlign: "middle",
       },
-      "& .profile-image": {
-        width: 200,
-        height: 200,
-        objectFit: "cover",
-        maxWidth: "100%",
-        borderRadius: "50%",
+      "& a": {
+        color: "#00bcd4",
       },
-      "& .profile-details": {
+      "& .interest": {
+        margin: 5,
+      },
+      "& .interests": {
         textAlign: "center",
-        "& span, svg": {
-          verticalAlign: "middle",
-        },
-        "& a": {
-          color: "#00bcd4",
-        },
-        "& .interest": {
-          margin: 5,
-        },
       },
       "& hr": {
-        border: "none",
-        margin: "0 0 10px 0",
+        color: "#e0e0e0",
+        margin: "10px 0 10px 0",
+        border: "1px solid",
       },
       "& svg.button": {
         "&:hover": {
           cursor: "pointer",
         },
+      },
+      "& .profileItems": {
+        padding: "10px",
+      },
+      "& .profileButtons": {
+        width: "100%",
+        position: "absolute",
+        bottom: "0px",
       },
     },
     buttons: {

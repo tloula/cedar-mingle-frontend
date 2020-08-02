@@ -205,6 +205,7 @@ class Profile extends Component {
       renderImage={(props) => (
         <SortablePhoto
           index={props.index}
+          key={props.index}
           photoIndex={props.index}
           direction={props.direction}
           margin={props.margin}
@@ -231,17 +232,14 @@ class Profile extends Component {
           about,
           birthday,
           dream,
-          created,
           hometown,
           interests,
           major,
           name,
           occupation,
-          uid,
           website,
           year,
         },
-        authenticated,
       },
       UI: { loading, loadingSecondary },
     } = this.props;
@@ -284,7 +282,11 @@ class Profile extends Component {
               <hr />
               {about &&
                 lines.map((line) => (
-                  <Typography variant="body2" className={classes.profileItem}>
+                  <Typography
+                    key={Math.floor(Math.random() * 1000 + 1)}
+                    variant="body2"
+                    className={classes.profileItem}
+                  >
                     {line}
                   </Typography>
                 ))}

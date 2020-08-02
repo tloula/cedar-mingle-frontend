@@ -24,18 +24,10 @@ import {
 } from "@material-ui/pickers";
 // Icons
 import EditIcon from "@material-ui/icons/Edit";
-// Custom
-import MyButton from "../../util/MyButton";
 // Helpers
 import DateFnsUtils from "@date-io/date-fns";
 // Interests
-import {
-  sports,
-  activities,
-  travel,
-  food,
-  allInterests,
-} from "../../util/interests";
+import { allInterests } from "../../util/interests";
 
 const styles = (theme) => ({
   ...theme.spread,

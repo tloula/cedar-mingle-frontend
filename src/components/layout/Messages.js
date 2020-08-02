@@ -13,7 +13,6 @@ import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
 // Icons
 import MailIcon from "@material-ui/icons/Mail";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import ChatIcon from "@material-ui/icons/Chat";
 // Helpers
 import dayjs from "dayjs";
@@ -41,7 +40,7 @@ class Messages extends Component {
   };
 
   render() {
-    const { messages } = this.props;
+    const messages = this.props.user.messages ? this.props.user.messages : null;
     const { anchorEl } = this.state;
 
     dayjs.extend(relativeTime);
@@ -111,11 +110,11 @@ class Messages extends Component {
 
 Messages.propTypes = {
   markMessagesRead: PropTypes.func.isRequired,
-  messages: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  messages: state.user.messages,
+  user: state.user,
 });
 
 export default connect(mapStateToProps, { markMessagesRead })(Messages);

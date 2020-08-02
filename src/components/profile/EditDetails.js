@@ -144,8 +144,8 @@ class EditDetails extends Component {
                     type="text"
                     label="Name"
                     placeholder="Your name"
-                    helperText={errors.name}
-                    error={errors.name ? true : false}
+                    helperText={errors.name ? errors.name : undefined}
+                    error={errors.name ? true : undefined}
                     className={classes.textField}
                     value={this.state.name}
                     onChange={this.handleChange}
@@ -158,8 +158,8 @@ class EditDetails extends Component {
                     type="text"
                     label="Hometown"
                     placeholder="Where you're originally from"
-                    helperText={errors.hometown}
-                    error={errors.hometown ? true : false}
+                    helperText={errors.hometown ? errors.hometown : undefined}
+                    error={errors.hometown ? true : undefined}
                     className={classes.textField}
                     value={this.state.hometown}
                     onChange={this.handleChange}
@@ -174,8 +174,8 @@ class EditDetails extends Component {
                     type="text"
                     label="Major"
                     placeholder="Your major at CU"
-                    helperText={errors.major}
-                    error={errors.major ? true : false}
+                    helperText={errors.major ? errors.major : undefined}
+                    error={errors.major ? true : undefined}
                     className={classes.textField}
                     value={this.state.major}
                     onChange={this.handleChange}
@@ -190,8 +190,8 @@ class EditDetails extends Component {
                       name="year"
                       format="yyyy"
                       label="Graduation Year"
-                      helperText={errors.year}
-                      error={errors.year ? true : false}
+                      helperText={errors.year ? errors.year : undefined}
+                      error={errors.year ? true : undefined}
                       className={classes.textField}
                       value={this.state.year}
                       onChange={this.handleYearChange}
@@ -206,8 +206,8 @@ class EditDetails extends Component {
                 type="text"
                 label="Employment"
                 placeholder="Your job"
-                helperText={errors.occupation}
-                error={errors.occupation ? true : false}
+                helperText={errors.occupation ? errors.occupation : undefined}
+                error={errors.occupation ? true : undefined}
                 className={classes.textField}
                 value={this.state.occupation}
                 onChange={this.handleChange}
@@ -218,8 +218,8 @@ class EditDetails extends Component {
                 type="text"
                 label="Dream Job / Career"
                 placeholder="What's the job of your dreams?"
-                helperText={errors.dream}
-                error={errors.dream ? true : false}
+                helperText={errors.dream ? errors.dream : undefined}
+                error={errors.dream ? true : undefined}
                 className={classes.textField}
                 value={this.state.dream}
                 onChange={this.handleChange}
@@ -233,8 +233,8 @@ class EditDetails extends Component {
                 rows="5"
                 maxLength={500}
                 placeholder="A short description of yourself"
-                helperText={errors.about}
-                error={errors.about ? true : false}
+                helperText={errors.about ? errors.about : undefined}
+                error={errors.about ? true : undefined}
                 className={classes.textField}
                 value={this.state.about}
                 onChange={this.handleChange}
@@ -248,7 +248,7 @@ class EditDetails extends Component {
                 defaultValue={this.state.interests}
                 className={classes.textField}
                 onChange={this.handleInterestChange}
-                error={errors.interests ? true : false}
+                error={errors.interests ? true : undefined}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -266,9 +266,9 @@ class EditDetails extends Component {
                   openTo="year"
                   format="dd/MM/yyyy"
                   label="Birthday"
-                  helperText={errors.birthday}
-                  error={errors.birthday ? true : false}
-                  className={classes.textField}
+                  helperText={errors.birthday ? errors.birthday : undefined}
+                  error={errors.birthday ? true : undefined}
+                  className={errors.textField ? errors.textField : undefined}
                   views={["year", "month", "date"]}
                   value={this.state.birthday}
                   onChange={this.handleBirthdayChange}
@@ -280,8 +280,7 @@ class EditDetails extends Component {
                 <InputLabel>Gender</InputLabel>
                 <Select
                   name="gender"
-                  helperText={errors.gender}
-                  error={errors.gender ? true : false}
+                  error={errors.gender ? true : undefined}
                   className={classes.textField}
                   value={this.state.gender}
                   onChange={this.handleChange}
@@ -300,8 +299,8 @@ class EditDetails extends Component {
                 type="text"
                 label="Website"
                 placeholder="Your personal or professinal website"
-                helperText={errors.website}
-                error={errors.website ? true : false}
+                helperText={errors.website ? errors.website : undefined}
+                error={errors.website ? true : undefined}
                 className={classes.textField}
                 value={this.state.website}
                 onChange={this.handleChange}

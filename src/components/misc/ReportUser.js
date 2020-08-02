@@ -6,14 +6,17 @@ import { connect } from "react-redux";
 import { reportUser } from "../../redux/actions/dataActions";
 // MUI
 import Button from "@material-ui/core/Button";
+import CloseIcon from "@material-ui/icons/Close";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import FormControl from "@material-ui/core/FormControl";
+import IconButton from "@material-ui/core/IconButton";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import Snackbar from "@material-ui/core/Snackbar";
 import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -35,6 +38,7 @@ class ReportUser extends Component {
     errors: {},
     reporting: false,
     open: false,
+    snackbarOpen: false,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -44,6 +48,7 @@ class ReportUser extends Component {
     }
     if (nextProps.data.reported) {
       this.handleClose();
+      this.setState({ snackbarOpen: true });
     }
   }
 
@@ -71,12 +76,16 @@ class ReportUser extends Component {
     this.setState({ reporting: true });
   };
 
+  handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState({ snackbarOpen: false });
+  };
+
   render() {
-    const { uid, name } = this.props;
-    const { classes } = this.props;
-    const { errors } = this.state;
-    const { reported } = this.props;
-    const { reporting } = this.state;
+    const { uid, name, reported, classes } = this.props;
+    const { errors, reporting, snackbarOpen } = this.state;
 
     return (
       <Fragment>
@@ -147,6 +156,28 @@ class ReportUser extends Component {
             </Button>
           </DialogActions>
         </Dialog>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={snackbarOpen}
+          autoHideDuration={5000}
+          onClose={this.handleCloseSnackbar}
+          message="User has been reported"
+          action={
+            <React.Fragment>
+              <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={this.handleCloseSnackbar}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </React.Fragment>
+          }
+        />
       </Fragment>
     );
   }

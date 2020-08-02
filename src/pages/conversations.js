@@ -14,6 +14,8 @@ import Paper from "@material-ui/core/Paper";
 // Components
 import Conversations from "../components/messages/Conversations";
 import Conversation from "../components/messages/Conversation";
+import ConversationsSkeleton from "../components/skeletons/ConversationsSkeleton";
+import ConversationSkeleton from "../components/skeletons/ConversationSkeleton";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -60,7 +62,7 @@ class conversations extends Component {
       <Grid container spacing={5}>
         <Grid item md={4} sm={12}>
           {loading ? (
-            <p>Loading Conversations</p>
+            <ConversationsSkeleton />
           ) : conversations[0] ? (
             <Paper className={classes.paper}>
               <Conversations
@@ -75,7 +77,9 @@ class conversations extends Component {
         </Grid>
         <Grid item md={8} sm={12}>
           {loading ? (
-            <p>Loading Conversation</p>
+            <Paper className={classes.paper} style={{ padding: "25px" }}>
+              <ConversationSkeleton />
+            </Paper>
           ) : conversation ? (
             <Paper
               className={classes.paper}

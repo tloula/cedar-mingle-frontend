@@ -11,8 +11,8 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 // Components
 import StaticProfile from "../components/profile/StaticProfile";
-import ExploreAction from "../components/explore/ExploreAction";
-import ResendVerification from "../components/matches/ResendVerification";
+import ExploreAction from "../components/misc/ExploreAction";
+import ResendVerification from "../components/misc/ResendVerification";
 
 const styles = (theme) => ({
   ...theme.spread,

@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { getMatches } from "../redux/actions/dataActions";
 // Components
 import MatchItem from "../components/matches/MatchItem";
-import MatchItemSkeleton from "../util/MatchItemSkeleton";
+import MatchItemSkeleton from "../components/skeletons/MatchItemSkeleton";
 
 const styles = (theme) => ({
   ...theme.spread,

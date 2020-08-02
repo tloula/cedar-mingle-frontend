@@ -3,7 +3,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 // Redux
 import { connect } from "react-redux";
-import { reportUser } from "../redux/actions/dataActions";
+import { reportUser } from "../../redux/actions/dataActions";
 // MUI
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -21,13 +21,13 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CheckIcon from "@material-ui/icons/Check";
 import SecurityIcon from "@material-ui/icons/Security";
 // Components
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 
 const styles = (theme) => ({
   ...theme.spread,
 });
 
-class EditSettings extends Component {
+class ReportUser extends Component {
   state = {
     description: "",
     reason: "",
@@ -152,7 +152,7 @@ class EditSettings extends Component {
   }
 }
 
-EditSettings.propTypes = {
+ReportUser.propTypes = {
   reportUser: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
@@ -166,5 +166,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { reportUser })(
-  withStyles(styles)(EditSettings)
+  withStyles(styles)(ReportUser)
 );

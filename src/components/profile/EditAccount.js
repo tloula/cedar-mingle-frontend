@@ -13,7 +13,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import ResendVerification from "../matches/ResendVerification";
+import ResendVerification from "../misc/ResendVerification";
 
 const styles = (theme) => ({
   ...theme.spread,

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 // Components
 import StaticProfile from "../components/profile/StaticProfile";
-import ProfileSkeleton from "../util/ProfileSkeleton";
+import ProfileSkeleton from "../components/skeletons/ProfileSkeleton";
 // API
 import { getUserData } from "../redux/actions/dataActions";
 

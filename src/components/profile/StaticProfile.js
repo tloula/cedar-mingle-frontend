@@ -21,8 +21,8 @@ import { Scrollbars } from "react-custom-scrollbars";
 // Misc
 import dayjs from "dayjs";
 // Components
-import ProfileSkeleton from "../../util/ProfileSkeleton";
-import ReportUser from "../ReportUser";
+import ProfileSkeleton from "../skeletons/ProfileSkeleton";
+import ReportUser from "../misc/ReportUser";
 
 const styles = (theme) => ({
   ...theme.spread,

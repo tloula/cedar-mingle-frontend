@@ -39,7 +39,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import dayjs from "dayjs";
 // Components
 import EditDetails from "./EditDetails";
-import ProfileSkeleton from "../../util/ProfileSkeleton";
+import ProfileSkeleton from "../skeletons/ProfileSkeleton";
 // Helpers
 import { age } from "../../util/helpers";
 

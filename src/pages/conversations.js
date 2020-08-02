@@ -12,8 +12,8 @@ import {
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 // Components
-import Conversations from "../components/matches/Conversations";
-import Conversation from "../components/matches/Conversation";
+import Conversations from "../components/messages/Conversations";
+import Conversation from "../components/messages/Conversation";
 
 const styles = (theme) => ({
   ...theme.spread,

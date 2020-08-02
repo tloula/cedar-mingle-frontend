@@ -20,7 +20,7 @@ import Switch from "@material-ui/core/Switch";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import ResendVerification from "../matches/ResendVerification";
+import ResendVerification from "../misc/ResendVerification";
 
 const styles = (theme) => ({
   ...theme.spread,

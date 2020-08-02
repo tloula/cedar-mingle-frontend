@@ -53,11 +53,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         conversation: action.payload,
+        sent: false,
       };
     case SET_CONVERSATIONS:
       return {
         ...state,
         conversations: action.payload.conversations,
+        sent: false,
       };
     case SET_REPORT_USER:
       return {

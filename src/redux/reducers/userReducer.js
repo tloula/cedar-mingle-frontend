@@ -1,11 +1,13 @@
 import {
   MARK_MESSAGES_READ,
   MARK_NOTIFICATIONS_READ,
-  SET_USER,
   SET_AUTHENTICATED,
+  SET_FORGOT_PASSWORD_SENT,
+  SET_USER,
   SET_SETTINGS,
   SET_NOTIFICATIONS,
   SET_UNAUTHENTICATED,
+  SET_VERIFICATION_RESENT,
 } from "../types";
 
 const initialState = {
@@ -14,6 +16,8 @@ const initialState = {
   settings: {},
   edited: false,
   notifications: [],
+  resent: false,
+  sent: false,
 };
 
 export default function (state = initialState, action) {
@@ -40,6 +44,16 @@ export default function (state = initialState, action) {
         ...state,
         edited: true,
         ...action.payload,
+      };
+    case SET_VERIFICATION_RESENT:
+      return {
+        ...state,
+        resent: true,
+      };
+    case SET_FORGOT_PASSWORD_SENT:
+      return {
+        ...state,
+        sent: true,
       };
     case MARK_NOTIFICATIONS_READ:
       state.notifications.forEach((not) => (not.read = true));

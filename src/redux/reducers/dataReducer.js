@@ -8,7 +8,6 @@ import {
   SET_PROFILE,
   SET_CONVERSATION,
   SET_CONVERSATIONS,
-  SET_VERIFICATION_RESENT,
   SET_REPORT_USER,
   CLEAR_DATA,
 } from "../types";
@@ -19,7 +18,6 @@ const initialState = {
   conversations: [],
   conversation: {},
   match: false,
-  resent: false,
   reported: false,
   sent: false,
 };
@@ -60,11 +58,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         conversations: action.payload.conversations,
-      };
-    case SET_VERIFICATION_RESENT:
-      return {
-        ...state,
-        resent: true,
       };
     case SET_REPORT_USER:
       return {

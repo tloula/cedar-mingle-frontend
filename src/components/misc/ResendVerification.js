@@ -80,7 +80,7 @@ class ResendVerification extends Component {
 
 const mapStateToProps = (state) => ({
   settings: state.user.settings,
-  resent: state.data.resent,
+  resent: state.user.resent,
   UI: state.UI,
 });
 

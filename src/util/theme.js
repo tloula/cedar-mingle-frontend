@@ -21,7 +21,7 @@ export default {
       textAlign: "center",
     },
     image: {
-      margin: "20px auto 20px auto",
+      margin: "auto auto auto auto",
     },
     pageTitle: {
       margin: "10px auto 10px auto",
@@ -103,6 +103,31 @@ export default {
       textAlign: "center",
       "& a": {
         margin: "20px 10px",
+      },
+    },
+    hr: {
+      color: "#e0e0e0",
+      margin: "10px 0 10px 0",
+      border: "1px solid",
+    },
+    footer: {
+      textAlign: "center",
+      marginTop: "1rem",
+      position: "fixed",
+      padding: "3px",
+      borderTop: "#dbdbdb 1px solid",
+      backgroundColor: "#efefef",
+      bottom: "0",
+      left: "0",
+      width: "100%",
+      "& a": {
+        color: "#3f50b5",
+      },
+      "& p": {
+        padding: "5px",
+      },
+      "& img": {
+        marginLeft: "50%",
       },
     },
   },

@@ -1,12 +1,15 @@
 // React
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 // Redux
 import { connect } from "react-redux";
 import { signupUser } from "../redux/actions/userActions";
 import PropTypes from "prop-types";
 // Material-UI
 import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import { Paper } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -24,32 +27,43 @@ class signup extends Component {
       email: "",
       password: "",
       confirmPassword: "",
+      legal: false,
       errors: {},
     };
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
+
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({
       loading: true,
     });
-    const newUserData = {
+    const data = {
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
-      handle: this.state.handle,
+      legal: this.state.legal,
     };
-    this.props.signupUser(newUserData, this.props.history);
+    this.props.signupUser(data, this.props.history);
   };
+
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
+
+  handleCheckbox = (event) => {
+    this.setState({
+      [event.target.name]: !this.state.legal,
+    });
+  };
+
   render() {
     const {
       classes,
@@ -102,6 +116,37 @@ class signup extends Component {
                   value={this.state.confirmPassword}
                   onChange={this.handleChange}
                   fullWidth
+                />{" "}
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="legal"
+                      color={"primary"}
+                      checked={this.state.legal}
+                      onChange={this.handleCheckbox}
+                    />
+                  }
+                  label={
+                    <Typography
+                      variant="caption"
+                      style={errors.legal ? { color: "red" } : undefined}
+                    >
+                      By checking this box you confirm that you have read and
+                      that you agree to the{" "}
+                      <Link to="/terms" target="_blank">
+                        Terms and Conditions
+                      </Link>
+                      ,{" "}
+                      <Link to="/privacy" target="_blank">
+                        Privacy Policy
+                      </Link>
+                      , and{" "}
+                      <Link to="/disclaimer" target="_blank">
+                        Legal Disclaimer
+                      </Link>
+                      .
+                    </Typography>
+                  }
                 />
                 {errors.general && (
                   <Typography variant="body2" className={classes.customError}>
@@ -114,6 +159,7 @@ class signup extends Component {
                   color="primary"
                   className={classes.button}
                   disabled={loading}
+                  style={{ marginTop: "20px" }}
                 >
                   SignUp
                   {loading && (

@@ -28,11 +28,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         match: false,
+        reported: false,
         profile: action.payload,
       };
     case LIKE_USER:
       return {
         ...state,
+        reported: false,
         match: action.payload.match,
       };
     case SET_MATCHES:
@@ -43,6 +45,7 @@ export default function (state = initialState, action) {
     case SET_PROFILE:
       return {
         ...state,
+        reported: false,
         profile: action.payload,
       };
     case SET_UNMATCH:

@@ -14,10 +14,11 @@ import {
   getNotifications,
 } from "./redux/actions/userActions";
 // Components
-import Navbar from "./components/layout/Navbar";
-import themeObject from "./util/theme";
 import AuthRoute from "./util/AuthRoute";
+import Footer from "./components/layout/Footer";
+import Navbar from "./components/layout/Navbar";
 import PrivateRoute from "./util/PrivateRoute";
+import themeObject from "./util/theme";
 // Pages
 import home from "./pages/home";
 import login from "./pages/login";
@@ -27,6 +28,9 @@ import profile from "./pages/profile";
 import explore from "./pages/explore";
 import matches from "./pages/matches";
 import conversations from "./pages/conversations";
+import terms from "./pages/terms";
+import privacy from "./pages/privacy";
+import disclaimer from "./pages/disclaimer";
 
 import axios from "axios";
 
@@ -58,6 +62,9 @@ class App extends Component {
             <div className="container">
               <Switch>
                 <Route exact path="/" component={home} />
+                <Route exact path="/terms" component={terms} />
+                <Route exact path="/privacy" component={privacy} />
+                <Route exact path="/disclaimer" component={disclaimer} />
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signup" component={signup} />
                 <PrivateRoute exact path="/explore" component={explore} />
@@ -76,6 +83,7 @@ class App extends Component {
                 <PrivateRoute exact path="/profile" component={profile} />
               </Switch>
             </div>
+            <Footer />
           </Router>
         </Provider>
       </MuiThemeProvider>

@@ -111,15 +111,14 @@ export default {
       border: "1px solid",
     },
     footer: {
+      position: "relative",
+      bottom: "0px",
+      width: "100%",
       textAlign: "center",
       marginTop: "1rem",
-      position: "fixed",
       padding: "3px",
       borderTop: "#dbdbdb 1px solid",
       backgroundColor: "#efefef",
-      bottom: "0",
-      left: "0",
-      width: "100%",
       "& a": {
         color: "#3f50b5",
       },

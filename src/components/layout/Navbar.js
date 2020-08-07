@@ -170,7 +170,14 @@ class Navbar extends Component {
         <div className={classes.grow}>
           <AppBar position="static">
             <Toolbar>
-              <Typography className={classes.title} variant="h6" noWrap>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                noWrap
+                component={Link}
+                to="/"
+                style={{ color: "#FFF" }}
+              >
                 Cedar Mingle
               </Typography>
               <div className={classes.centerButtons}>

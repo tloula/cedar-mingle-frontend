@@ -20,11 +20,13 @@ class Footer extends Component {
       <div className={classes.footer}>
         <Grid container spacing={0}>
           <Grid item sm>
-            <img src={AppIcon} alt="monkey" className={classes.image} />
+            <img src={AppIcon} alt="CM" className={classes.image} />
           </Grid>
           <Grid item sm style={{ margin: "auto" }}>
             {" "}
-            <Typography variant="body2">&copy; 2020 Cedar Mingle</Typography>
+            <Typography variant="body2">
+              Copyright &copy; Cedar Mingle 2020
+            </Typography>
             <Typography variant="body2">
               <Link to="/terms">Terms &amp; Conditions</Link> |{" "}
               <Link to="/privacy">Privacy Policy</Link> |{" "}

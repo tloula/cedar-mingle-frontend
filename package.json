@@ -18,6 +18,7 @@
     "image-blob-reduce": "^1.0.4",
     "jwt-decode": "^2.2.0",
     "material-ui-dropzone": "^3.3.0",
+    "material-ui-image": "^3.2.3",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-custom-scrollbars": "^4.2.1",

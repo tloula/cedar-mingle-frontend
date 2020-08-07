@@ -55,38 +55,42 @@ if (token) {
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
-        <Provider store={store}>
-          <Router>
-            <Navbar />
-            <div className="container">
+      <>
+        <MuiThemeProvider theme={theme}>
+          <Provider store={store}>
+            <Router>
+              <Navbar />
               <Switch>
                 <Route exact path="/" component={home} />
-                <Route exact path="/terms" component={terms} />
-                <Route exact path="/privacy" component={privacy} />
-                <Route exact path="/disclaimer" component={disclaimer} />
-                <AuthRoute exact path="/login" component={login} />
-                <AuthRoute exact path="/signup" component={signup} />
-                <PrivateRoute exact path="/explore" component={explore} />
-                <PrivateRoute exact path="/matches" component={matches} />
-                <PrivateRoute
-                  exact
-                  path="/conversations"
-                  component={conversations}
-                />
-                <PrivateRoute
-                  exact
-                  path="/conversations/:uid"
-                  component={conversations}
-                />
-                <PrivateRoute exact path="/users/:uid" component={user} />
-                <PrivateRoute exact path="/profile" component={profile} />
               </Switch>
-            </div>
-            <Footer />
-          </Router>
-        </Provider>
-      </MuiThemeProvider>
+              <div className="container">
+                <Switch>
+                  <Route exact path="/terms" component={terms} />
+                  <Route exact path="/privacy" component={privacy} />
+                  <Route exact path="/disclaimer" component={disclaimer} />
+                  <AuthRoute exact path="/login" component={login} />
+                  <AuthRoute exact path="/signup" component={signup} />
+                  <PrivateRoute exact path="/explore" component={explore} />
+                  <PrivateRoute exact path="/matches" component={matches} />
+                  <PrivateRoute
+                    exact
+                    path="/conversations"
+                    component={conversations}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/conversations/:uid"
+                    component={conversations}
+                  />
+                  <PrivateRoute exact path="/users/:uid" component={user} />
+                  <PrivateRoute exact path="/profile" component={profile} />
+                </Switch>
+              </div>
+              <Footer />
+            </Router>
+          </Provider>
+        </MuiThemeProvider>
+      </>
     );
   }
 }

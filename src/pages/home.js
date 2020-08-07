@@ -5,8 +5,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 // Material-UI
 import withStyles from "@material-ui/core/styles/withStyles";
-// Helpers
-import Image from "material-ui-image";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -16,7 +14,7 @@ class home extends Component {
   componentDidMount() {}
   render() {
     const { classes } = this.props;
-    return <p>Home</p>;
+    return <p>Home Page</p>;
   }
 }
 

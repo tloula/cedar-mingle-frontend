@@ -55,20 +55,23 @@ if (token) {
 }
 
 class App extends Component {
-  state = { theme: localStorage.theme === "dark" ? darkTheme : lightTheme };
+  // This is never used, but required to update the state
+  state = { theme: "light" };
 
   toggleTheme = () => {
-    if (this.state.theme.palette.type === "light") {
-      this.setState({ theme: darkTheme });
-      localStorage.setItem("theme", "dark");
-    } else {
-      this.setState({ theme: lightTheme });
+    if (localStorage.theme === "dark") {
+      this.setState({ theme: "light" });
       localStorage.setItem("theme", "light");
+    } else {
+      this.setState({ theme: "dark" });
+      localStorage.setItem("theme", "dark");
     }
   };
 
   render() {
-    const theme = createMuiTheme(this.state.theme);
+    const theme = createMuiTheme(
+      localStorage.theme === "dark" ? darkTheme : lightTheme
+    );
     return (
       <>
         <MuiThemeProvider theme={theme}>
@@ -76,7 +79,7 @@ class App extends Component {
             <Router>
               <div
                 style={
-                  this.state.theme === darkTheme
+                  localStorage.theme === "dark"
                     ? {
                         backgroundColor: "rgb(30, 32, 33)",
                         height: "100%",

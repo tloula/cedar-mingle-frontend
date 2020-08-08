@@ -24,7 +24,6 @@ import Messages from "../layout/Messages";
 // Icons
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import { Switch } from "@material-ui/core";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -118,7 +117,7 @@ class Navbar extends Component {
           Profile
         </MenuItem>
         <MenuItem onClick={this.handleMenuClose}>
-          <EditSettings />
+          <EditSettings toggleTheme={toggleTheme} />
         </MenuItem>
         <MenuItem onClick={this.handleMenuClose}>
           <EditAccount />
@@ -201,11 +200,6 @@ class Navbar extends Component {
                   </>
                 ) : (
                   <>
-                    <Switch
-                      checked={localStorage.theme === "dark"}
-                      onChange={toggleTheme}
-                      name="toggle-theme"
-                    />
                     <Button color="inherit" component={Link} to="/login">
                       Login
                     </Button>
@@ -218,11 +212,6 @@ class Navbar extends Component {
               {authenticated && (
                 <>
                   <div className={classes.grow} />
-                  <Switch
-                    checked={localStorage.theme === "dark"}
-                    onChange={toggleTheme}
-                    name="toggle-theme"
-                  />
                   <div className={classes.sectionDesktop}>
                     <Messages />
                     <Notifications />

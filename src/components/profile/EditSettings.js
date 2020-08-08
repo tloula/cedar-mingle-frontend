@@ -134,7 +134,7 @@ class EditSettings extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, toggleTheme } = this.props;
     const { errors } = this.state;
 
     return (
@@ -197,6 +197,24 @@ class EditSettings extends Component {
                       />
                     </FormGroup>
                   </FormControl>
+                  <Tooltip
+                    title="Show your profile to other users"
+                    aria-label="add"
+                  >
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={this.state.visible}
+                          onChange={this.handleChange}
+                          name="visible"
+                        />
+                      }
+                      label="Profile Visibility"
+                    />
+                  </Tooltip>
+                  <FormHelperText error={errors.visible ? true : false}>
+                    {errors.visible}
+                  </FormHelperText>
                 </Grid>
                 <Grid item sm={6} xs={12}>
                   <FormControl
@@ -262,29 +280,16 @@ class EditSettings extends Component {
                       </FormHelperText>
                     </FormGroup>
                   </FormControl>
-                </Grid>
-              </Grid>
-              <Grid container>
-                <Grid item sm={4} xs={12}></Grid>
-                <Grid item sm={4} xs={12}>
-                  <Tooltip
-                    title="Show your profile to other users"
-                    aria-label="add"
-                  >
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={this.state.visible}
-                          onChange={this.handleChange}
-                          name="visible"
-                        />
-                      }
-                      label="Profile Visibility"
-                    />
-                  </Tooltip>
-                  <FormHelperText error={errors.visible ? true : false}>
-                    {errors.visible}
-                  </FormHelperText>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={localStorage.theme === "dark"}
+                        onChange={toggleTheme}
+                        name="toggle-theme"
+                      />
+                    }
+                    label="Dark Mode"
+                  />
                 </Grid>
               </Grid>
               <ResendVerification />

@@ -210,8 +210,8 @@ class Conversation extends Component {
     return (
       <>
         <Scrollbars
-          style={{ maxHeight: 600 }}
-          autoHeightMax={600}
+          style={{ maxHeight: "600px" }}
+          autoHeightMax={"600px"}
           autoHeight
           ref="scrollbars"
           onScrollStop={() => {

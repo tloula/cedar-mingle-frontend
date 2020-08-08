@@ -112,22 +112,32 @@ export default {
     },
     footer: {
       position: "relative",
-      bottom: "0px",
+      left: "0",
+      bottom: "0",
       width: "100%",
+      paddingTop: "3px",
+      paddingBottom: "3px",
       textAlign: "center",
-      marginTop: "1rem",
-      padding: "3px",
-      borderTop: "#dbdbdb 1px solid",
-      backgroundColor: "#efefef",
+      backgroundColor: "#3f50b5",
+      boxShadow: `
+        0px 0px 4px 2px rgba(0,0,0,0.2),
+        0px 0px 5px 4px rgba(0,0,0,0.14),
+        0px -1px 10px 1px rgba(0,0,0,0.12)`,
+      color: "#fff",
       "& a": {
-        color: "#3f50b5",
+        color: "#fff",
       },
       "& p": {
         padding: "5px",
       },
-      "& img": {
-        marginLeft: "50%",
-      },
+    },
+    footerContainer: {
+      width: "1200px",
+      margin: "auto",
+    },
+    footerItem: {
+      fontFamily: "Poppins",
+      margin: "5px 10px 5px 10px",
     },
   },
 };

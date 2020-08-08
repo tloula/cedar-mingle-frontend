@@ -59,7 +59,7 @@ class conversations extends Component {
     } = this.props;
 
     return (
-      <Grid container spacing={5}>
+      <Grid container spacing={4}>
         <Grid item md={4} sm={12}>
           {loading ? (
             <ConversationsSkeleton />

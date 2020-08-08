@@ -18,22 +18,30 @@ class Footer extends Component {
 
     return (
       <div className={classes.footer}>
-        <Grid container spacing={0}>
-          <Grid item sm>
-            <img src={AppIcon} alt="CM" className={classes.image} />
-          </Grid>
-          <Grid item sm style={{ margin: "auto" }}>
-            {" "}
+        <Grid container className={classes.footerContainer}>
+          <Grid item sm style={{ textAlign: "left" }}>
             <Typography variant="body2">
-              Copyright &copy; Cedar Mingle 2020
-            </Typography>
-            <Typography variant="body2">
-              <Link to="/terms">Terms &amp; Conditions</Link> |{" "}
-              <Link to="/privacy">Privacy Policy</Link> |{" "}
-              <Link to="/disclaimer">Legal Disclaimer</Link>
+              <span className={classes.footerItem}>
+                Copyright &copy; 2020 All rights reserved
+              </span>
             </Typography>
           </Grid>
-          <Grid item sm></Grid>
+          <Grid item sm style={{ textAlign: "right" }}>
+            <Typography variant="body2">
+              <span className={classes.footerItem}>
+                <Link to="/privacy">Privacy</Link>
+              </span>
+              <span className={classes.footerItem}>
+                <Link to="/disclaimer">Disclaimer</Link>
+              </span>
+              <span className={classes.footerItem}>
+                <Link to="/terms">Terms of Service</Link>
+              </span>
+              <span className={classes.footerItem}>
+                <Link to="mailto:support@cedarmingle.com">Contact</Link>
+              </span>
+            </Typography>
+          </Grid>
         </Grid>
       </div>
     );

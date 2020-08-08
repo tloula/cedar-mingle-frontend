@@ -60,11 +60,9 @@ class App extends Component {
           <Provider store={store}>
             <Router>
               <Navbar />
-              <Switch>
-                <Route exact path="/" component={home} />
-              </Switch>
               <div className="container">
                 <Switch>
+                  <Route exact path="/" component={home} />
                   <Route exact path="/terms" component={terms} />
                   <Route exact path="/privacy" component={privacy} />
                   <Route exact path="/disclaimer" component={disclaimer} />

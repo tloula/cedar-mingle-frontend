@@ -14,6 +14,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
 // Helpers
 import dayjs from "dayjs";
+import { Scrollbars } from "react-custom-scrollbars";
+
 var relativeTime = require("dayjs/plugin/relativeTime");
 dayjs.extend(relativeTime);
 
@@ -53,69 +55,79 @@ class Conversations extends Component {
     const { classes, conversations, uid } = this.props;
 
     return (
-      <List className={classes.container}>
-        {conversations
-          .sort(function (x, y) {
-            return x.latest.created < y.latest.created;
-          })
-          .map((conversation) => (
-            <ListItem
-              button
-              alignItems="flex-start"
-              key={conversation.uid}
-              selected={conversation.uid === uid}
-              component={Link}
-              to={`/conversations/${conversation.uid}`}
-            >
-              <ListItemAvatar>
-                <Avatar>{conversation.name[0]}</Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  <span
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <React.Fragment>
-                      <Typography
-                        component="span"
-                        variant="h6"
-                        color="secondary"
-                      >
-                        {conversation.name}
-                      </Typography>
-                      <Typography
-                        component="span"
-                        variant="body2"
-                        className={classes.inline}
-                        color="textSecondary"
-                      >
-                        {dayjs(conversation.latest.created).fromNow()}
-                      </Typography>
-                    </React.Fragment>
-                  </span>
-                }
-                secondary={
-                  conversation.latest && (
-                    <Fragment>
-                      <Typography
-                        component="span"
-                        variant={"body2"}
-                        className={classes.inline}
-                        color="textPrimary"
-                      >
-                        {conversation.latest.sender.uid !== conversation.uid &&
-                          "You: "}
-                      </Typography>
-                      <span style={this.isBold(conversation)}>
-                        {conversation.latest.text}
-                      </span>
-                    </Fragment>
-                  )
-                }
-              />
-            </ListItem>
-          ))}
-      </List>
+      <Scrollbars
+        style={{ maxHeight: 550 }}
+        autoHeightMax={550}
+        autoHeight
+        ref="scrollbars"
+      >
+        <List className={classes.container}>
+          {conversations
+            .sort(function (x, y) {
+              return x.latest.created < y.latest.created;
+            })
+            .map((conversation) => (
+              <ListItem
+                button
+                alignItems="flex-start"
+                key={conversation.uid}
+                selected={conversation.uid === uid}
+                component={Link}
+                to={`/conversations/${conversation.uid}`}
+              >
+                <ListItemAvatar>
+                  <Avatar>{conversation.name[0]}</Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    <span
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <React.Fragment>
+                        <Typography
+                          component="span"
+                          variant="h6"
+                          color="secondary"
+                        >
+                          {conversation.name}
+                        </Typography>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          className={classes.inline}
+                          color="textSecondary"
+                        >
+                          {dayjs(conversation.latest.created).fromNow()}
+                        </Typography>
+                      </React.Fragment>
+                    </span>
+                  }
+                  secondary={
+                    conversation.latest && (
+                      <Fragment>
+                        <Typography
+                          component="span"
+                          variant={"body2"}
+                          className={classes.inline}
+                          color="textPrimary"
+                        >
+                          {conversation.latest.sender.uid !==
+                            conversation.uid && "You: "}
+                        </Typography>
+                        <span style={this.isBold(conversation)}>
+                          {conversation.latest.text}
+                        </span>
+                      </Fragment>
+                    )
+                  }
+                />
+              </ListItem>
+            ))}
+        </List>
+      </Scrollbars>
     );
   }
 }

@@ -99,13 +99,9 @@ class Navbar extends Component {
     this.setState({ snackbarOpen: false });
   };
 
-  handleToggleTheme = () => {
-    this.setState({ darkMode: !this.state.darkMode });
-  };
-
   render() {
     const { classes, authenticated, toggleTheme } = this.props;
-    const { snackbarOpen, darkMode } = this.state;
+    const { snackbarOpen } = this.state;
 
     let menuId = "primary-search-account-menu";
     let renderMenu = (
@@ -206,11 +202,8 @@ class Navbar extends Component {
                 ) : (
                   <>
                     <Switch
-                      checked={darkMode}
-                      onChange={() => {
-                        toggleTheme();
-                        this.handleToggleTheme();
-                      }}
+                      checked={localStorage.theme === "dark"}
+                      onChange={toggleTheme}
                       name="toggle-theme"
                     />
                     <Button color="inherit" component={Link} to="/login">
@@ -226,11 +219,8 @@ class Navbar extends Component {
                 <>
                   <div className={classes.grow} />
                   <Switch
-                    checked={darkMode}
-                    onChange={() => {
-                      toggleTheme();
-                      this.handleToggleTheme();
-                    }}
+                    checked={localStorage.theme === "dark"}
+                    onChange={toggleTheme}
                     name="toggle-theme"
                   />
                   <div className={classes.sectionDesktop}>

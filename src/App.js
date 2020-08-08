@@ -55,13 +55,15 @@ if (token) {
 }
 
 class App extends Component {
-  state = { theme: lightTheme };
+  state = { theme: localStorage.theme === "dark" ? darkTheme : lightTheme };
 
   toggleTheme = () => {
     if (this.state.theme.palette.type === "light") {
       this.setState({ theme: darkTheme });
+      localStorage.setItem("theme", "dark");
     } else {
       this.setState({ theme: lightTheme });
+      localStorage.setItem("theme", "light");
     }
   };
 

@@ -19,7 +19,7 @@ class terms extends Component {
           Terms and Conditions
         </Typography>
         <hr className={classes.hr} />
-        <Typography variant="body1">
+        <Typography variant="body2" color="textPrimary">
           <small>Last updated: 2020-08-04</small>
           <p>
             1. <b>Introduction</b>

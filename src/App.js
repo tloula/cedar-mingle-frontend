@@ -1,9 +1,6 @@
+// React
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.css";
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import jwtDecode from "jwt-decode";
 // Redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -13,12 +10,15 @@ import {
   getUserData,
   getNotifications,
 } from "./redux/actions/userActions";
+// Material-UI
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 // Components
 import AuthRoute from "./util/AuthRoute";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import PrivateRoute from "./util/PrivateRoute";
-import themeObject from "./util/theme";
+import { lightTheme, darkTheme } from "./util/theme";
 // Pages
 import home from "./pages/home";
 import login from "./pages/login";
@@ -31,10 +31,12 @@ import conversations from "./pages/conversations";
 import terms from "./pages/terms";
 import privacy from "./pages/privacy";
 import disclaimer from "./pages/disclaimer";
+// Helpers
+import jwtDecode from "jwt-decode";
+// Styles
+import "./App.css";
 
 import axios from "axios";
-
-const theme = createMuiTheme(themeObject);
 
 axios.defaults.baseURL = "http://localhost:5000/cedar-mingle/us-central1/api";
 
@@ -53,38 +55,60 @@ if (token) {
 }
 
 class App extends Component {
+  state = { theme: lightTheme };
+
+  toggleTheme = () => {
+    if (this.state.theme.palette.type === "light") {
+      this.setState({ theme: darkTheme });
+    } else {
+      this.setState({ theme: lightTheme });
+    }
+  };
+
   render() {
+    const theme = createMuiTheme(this.state.theme);
     return (
       <>
         <MuiThemeProvider theme={theme}>
           <Provider store={store}>
             <Router>
-              <Navbar />
-              <div className="container">
-                <Switch>
-                  <Route exact path="/" component={home} />
-                  <Route exact path="/terms" component={terms} />
-                  <Route exact path="/privacy" component={privacy} />
-                  <Route exact path="/disclaimer" component={disclaimer} />
-                  <AuthRoute exact path="/login" component={login} />
-                  <AuthRoute exact path="/signup" component={signup} />
-                  <PrivateRoute exact path="/explore" component={explore} />
-                  <PrivateRoute exact path="/matches" component={matches} />
-                  <PrivateRoute
-                    exact
-                    path="/conversations"
-                    component={conversations}
-                  />
-                  <PrivateRoute
-                    exact
-                    path="/conversations/:uid"
-                    component={conversations}
-                  />
-                  <PrivateRoute exact path="/users/:uid" component={user} />
-                  <PrivateRoute exact path="/profile" component={profile} />
-                </Switch>
+              <div
+                style={
+                  this.state.theme === darkTheme
+                    ? {
+                        backgroundColor: "rgb(30, 32, 33)",
+                        height: "100%",
+                      }
+                    : { height: "100%" }
+                }
+              >
+                <Navbar toggleTheme={this.toggleTheme} />
+                <div className="container">
+                  <Switch>
+                    <Route exact path="/" component={home} />
+                    <Route exact path="/terms" component={terms} />
+                    <Route exact path="/privacy" component={privacy} />
+                    <Route exact path="/disclaimer" component={disclaimer} />
+                    <AuthRoute exact path="/login" component={login} />
+                    <AuthRoute exact path="/signup" component={signup} />
+                    <PrivateRoute exact path="/explore" component={explore} />
+                    <PrivateRoute exact path="/matches" component={matches} />
+                    <PrivateRoute
+                      exact
+                      path="/conversations"
+                      component={conversations}
+                    />
+                    <PrivateRoute
+                      exact
+                      path="/conversations/:uid"
+                      component={conversations}
+                    />
+                    <PrivateRoute exact path="/users/:uid" component={user} />
+                    <PrivateRoute exact path="/profile" component={profile} />
+                  </Switch>
+                </div>
+                <Footer />
               </div>
-              <Footer />
             </Router>
           </Provider>
         </MuiThemeProvider>

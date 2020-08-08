@@ -24,6 +24,7 @@ import Messages from "../layout/Messages";
 // Icons
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import { Switch } from "@material-ui/core";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -61,6 +62,7 @@ class Navbar extends Component {
     anchorEl: false,
     mobileMoreAnchorEl: false,
     snackbarOpen: false,
+    darkMode: false,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -97,9 +99,13 @@ class Navbar extends Component {
     this.setState({ snackbarOpen: false });
   };
 
+  handleToggleTheme = () => {
+    this.setState({ darkMode: !this.state.darkMode });
+  };
+
   render() {
-    const { classes, authenticated } = this.props;
-    const { snackbarOpen } = this.state;
+    const { classes, authenticated, toggleTheme } = this.props;
+    const { snackbarOpen, darkMode } = this.state;
 
     let menuId = "primary-search-account-menu";
     let renderMenu = (
@@ -199,6 +205,14 @@ class Navbar extends Component {
                   </>
                 ) : (
                   <>
+                    <Switch
+                      checked={darkMode}
+                      onChange={() => {
+                        toggleTheme();
+                        this.handleToggleTheme();
+                      }}
+                      name="toggle-theme"
+                    />
                     <Button color="inherit" component={Link} to="/login">
                       Login
                     </Button>
@@ -211,6 +225,14 @@ class Navbar extends Component {
               {authenticated && (
                 <>
                   <div className={classes.grow} />
+                  <Switch
+                    checked={darkMode}
+                    onChange={() => {
+                      toggleTheme();
+                      this.handleToggleTheme();
+                    }}
+                    name="toggle-theme"
+                  />
                   <div className={classes.sectionDesktop}>
                     <Messages />
                     <Notifications />

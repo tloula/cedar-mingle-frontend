@@ -13,7 +13,6 @@ const styles = (theme) => ({
 class home extends Component {
   componentDidMount() {}
   render() {
-    const { classes } = this.props;
     return <p>Home Page</p>;
   }
 }

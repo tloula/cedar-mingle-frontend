@@ -19,7 +19,7 @@ class privacy extends Component {
           Privacy Policy
         </Typography>
         <hr className={classes.hr} />
-        <Typography variant="body1">
+        <Typography variant="body2" color="textPrimary">
           <small>Effective date: 2020-08-04</small>
           <p>
             1. <b>Introduction</b>

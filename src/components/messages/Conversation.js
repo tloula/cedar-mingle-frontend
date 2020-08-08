@@ -44,13 +44,6 @@ const styles = (theme) => ({
   inline: {
     display: "inline",
   },
-  bubble: {
-    padding: "6px 8px 6px 8px",
-    marginBottom: "2px",
-    backgroundColor: "#efefef",
-    borderRadius: "8px",
-    display: "inline-block",
-  },
 });
 
 class Conversation extends Component {

@@ -5,8 +5,6 @@ import PropTypes from "prop-types";
 // Material-UI
 import { Typography, Grid } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
-// Components
-import AppIcon from "../../images/icon.png";
 
 const styles = (theme) => ({
   ...theme.spread,

@@ -361,46 +361,44 @@ class Profile extends Component {
                     color="primary"
                   />
                 )}
-                <div className={classes.root}>
-                  <div className={classes.exampleWrapper}>
-                    <SpeedDial
-                      ariaLabel="SpeedDial example"
-                      className={classes.speedDial}
-                      hidden={false}
-                      icon={<SpeedDialIcon />}
-                      onClose={this.handleClose}
-                      onOpen={this.handleOpen}
-                      open={speedDialOpen}
-                      direction={"left"}
-                    >
-                      <SpeedDialAction
-                        icon={<EditDetails />}
-                        tooltipTitle={"Edit Profile"}
-                        tooltipPlacement={"bottom"}
-                      />
-                      <SpeedDialAction
-                        icon={<AddIcon />}
-                        tooltipTitle={
-                          images.length < 8
-                            ? "Upload Photo"
-                            : "You may only upload 8 photos"
-                        }
-                        tooltipPlacement={"bottom"}
-                        onClick={() => {
-                          this.handleUploadPhoto();
-                        }}
-                        disabled={images.length >= 8}
-                      />
-                      <SpeedDialAction
-                        icon={<DeleteIcon />}
-                        tooltipTitle={"Delete Photo"}
-                        tooltipPlacement={"bottom"}
-                        onClick={() => {
-                          this.handleDeletePhoto();
-                        }}
-                      />
-                    </SpeedDial>
-                  </div>
+                <div className={classes.exampleWrapper}>
+                  <SpeedDial
+                    ariaLabel="SpeedDial example"
+                    className={classes.speedDial}
+                    hidden={false}
+                    icon={<SpeedDialIcon />}
+                    onClose={this.handleClose}
+                    onOpen={this.handleOpen}
+                    open={speedDialOpen}
+                    direction={"left"}
+                  >
+                    <SpeedDialAction
+                      icon={<EditDetails />}
+                      tooltipTitle={"Edit Profile"}
+                      tooltipPlacement={"bottom"}
+                    />
+                    <SpeedDialAction
+                      icon={<AddIcon />}
+                      tooltipTitle={
+                        images.length < 8
+                          ? "Upload Photo"
+                          : "You may only upload 8 photos"
+                      }
+                      tooltipPlacement={"bottom"}
+                      onClick={() => {
+                        this.handleUploadPhoto();
+                      }}
+                      disabled={images.length >= 8}
+                    />
+                    <SpeedDialAction
+                      icon={<DeleteIcon />}
+                      tooltipTitle={"Delete Photo"}
+                      tooltipPlacement={"bottom"}
+                      onClick={() => {
+                        this.handleDeletePhoto();
+                      }}
+                    />
+                  </SpeedDial>
                 </div>
               </div>
             </div>

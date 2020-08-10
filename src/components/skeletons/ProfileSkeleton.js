@@ -43,7 +43,7 @@ const ProfileSkeleton = (props) => {
     <Paper className={classes.paper}>
       <Grid container>
         <Grid item sm={6} xs={12}>
-          <Skeleton variant="rect" width={600} height={600} />
+          <Skeleton variant="rect" width={600} height={650} />
         </Grid>
         <Grid item sm={6} xs={12} className={classes.rightGrid}>
           <div className={classes.profile}>

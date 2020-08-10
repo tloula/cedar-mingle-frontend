@@ -5,13 +5,14 @@ import {
   LOADING_SECONDARY_UI,
   MARK_MESSAGES_READ,
   MARK_NOTIFICATIONS_READ,
+  SET_AUTHENTICATED,
   SET_ERRORS,
   SET_SETTINGS,
   SET_NOTIFICATIONS,
   SET_UNAUTHENTICATED,
   SET_USER,
-  STOP_LOADING_UI,
   SET_FORGOT_PASSWORD_SENT,
+  STOP_LOADING_UI,
 } from "../types";
 import axios from "axios";
 
@@ -24,7 +25,8 @@ export const loginUser = (userData, history) => (dispatch) => {
       dispatch(getUserData());
       dispatch(getNotifications());
       dispatch({ type: CLEAR_ERRORS });
-      history.push("/");
+      dispatch({ type: SET_AUTHENTICATED });
+      history.push("/profile");
     })
     .catch((err) => {
       dispatch({
@@ -42,7 +44,8 @@ export const signupUser = (newUserData, history) => (dispatch) => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
       dispatch({ type: CLEAR_ERRORS });
-      history.push("/");
+      dispatch({ type: SET_AUTHENTICATED });
+      history.push("/profile");
     })
     .catch((err) => {
       dispatch({

@@ -1,4 +1,5 @@
 // React
+import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -9,6 +10,7 @@ import {
   getConversation,
 } from "../redux/actions/dataActions";
 // Material-UI
+import Alert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 // Components
@@ -72,7 +74,12 @@ class conversations extends Component {
               />
             </Paper>
           ) : (
-            <p>No Conversations</p>
+            <Paper className={classes.paper}>
+              <Alert severity="info" className={classes.alert}>
+                Looks like you don't have any conversations yet, go start a new
+                conversation from your <Link to="/matches">matches</Link> page!
+              </Alert>
+            </Paper>
           )}
         </Grid>
         <Grid item md={8} sm={12}>

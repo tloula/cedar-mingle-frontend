@@ -1,10 +1,13 @@
 // React
+import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 // Redux
 import { connect } from "react-redux";
 import { getMatches } from "../redux/actions/dataActions";
+// Material-UI
+import Alert from "@material-ui/lab/Alert";
 // Components
 import MatchItem from "../components/matches/MatchItem";
 import MatchItemSkeleton from "../components/skeletons/MatchItemSkeleton";
@@ -62,7 +65,10 @@ class matches extends Component {
           ))}
       </div>
     ) : (
-      <p>No matches found, get exploring!</p>
+      <Alert severity="info" className={classes.alert}>
+        Looks like you don't have any matches yet, start{" "}
+        <Link to="/explore">exploring</Link> to find someone new!
+      </Alert>
     );
   }
 }

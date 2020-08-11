@@ -1,4 +1,5 @@
 // React
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 // Redux
@@ -9,6 +10,7 @@ import {
   getConversation,
 } from "../../redux/actions/dataActions";
 // MUI stuff
+import Alert from "@material-ui/lab/Alert";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -231,10 +233,10 @@ class Conversation extends Component {
                       )
                 )
             ) : (
-              <p>
-                Select an existing conversation of the left, or start a new
-                conversation from your matches page.
-              </p>
+              <Alert severity="info" className={classes.alert}>
+                Select an existing conversation to the left or start a new
+                conversation from your <Link to="/matches">matches</Link> page.
+              </Alert>
             )}
           </List>
         </Scrollbars>

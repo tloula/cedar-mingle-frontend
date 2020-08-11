@@ -65,7 +65,7 @@ class explore extends Component {
       <>
         {errors.explore ? (
           <>
-            <Alert severity="error" className={classes.alert}>
+            <Alert severity="warning" className={classes.alert}>
               {errors.explore}
             </Alert>
             <ResendVerification />

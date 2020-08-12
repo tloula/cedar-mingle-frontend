@@ -39,7 +39,8 @@ import "./App.css";
 import axios from "axios";
 import LocalStorageService from "./axios/LocalStorageService";
 
-axios.defaults.baseURL = "http://localhost:5000/cedar-mingle/us-central1/api";
+axios.defaults.baseURL =
+  "https://us-central1-cedar-mingle.cloudfunctions.net/api";
 
 const FBIdToken = localStorage.FBIdToken;
 if (FBIdToken) {

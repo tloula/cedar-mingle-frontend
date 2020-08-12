@@ -21,7 +21,9 @@ export const loginUser = (userData, history) => (dispatch) => {
   axios
     .post("/login", userData)
     .then((res) => {
-      setAuthorizationHeader(res.data.token);
+      let idToken = res.data.idToken;
+      let refreshToken = res.data.refreshToken;
+      setAuthorizationHeader(idToken, refreshToken);
       dispatch(getUserData());
       dispatch(getNotifications());
       dispatch({ type: CLEAR_ERRORS });
@@ -41,7 +43,9 @@ export const signupUser = (newUserData, history) => (dispatch) => {
   axios
     .post("/signup", newUserData)
     .then((res) => {
-      setAuthorizationHeader(res.data.token);
+      let idToken = res.data.idToken;
+      let refreshToken = res.data.refreshToken;
+      setAuthorizationHeader(idToken, refreshToken);
       dispatch(getUserData());
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: SET_AUTHENTICATED });
@@ -57,6 +61,7 @@ export const signupUser = (newUserData, history) => (dispatch) => {
 
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("FBIdToken");
+  localStorage.removeItem("FBRefreshToken");
   delete axios.defaults.headers.common["Authorization"];
   dispatch({ type: SET_UNAUTHENTICATED });
   dispatch({ type: CLEAR_DATA });
@@ -202,8 +207,10 @@ export const markMessagesRead = (messageIds) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-const setAuthorizationHeader = (token) => {
-  const FBIdToken = `Bearer ${token}`;
+function setAuthorizationHeader(idToken, refreshToken) {
+  const FBIdToken = `Bearer ${idToken}`;
+  const FBRefreshToken = refreshToken;
   localStorage.setItem("FBIdToken", FBIdToken);
+  localStorage.setItem("FBRefreshToken", FBRefreshToken);
   axios.defaults.headers.common["Authorization"] = FBIdToken;
-};
+}

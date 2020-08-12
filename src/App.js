@@ -15,7 +15,6 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 // Components
 import AuthRoute from "./util/AuthRoute";
-import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import PrivateRoute from "./util/PrivateRoute";
 import { lightTheme, darkTheme } from "./util/theme";
@@ -36,23 +35,57 @@ import jwtDecode from "jwt-decode";
 // Styles
 import "./App.css";
 
+// Axios
 import axios from "axios";
+import LocalStorageService from "./axios/LocalStorageService";
 
 axios.defaults.baseURL = "http://localhost:5000/cedar-mingle/us-central1/api";
 
-const token = localStorage.FBIdToken;
-if (token) {
-  const decodedToken = jwtDecode(token);
+const FBIdToken = localStorage.FBIdToken;
+if (FBIdToken) {
+  const decodedToken = jwtDecode(FBIdToken);
   if (decodedToken.exp * 1000 < Date.now()) {
     store.dispatch(logoutUser());
     window.location.href = "/login";
   } else {
     store.dispatch({ type: SET_AUTHENTICATED });
-    axios.defaults.headers.common["Authorization"] = token;
+    axios.defaults.headers.common["Authorization"] = FBIdToken;
     store.dispatch(getUserData());
     store.dispatch(getNotifications());
   }
 }
+
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  function (error) {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      return axios
+        .post("/token", {
+          refresh_token: LocalStorageService.getRefreshToken(),
+        })
+        .then((res) => {
+          if (res.status === 201) {
+            // 1) put token in LocalStorage
+            LocalStorageService.setToken(res.data.FBIdToken);
+
+            // 2) Change Authorization header
+            axios.defaults.headers.common["Authorization"] =
+              "Bearer " + LocalStorageService.getAccessToken();
+
+            // 3) return originalRequest object with Axios.
+            return axios(originalRequest);
+          }
+        });
+    }
+
+    // return Error object with Promise
+    return Promise.reject(error);
+  }
+);
 
 class App extends Component {
   // This is never used, but required to update the state
@@ -112,7 +145,6 @@ class App extends Component {
                     <PrivateRoute exact path="/profile" component={profile} />
                   </Switch>
                 </div>
-                <Footer />
               </div>
             </Router>
           </Provider>

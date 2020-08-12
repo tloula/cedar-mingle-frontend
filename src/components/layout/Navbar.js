@@ -241,8 +241,8 @@ class Navbar extends Component {
               )}
             </Toolbar>
           </AppBar>
-          {renderMenu}
           {renderMobileMenu}
+          {renderMenu}
         </div>
         <Snackbar
           anchorOrigin={{

@@ -1,33 +1,13 @@
 // React
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-// Redux
-import { connect } from "react-redux";
-// Material-UI
-import withStyles from "@material-ui/core/styles/withStyles";
 
-const styles = (theme) => ({
-  ...theme.spread,
-});
+/*var __html = require("../landing/index.html");*/
+/*var template = { __html: __html };*/
 
 class home extends Component {
-  componentDidMount() {}
   render() {
-    return <p>Home Page</p>;
+    return <p>Home</p> /*<div dangerouslySetInnerHTML={template} />*/;
   }
 }
 
-home.propTypes = {
-  user: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired,
-  UI: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  user: state.user,
-  data: state.data,
-  UI: state.UI,
-});
-
-export default connect(mapStateToProps)(withStyles(styles)(home));
+export default home;

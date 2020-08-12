@@ -19,7 +19,6 @@ import Navbar from "./components/layout/Navbar";
 import PrivateRoute from "./util/PrivateRoute";
 import { lightTheme, darkTheme } from "./util/theme";
 // Pages
-import home from "./pages/home";
 import login from "./pages/login";
 import signup from "./pages/signup";
 import user from "./pages/user";
@@ -39,8 +38,9 @@ import "./App.css";
 import axios from "axios";
 import LocalStorageService from "./axios/LocalStorageService";
 
-axios.defaults.baseURL =
-  "https://us-central1-cedar-mingle.cloudfunctions.net/api";
+// http://localhost:5000/cedar-mingle/us-central1/api
+// https://us-central1-cedar-mingle.cloudfunctions.net/api
+axios.defaults.baseURL = "http://localhost:5000/cedar-mingle/us-central1/api";
 
 const FBIdToken = localStorage.FBIdToken;
 if (FBIdToken) {
@@ -124,26 +124,33 @@ class App extends Component {
                 <Navbar toggleTheme={this.toggleTheme} />
                 <div className="container">
                   <Switch>
-                    <Route exact path="/" component={home} />
-                    <Route exact path="/terms" component={terms} />
-                    <Route exact path="/privacy" component={privacy} />
-                    <Route exact path="/disclaimer" component={disclaimer} />
-                    <AuthRoute exact path="/login" component={login} />
-                    <AuthRoute exact path="/signup" component={signup} />
-                    <PrivateRoute exact path="/explore" component={explore} />
-                    <PrivateRoute exact path="/matches" component={matches} />
+                    <Route
+                      exact
+                      path="/"
+                      component={() => {
+                        window.location.href =
+                          "https://cedar-mingle.web.app/landing.html";
+                        return null;
+                      }}
+                    />
+                    <AuthRoute path="/login" component={login} />
+                    <AuthRoute path="/signup" component={signup} />
+                    <Route path="/terms" component={terms} />
+                    <Route path="/privacy" component={privacy} />
+                    <Route path="/disclaimer" component={disclaimer} />
+                    <PrivateRoute path="/profile" component={profile} />
+                    <PrivateRoute path="/explore" component={explore} />
+                    <PrivateRoute path="/matches" component={matches} />
                     <PrivateRoute
                       exact
                       path="/conversations"
                       component={conversations}
                     />
                     <PrivateRoute
-                      exact
                       path="/conversations/:uid"
                       component={conversations}
                     />
-                    <PrivateRoute exact path="/users/:uid" component={user} />
-                    <PrivateRoute exact path="/profile" component={profile} />
+                    <PrivateRoute path="/users/:uid" component={user} />
                   </Switch>
                 </div>
               </div>

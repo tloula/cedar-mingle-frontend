@@ -100,17 +100,17 @@ class Navbar extends Component {
 
   render() {
     const { classes, authenticated, toggleTheme } = this.props;
-    const { snackbarOpen } = this.state;
+    const { snackbarOpen, anchorEl, mobileMoreAnchorEl } = this.state;
 
     let menuId = "primary-search-account-menu";
     let renderMenu = (
       <Menu
-        anchorEl={this.state.anchorEl}
+        anchorEl={anchorEl}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         id={menuId}
         keepMounted
         transformOrigin={{ vertical: "top", horizontal: "right" }}
-        open={Boolean(this.state.anchorEl)}
+        open={Boolean(anchorEl)}
         onClose={this.handleMenuClose}
       >
         <MenuItem onClick={this.handleMenuClose} component={Link} to="/profile">
@@ -136,12 +136,12 @@ class Navbar extends Component {
     let mobileMenuId = "primary-search-account-menu-mobile";
     let renderMobileMenu = (
       <Menu
-        anchorEl={this.mobileMoreAnchorEl}
+        anchorEl={mobileMoreAnchorEl}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         id={mobileMenuId}
         keepMounted
         transformOrigin={{ vertical: "top", horizontal: "right" }}
-        open={Boolean(this.state.mobileMoreAnchorEl)}
+        open={Boolean(mobileMoreAnchorEl)}
         onClose={this.handleMobileMenuClose}
       >
         <MenuItem>

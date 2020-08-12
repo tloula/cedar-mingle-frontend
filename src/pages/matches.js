@@ -8,18 +8,13 @@ import { connect } from "react-redux";
 import { getMatches } from "../redux/actions/dataActions";
 // Material-UI
 import Alert from "@material-ui/lab/Alert";
+import { Grid } from "@material-ui/core";
 // Components
 import MatchItem from "../components/matches/MatchItem";
 import MatchItemSkeleton from "../components/skeletons/MatchItemSkeleton";
 
 const styles = (theme) => ({
   ...theme.spread,
-  matchItem: {},
-  container: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gridGap: "15px",
-  },
 });
 
 class matches extends Component {
@@ -42,28 +37,42 @@ class matches extends Component {
     } = this.props;
 
     return loading ? (
-      <div className={classes.container}>
-        <MatchItemSkeleton className={classes.matchItem} />
-        <MatchItemSkeleton className={classes.matchItem} />
-        <MatchItemSkeleton className={classes.matchItem} />
-        <MatchItemSkeleton className={classes.matchItem} />
-        <MatchItemSkeleton className={classes.matchItem} />
-        <MatchItemSkeleton className={classes.matchItem} />
-      </div>
+      <Grid container spacing={3}>
+        <Grid item sm={4}>
+          <MatchItemSkeleton className={classes.matchItem} />
+        </Grid>
+        <Grid item sm={4}>
+          <MatchItemSkeleton className={classes.matchItem} />
+        </Grid>
+        <Grid item sm={4}>
+          <MatchItemSkeleton className={classes.matchItem} />
+        </Grid>
+        <Grid item sm={4}>
+          <MatchItemSkeleton className={classes.matchItem} />
+        </Grid>
+        <Grid item sm={4}>
+          <MatchItemSkeleton className={classes.matchItem} />
+        </Grid>
+        <Grid item sm={4}>
+          <MatchItemSkeleton className={classes.matchItem} />
+        </Grid>
+      </Grid>
     ) : matches[0] ? (
-      <div className={classes.container}>
+      <Grid container spacing={3}>
         {matches
           .sort(function (x, y) {
             return x.created < y.created;
           })
           .map((match) => (
-            <MatchItem
-              className={classes.matchItem}
-              key={match.uid}
-              match={match}
-            />
+            <Grid item sm={4}>
+              <MatchItem
+                className={classes.matchItem}
+                key={match.uid}
+                match={match}
+              />
+            </Grid>
           ))}
-      </div>
+      </Grid>
     ) : (
       <Alert severity="info" className={classes.alert}>
         Looks like you don't have any matches yet, start{" "}

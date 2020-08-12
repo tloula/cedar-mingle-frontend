@@ -23,9 +23,6 @@ dayjs.extend(relativeTime);
 
 const styles = (theme) => ({
   ...theme.spread,
-  card: {
-    maxWidth: 450,
-  },
   gridItem: {
     position: "relative",
   },
@@ -57,7 +54,7 @@ class MatchItem extends Component {
 
     return (
       <>
-        <Card className={classes.card}>
+        <Card className={classes.matchCard}>
           <Grid container>
             <Grid item sm={6} xs={12}>
               <CardMedia

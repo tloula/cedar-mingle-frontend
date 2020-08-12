@@ -109,6 +109,11 @@ exports.lightTheme = {
       borderRadius: "8px",
       display: "inline-block",
     },
+    matchCard: {
+      maxWidth: 450,
+      marginRight: "auto",
+      marginLeft: "auto",
+    },
     footer: {
       position: "relative",
       left: "0",
@@ -251,6 +256,11 @@ exports.darkTheme = {
       backgroundColor: "rgb(50, 51, 51)",
       borderRadius: "8px",
       display: "inline-block",
+    },
+    matchCard: {
+      maxWidth: 450,
+      marginRight: "auto",
+      marginLeft: "auto",
     },
     footer: {
       position: "relative",

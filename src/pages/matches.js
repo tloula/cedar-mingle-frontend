@@ -38,23 +38,23 @@ class matches extends Component {
 
     return loading ? (
       <Grid container spacing={3}>
-        <Grid item sm={4}>
-          <MatchItemSkeleton className={classes.matchItem} />
+        <Grid item md={4} sm={6} xs={12}>
+          <MatchItemSkeleton />
         </Grid>
-        <Grid item sm={4}>
-          <MatchItemSkeleton className={classes.matchItem} />
+        <Grid item md={4} sm={6} xs={12}>
+          <MatchItemSkeleton />
         </Grid>
-        <Grid item sm={4}>
-          <MatchItemSkeleton className={classes.matchItem} />
+        <Grid item md={4} sm={6} xs={12}>
+          <MatchItemSkeleton />
         </Grid>
-        <Grid item sm={4}>
-          <MatchItemSkeleton className={classes.matchItem} />
+        <Grid item md={4} sm={6} xs={12}>
+          <MatchItemSkeleton />
         </Grid>
-        <Grid item sm={4}>
-          <MatchItemSkeleton className={classes.matchItem} />
+        <Grid item md={4} sm={6} xs={12}>
+          <MatchItemSkeleton />
         </Grid>
-        <Grid item sm={4}>
-          <MatchItemSkeleton className={classes.matchItem} />
+        <Grid item md={4} sm={6} xs={12}>
+          <MatchItemSkeleton />
         </Grid>
       </Grid>
     ) : matches[0] ? (
@@ -64,12 +64,8 @@ class matches extends Component {
             return x.created < y.created;
           })
           .map((match) => (
-            <Grid item sm={4}>
-              <MatchItem
-                className={classes.matchItem}
-                key={match.uid}
-                match={match}
-              />
+            <Grid item md={4} sm={6} xs={12}>
+              <MatchItem key={match.uid} match={match} />
             </Grid>
           ))}
       </Grid>

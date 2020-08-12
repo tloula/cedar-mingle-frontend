@@ -14,25 +14,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = (theme) => ({
   ...theme.spread,
-  card: {
-    maxWidth: 450,
-  },
-  gridItem: {
-    position: "relative",
-  },
-  media: {
-    height: 150,
-  },
-  matchButton: {
-    margin: "auto",
-  },
-  cardActions: {
-    paddingLeft: "0px",
-    paddingRight: "0px",
-    position: "absolute",
-    bottom: "0px",
-    width: "100%",
-  },
 });
 
 const MatchItem = (props) => {
@@ -40,7 +21,7 @@ const MatchItem = (props) => {
 
   return (
     <>
-      <Card className={classes.card}>
+      <Card className={classes.matchCard}>
         <Grid container>
           <Grid item sm={6} xs={12}>
             <Skeleton variant="rect" width={"100%"} height={"150px"} />
@@ -54,7 +35,6 @@ const MatchItem = (props) => {
                 <Skeleton variant="text" />
               </Typography>
             </CardContent>
-            <CardActions className={classes.cardActions}></CardActions>
           </Grid>
         </Grid>
       </Card>

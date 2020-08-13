@@ -14,9 +14,9 @@ import {
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 // Components
-import AuthRoute from "./util/AuthRoute";
+import AuthRoute from "./routes/AuthRoute";
 import Navbar from "./components/layout/Navbar";
-import PrivateRoute from "./util/PrivateRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 import { lightTheme, darkTheme } from "./util/theme";
 // Pages
 import login from "./pages/login";

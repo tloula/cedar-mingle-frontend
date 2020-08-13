@@ -16,6 +16,7 @@ import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 // Components
 import AuthRoute from "./routes/AuthRoute";
 import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 import PrivateRoute from "./routes/PrivateRoute";
 import { lightTheme, darkTheme } from "./util/theme";
 // Pages
@@ -124,7 +125,7 @@ class App extends Component {
                 }
               >
                 <Navbar toggleTheme={this.toggleTheme} />
-                <div className="container">
+                <div className="container" style={{ height: "auto" }}>
                   <Switch>
                     <Route
                       exact
@@ -154,6 +155,7 @@ class App extends Component {
                     <PrivateRoute path="/users/:uid" component={user} />
                   </Switch>
                 </div>
+                <Footer />
               </div>
             </Router>
           </Provider>

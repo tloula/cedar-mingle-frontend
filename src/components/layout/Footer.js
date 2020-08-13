@@ -36,7 +36,7 @@ class Footer extends Component {
                 <Link to="/terms">Terms of Service</Link>
               </span>
               <span className={classes.footerItem}>
-                <Link to="mailto:support@cedarmingle.com">Contact</Link>
+                <Link to="/contact.html">Contact</Link>
               </span>
             </Typography>
           </Grid>

@@ -36,7 +36,7 @@ class Footer extends Component {
                 <Link to="/terms">Terms of Service</Link>
               </span>
               <span className={classes.footerItem}>
-                <Link to="/contact.html">Contact</Link>
+                <Link to="/contact">Contact</Link>
               </span>
             </Typography>
           </Grid>

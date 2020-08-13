@@ -135,11 +135,19 @@ class App extends Component {
                         return null;
                       }}
                     />
+                    <Route
+                      path="/contact"
+                      component={() => {
+                        window.location.href = "/contact.html";
+                        return null;
+                      }}
+                    />
                     <AuthRoute path="/login" component={login} />
                     <AuthRoute path="/signup" component={signup} />
                     <Route path="/terms" component={terms} />
                     <Route path="/privacy" component={privacy} />
                     <Route path="/disclaimer" component={disclaimer} />
+
                     <PrivateRoute path="/profile" component={profile} />
                     <PrivateRoute path="/explore" component={explore} />
                     <PrivateRoute path="/matches" component={matches} />

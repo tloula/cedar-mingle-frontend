@@ -9,11 +9,13 @@ body {
     sans-serif;*/
   background-color: rgb(245, 245, 245);
   height: 100vh;
+  overflow: auto;
   margin: 0;
 }
 
 #root {
   height: 100%;
+  overflow: auto;
 }
 
 .container {

@@ -40,7 +40,8 @@ import LocalStorageService from "./axios/LocalStorageService";
 
 // http://localhost:5000/cedar-mingle/us-central1/api
 // https://us-central1-cedar-mingle.cloudfunctions.net/api
-axios.defaults.baseURL = "http://localhost:5000/cedar-mingle/us-central1/api";
+axios.defaults.baseURL =
+  "https://us-central1-cedar-mingle.cloudfunctions.net/api";
 
 const FBIdToken = localStorage.FBIdToken;
 if (FBIdToken) {
@@ -117,8 +118,9 @@ class App extends Component {
                     ? {
                         backgroundColor: "rgb(30, 32, 33)",
                         height: "100%",
+                        overflow: "auto",
                       }
-                    : { height: "100%" }
+                    : { height: "100%", overflow: "auto" }
                 }
               >
                 <Navbar toggleTheme={this.toggleTheme} />
@@ -128,8 +130,7 @@ class App extends Component {
                       exact
                       path="/"
                       component={() => {
-                        window.location.href =
-                          "https://cedar-mingle.web.app/landing.html";
+                        window.location.href = "/landing.html";
                         return null;
                       }}
                     />

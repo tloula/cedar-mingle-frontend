@@ -16,6 +16,8 @@ import {
   STOP_LOADING_UI,
 } from "../types";
 import axios from "axios";
+// Firebase
+import { analytics } from "../../firebase";
 
 // Get Any User
 export const getUserData = (uid) => (dispatch) => {
@@ -23,13 +25,16 @@ export const getUserData = (uid) => (dispatch) => {
   axios
     .get(`/user/${uid}`)
     .then((res) => {
+      analytics.logEvent("get_user");
       dispatch({
         type: SET_PROFILE,
         payload: res.data.profile,
       });
       dispatch({ type: STOP_LOADING_UI });
     })
-    .catch(() => {
+    .catch((err) => {
+      analytics.logEvent("get_user_error", { error: err });
+      console.log(err);
       dispatch({
         type: SET_PROFILE,
         payload: null,
@@ -43,6 +48,7 @@ export const getExplore = () => (dispatch) => {
   axios
     .get("/explore")
     .then((res) => {
+      analytics.logEvent("explore");
       dispatch({ type: CLEAR_ERRORS });
       dispatch({
         type: SET_EXPLORE,
@@ -51,6 +57,7 @@ export const getExplore = () => (dispatch) => {
       dispatch({ type: STOP_LOADING_UI });
     })
     .catch((err) => {
+      analytics.logEvent("explore_error", { error: err });
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data,
@@ -64,12 +71,14 @@ export const likeUser = (uid) => (dispatch) => {
   axios
     .get(`/explore/${uid}/like`)
     .then((res) => {
+      analytics.logEvent("like_user");
       if (res.data.match !== true) {
         // Explore again
         dispatch({ type: LOADING_UI });
         axios
           .get("/explore")
           .then((res) => {
+            analytics.logEvent("explore");
             dispatch({ type: CLEAR_ERRORS });
             dispatch({
               type: SET_EXPLORE,
@@ -78,11 +87,14 @@ export const likeUser = (uid) => (dispatch) => {
             dispatch({ type: STOP_LOADING_UI });
           })
           .catch((err) => {
+            analytics.logEvent("explore_error", { error: err });
             dispatch({
               type: SET_ERRORS,
               payload: err.response.data,
             });
           });
+      } else {
+        analytics.logEvent("match_created");
       }
       dispatch({
         type: LIKE_USER,
@@ -90,7 +102,10 @@ export const likeUser = (uid) => (dispatch) => {
       });
       dispatch({ type: STOP_LOADING_UI });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      analytics.logEvent("like_user_error", { error: err });
+      console.log(err);
+    });
 };
 
 // Pass
@@ -99,10 +114,12 @@ export const passUser = (uid) => (dispatch) => {
   axios
     .get(`/explore/${uid}/pass`)
     .then((res) => {
+      analytics.logEvent("pass_user");
       // Explore again
       axios
         .get("/explore")
         .then((res) => {
+          analytics.logEvent("explore");
           dispatch({ type: CLEAR_ERRORS });
           dispatch({
             type: SET_EXPLORE,
@@ -111,13 +128,17 @@ export const passUser = (uid) => (dispatch) => {
           dispatch({ type: STOP_LOADING_UI });
         })
         .catch((err) => {
+          analytics.logEvent("explore_error", { error: err });
           dispatch({
             type: SET_ERRORS,
             payload: err.response.data,
           });
         });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      analytics.logEvent("pass_user_error", { error: err });
+      console.log(err);
+    });
 };
 
 // Matches
@@ -126,6 +147,7 @@ export const getMatches = () => (dispatch) => {
   axios
     .get("/matches")
     .then((res) => {
+      analytics.logEvent("get_matches");
       dispatch({ type: CLEAR_ERRORS });
       dispatch({
         type: SET_MATCHES,
@@ -134,6 +156,7 @@ export const getMatches = () => (dispatch) => {
       dispatch({ type: STOP_LOADING_UI });
     })
     .catch((err) => {
+      analytics.logEvent("get_matches_error", { error: err });
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data,
@@ -147,9 +170,11 @@ export const unmatchUser = (match) => (dispatch) => {
   axios
     .post("/matches", match)
     .then((res) => {
+      analytics.logEvent("unmatch_user");
       axios
         .get("/matches")
         .then((res) => {
+          analytics.logEvent("get_matches");
           dispatch({ type: CLEAR_ERRORS });
           dispatch({
             type: SET_MATCHES,
@@ -158,6 +183,7 @@ export const unmatchUser = (match) => (dispatch) => {
           dispatch({ type: STOP_LOADING_UI });
         })
         .catch((err) => {
+          analytics.logEvent("get_matches_error", { error: err });
           dispatch({
             type: SET_ERRORS,
             payload: err.response.data,
@@ -165,6 +191,7 @@ export const unmatchUser = (match) => (dispatch) => {
         });
     })
     .catch((err) => {
+      analytics.logEvent("unmatch_user_error", { error: err });
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data,
@@ -178,6 +205,7 @@ export const getConversations = () => (dispatch) => {
   axios
     .get("/conversations")
     .then((res) => {
+      analytics.logEvent("get_conversations");
       dispatch({ type: CLEAR_ERRORS });
       dispatch({
         type: SET_CONVERSATIONS,
@@ -186,6 +214,7 @@ export const getConversations = () => (dispatch) => {
       dispatch({ type: STOP_LOADING_UI });
     })
     .catch((err) => {
+      analytics.logEvent("get_conversations_error", { error: err });
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data,
@@ -199,6 +228,7 @@ export const getConversation = (uid) => (dispatch) => {
   axios
     .get(`/conversations/${uid}`)
     .then((res) => {
+      analytics.logEvent("get_conversation");
       dispatch({ type: CLEAR_ERRORS });
       dispatch({
         type: SET_CONVERSATION,
@@ -207,6 +237,7 @@ export const getConversation = (uid) => (dispatch) => {
       dispatch({ type: STOP_LOADING_UI });
     })
     .catch((err) => {
+      analytics.logEvent("get_conversation_error", { error: err });
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data,
@@ -219,11 +250,13 @@ export const sendMessage = (message) => (dispatch) => {
   axios
     .post(`/conversations`, message)
     .then((res) => {
+      analytics.logEvent("send_message");
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: SET_MESSAGE });
       dispatch(getConversation(message.uid));
     })
     .catch((err) => {
+      analytics.logEvent("send_message_error", { error: err });
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data,
@@ -236,11 +269,15 @@ export const markMessagesRead = (messageIds) => (dispatch) => {
   axios
     .post("/messages", messageIds)
     .then((res) => {
+      analytics.logEvent("mark_messages_read");
       dispatch({
         type: MARK_MESSAGES_READ,
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      analytics.logEvent("mark_messages_read_error", { error: err });
+      console.log(err);
+    });
 };
 
 // Resend Verification Email
@@ -248,6 +285,7 @@ export const resendVerification = () => (dispatch) => {
   axios
     .post("/resendVerification")
     .then((res) => {
+      analytics.logEvent("resend_verification");
       dispatch({ type: CLEAR_ERRORS });
       dispatch({
         type: SET_VERIFICATION_RESENT,
@@ -255,6 +293,7 @@ export const resendVerification = () => (dispatch) => {
       });
     })
     .catch((err) => {
+      analytics.logEvent("resend_verification_error", { error: err });
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data,
@@ -267,6 +306,7 @@ export const reportUser = (report) => (dispatch) => {
   axios
     .post("/report", report)
     .then((res) => {
+      analytics.logEvent("report_user");
       dispatch({ type: CLEAR_ERRORS });
       dispatch({
         type: SET_REPORT_USER,
@@ -274,6 +314,7 @@ export const reportUser = (report) => (dispatch) => {
       });
     })
     .catch((err) => {
+      analytics.logEvent("report_user_error", { error: err });
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data,
@@ -282,5 +323,6 @@ export const reportUser = (report) => (dispatch) => {
 };
 
 export const clearErrors = () => (dispatch) => {
+  analytics.logEvent("clear_errors");
   dispatch({ type: CLEAR_ERRORS });
 };

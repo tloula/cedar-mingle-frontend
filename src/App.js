@@ -10,6 +10,9 @@ import {
   getUserData,
   getNotifications,
 } from "./redux/actions/userActions";
+// Axios
+import axios from "axios";
+import LocalStorageService from "./axios/LocalStorageService";
 // Material-UI
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
@@ -34,10 +37,8 @@ import disclaimer from "./pages/disclaimer";
 import jwtDecode from "jwt-decode";
 // Styles
 import "./App.css";
-
-// Axios
-import axios from "axios";
-import LocalStorageService from "./axios/LocalStorageService";
+// Firebase
+import { firebaseApp, analytics } from "./firebase";
 
 // http://localhost:5000/cedar-mingle/us-central1/api
 // https://us-central1-cedar-mingle.cloudfunctions.net/api

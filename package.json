@@ -13,6 +13,7 @@
     "axios": "^0.18.1",
     "date-fns": "^2.15.0",
     "dayjs": "^1.8.29",
+    "firebase": "^7.18.0",
     "fslightbox-react": "^1.4.9",
     "group": "^1.0.2",
     "image-blob-reduce": "^1.0.4",
@@ -33,7 +34,8 @@
     "react-transition": "^1.0.3",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "simple-react-lightbox": "^3.2.3-3"
+    "simple-react-lightbox": "^3.2.3-3",
+    "source-map-explorer": "^2.4.2"
   },
   "scripts": {
     "start": "react-scripts start",

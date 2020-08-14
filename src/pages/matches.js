@@ -64,7 +64,7 @@ class matches extends Component {
             return x.created < y.created;
           })
           .map((match) => (
-            <Grid item md={4} sm={6} xs={12}>
+            <Grid key={match.uid} item md={4} sm={6} xs={12}>
               <MatchItem key={match.uid} match={match} />
             </Grid>
           ))}

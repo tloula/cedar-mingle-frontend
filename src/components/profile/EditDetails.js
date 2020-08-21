@@ -130,7 +130,7 @@ class EditDetails extends Component {
         <EditIcon onClick={this.handleOpen} />
         <Dialog
           open={this.state.open}
-          onClose={this.handleClose}
+          onClose={this.handleSubmit}
           fullWidth
           maxWidth="sm"
         >

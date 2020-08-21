@@ -10,6 +10,19 @@ const styles = (theme) => ({
   ...theme.spread,
 });
 
+function Copyright() {
+  return (
+    <>
+      {"Copyright © "}
+      <Link color="inherit" href="https://cedarmingle.com/">
+        Cedar Mingle
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </>
+  );
+}
+
 class Footer extends Component {
   render() {
     const { classes } = this.props;
@@ -20,7 +33,7 @@ class Footer extends Component {
           <Grid item sm style={{ textAlign: "left" }}>
             <Typography variant="body2">
               <span className={classes.footerItem}>
-                Copyright &copy; 2020 All rights reserved
+                <Copyright />
               </span>
             </Typography>
           </Grid>

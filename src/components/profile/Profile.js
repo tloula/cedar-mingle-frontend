@@ -21,9 +21,9 @@ import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 // Icons
-import AddIcon from "@material-ui/icons/Add";
 import CloudIcon from "@material-ui/icons/Cloud";
 import DeleteIcon from "@material-ui/icons/Delete";
+import ImageIcon from "@material-ui/icons/Image";
 import LanguageIcon from "@material-ui/icons/Language";
 import LocationOn from "@material-ui/icons/LocationOn";
 import SchoolIcon from "@material-ui/icons/School";
@@ -281,7 +281,7 @@ class Profile extends Component {
                 <span>{birthday && ", " + age(birthday)}</span>
               </Typography>
               <hr />
-              {about &&
+              {about ? (
                 lines.map((line) => (
                   <Typography
                     key={Math.floor(Math.random() * 1000 + 1)}
@@ -290,7 +290,12 @@ class Profile extends Component {
                   >
                     {line}
                   </Typography>
-                ))}
+                ))
+              ) : (
+                <p>
+                  Fill out your profile by using the Edit Profile button below.
+                </p>
+              )}
               <div className="profileItems">
                 {major && (
                   <Typography variant="body2" className={classes.profileItem}>
@@ -378,7 +383,7 @@ class Profile extends Component {
                       tooltipPlacement={"bottom"}
                     />
                     <SpeedDialAction
-                      icon={<AddIcon />}
+                      icon={<ImageIcon />}
                       tooltipTitle={
                         images.length < 8
                           ? "Upload Photo"

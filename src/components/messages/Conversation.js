@@ -89,6 +89,9 @@ class Conversation extends Component {
   };
 
   handleSendMessage = (user) => {
+    if (this.state.message === "") {
+      return;
+    }
     let message = {
       text: this.state.message,
       uid: user.uid,

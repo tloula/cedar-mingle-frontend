@@ -76,7 +76,9 @@ class Conversations extends Component {
                 to={`/conversations/${conversation.uid}`}
               >
                 <ListItemAvatar>
-                  <Avatar>{conversation.name[0]}</Avatar>
+                  <Avatar component={Link} to={`../users/${conversation.uid}`}>
+                    {conversation.name[0]}
+                  </Avatar>
                 </ListItemAvatar>
                 <ListItemText
                   primary={

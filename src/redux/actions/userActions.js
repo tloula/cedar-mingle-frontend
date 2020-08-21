@@ -81,7 +81,6 @@ export const getUserData = () => (dispatch) => {
     .then((res) => {
       analytics.logEvent("get_authenticated_user");
       analytics.setUserProperties({
-        email: res.data.profile.email,
         gender: res.data.profile.gender,
         hometown: res.data.profile.hometown,
         major: res.data.profile.major,

@@ -1,4 +1,5 @@
 const sports = [
+  "Archery",
   "Basketball",
   "Biking",
   "Bouldering",
@@ -26,17 +27,31 @@ exports.sports = sports;
 const activities = [
   "Blogging",
   "Board Games",
+  "Dancing",
+  "Drawing",
   "Engineering",
+  "Journaling",
   "Music",
-  "Painting/Drawing",
+  "Painting",
   "Photography",
   "Reading",
   "Writing",
   "Woodwork",
+  "Yoga",
+  "Video Games",
 ];
 exports.activities = activities;
 
-const travel = ["Backpacking", "Camping", "Cruises", "Mountains", "Ocean"];
+const travel = [
+  "Backpacking",
+  "Camping",
+  "Climbing",
+  "Cruises",
+  "Mountains",
+  "Ocean",
+  "Theater",
+  "Traveling",
+];
 exports.travel = travel;
 
 const music = [

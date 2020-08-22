@@ -197,99 +197,46 @@ class EditSettings extends Component {
                       />
                     </FormGroup>
                   </FormControl>
-                  <Tooltip
-                    title="Show your profile to other users"
-                    aria-label="add"
-                  >
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={this.state.visible}
-                          onChange={this.handleChange}
-                          name="visible"
-                        />
-                      }
-                      label="Profile Visibility"
-                    />
-                  </Tooltip>
-                  <FormHelperText error={errors.visible ? true : false}>
-                    {errors.visible}
-                  </FormHelperText>
                 </Grid>
                 <Grid item sm={6} xs={12}>
                   <FormControl
                     component="fieldset"
                     className={classes.textField}
                   >
-                    <FormLabel component="legend">Premium Settings</FormLabel>
+                    <FormLabel component="legend">General Settings</FormLabel>
                     <FormGroup>
                       <Tooltip
-                        title="Premium unlocks unlimited swipes, profile boost, and profile recycling"
+                        title="Show your profile to other users"
                         aria-label="add"
                       >
                         <FormControlLabel
                           control={
                             <Switch
-                              disabled
-                              checked={this.state.premium}
+                              checked={this.state.visible}
                               onChange={this.handleChange}
-                              name="premium"
+                              name="visible"
                             />
                           }
-                          label="Premium Account"
+                          label="Profile Visibility"
                         />
                       </Tooltip>
-                      <FormHelperText error={errors.premium ? true : false}>
-                        {errors.premium}
+                      <FormHelperText error={errors.visible ? true : false}>
+                        {errors.visible}
                       </FormHelperText>
-                      <Tooltip
-                        title="Cycle through previously disliked profiles when there are no new profiles available"
-                        aria-label="add"
-                      >
+                      <Tooltip title="Switch color themes" aria-label="add">
                         <FormControlLabel
                           control={
                             <Switch
-                              checked={this.state.recycle}
-                              onChange={this.handleChange}
-                              name="recycle"
+                              checked={localStorage.theme === "dark"}
+                              onChange={toggleTheme}
+                              name="toggle-theme"
                             />
                           }
-                          label="Recycle Profiles"
+                          label="Dark Mode"
                         />
                       </Tooltip>
-                      <FormHelperText error={errors.recycle ? true : false}>
-                        {errors.recycle}
-                      </FormHelperText>
-                      <Tooltip
-                        title="Boost your profile to be seen by more people"
-                        aria-label="add"
-                      >
-                        <FormControlLabel
-                          control={
-                            <Switch
-                              checked={this.state.boost}
-                              onChange={this.handleChange}
-                              name="boost"
-                            />
-                          }
-                          label="Boost Your Profile"
-                        />
-                      </Tooltip>
-                      <FormHelperText error={errors.boost ? true : false}>
-                        {errors.boost}
-                      </FormHelperText>
                     </FormGroup>
                   </FormControl>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={localStorage.theme === "dark"}
-                        onChange={toggleTheme}
-                        name="toggle-theme"
-                      />
-                    }
-                    label="Dark Mode"
-                  />
                 </Grid>
               </Grid>
               <ResendVerification />

@@ -220,7 +220,7 @@ class Conversation extends Component {
             {conversation.messages ? (
               conversation.messages
                 .sort(function (x, y) {
-                  return x.created > y.created;
+                  return Date.parse(x.created) - Date.parse(y.created);
                 })
                 .map((message) =>
                   message.sender.uid === uid

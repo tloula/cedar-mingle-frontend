@@ -67,6 +67,8 @@ class Conversation extends Component {
       this.setState({ sending: false, message: "", snackbarOpen: true });
       this.refs.scrollbars.scrollToBottom();
     }
+    if (this.props.uid)
+      this.handleMarkMessagesRead(this.props.conversation, this.props.uid);
   }
 
   handleMarkMessagesRead = (conversation, uid) => {
@@ -212,9 +214,6 @@ class Conversation extends Component {
           autoHeightMax={"600px"}
           autoHeight
           ref="scrollbars"
-          onScrollStop={() => {
-            this.handleMarkMessagesRead(conversation, uid);
-          }}
         >
           <List className={classes.container}>
             {conversation.messages ? (

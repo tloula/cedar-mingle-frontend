@@ -37,10 +37,8 @@ import disclaimer from "./pages/disclaimer";
 import jwtDecode from "jwt-decode";
 // Styles
 import "./App.css";
-// Firebase
-import { firebaseApp, analytics } from "./firebase";
 
-// http://localhost:5000/cedar-mingle/us-central1/api
+// http://localhost:5000/cedar-mingle-dev/us-central1/api
 // https://us-central1-cedar-mingle.cloudfunctions.net/api
 axios.defaults.baseURL =
   "https://us-central1-cedar-mingle.cloudfunctions.net/api";

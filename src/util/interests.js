@@ -1,5 +1,6 @@
 const sports = [
   "Archery",
+  "Baseball",
   "Basketball",
   "Biking",
   "Bouldering",
@@ -14,6 +15,7 @@ const sports = [
   "Running",
   "Skiing",
   "Showboardig",
+  "Spikeball",
   "Soccer",
   "Surfing",
   "Swimming",

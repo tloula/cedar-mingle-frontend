@@ -12,10 +12,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
@@ -40,7 +36,6 @@ class EditDetails extends Component {
     about: "",
     birthday: "",
     dream: "",
-    gender: "",
     hometown: "",
     interests: [],
     major: "",
@@ -63,7 +58,6 @@ class EditDetails extends Component {
       about: profile.about ? profile.about : "",
       birthday: profile.birthday ? profile.birthday : new Date(),
       dream: profile.dream ? profile.dream : "",
-      gender: profile.gender ? profile.gender : "",
       hometown: profile.hometown ? profile.hometown : "",
       interests: profile.interests ? profile.interests : [],
       major: profile.major ? profile.major : "",
@@ -110,7 +104,6 @@ class EditDetails extends Component {
       about: this.state.about,
       birthday: this.state.birthday,
       dream: this.state.dream,
-      gender: this.state.gender,
       hometown: this.state.hometown,
       interests: this.state.interests,
       major: this.state.major,
@@ -276,24 +269,6 @@ class EditDetails extends Component {
                   fullWidth
                 />
               </MuiPickersUtilsProvider>
-              <FormControl fullWidth>
-                <InputLabel>Gender</InputLabel>
-                <Select
-                  name="gender"
-                  error={errors.gender ? true : undefined}
-                  className={classes.textField}
-                  value={this.state.gender}
-                  onChange={this.handleChange}
-                  fullWidth
-                >
-                  <MenuItem value="male" fullWidth>
-                    Male
-                  </MenuItem>
-                  <MenuItem value="female" fullWidth>
-                    Female
-                  </MenuItem>
-                </Select>
-              </FormControl>
               <TextField
                 name="website"
                 type="text"

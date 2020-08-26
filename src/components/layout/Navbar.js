@@ -161,7 +161,7 @@ class Navbar extends Component {
           >
             <AccountCircle />
           </IconButton>
-          <p>Profile</p>
+          <p>User</p>
         </MenuItem>
       </Menu>
     );

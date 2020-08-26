@@ -9,7 +9,11 @@ import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
 import { Paper } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -27,6 +31,7 @@ class signup extends Component {
       email: "",
       password: "",
       confirmPassword: "",
+      gender: "",
       legal: false,
       errors: {},
     };
@@ -47,6 +52,7 @@ class signup extends Component {
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
+      gender: this.state.gender,
       legal: this.state.legal,
     };
     this.props.signupUser(data, this.props.history);
@@ -116,7 +122,25 @@ class signup extends Component {
                   value={this.state.confirmPassword}
                   onChange={this.handleChange}
                   fullWidth
-                />{" "}
+                />
+                <FormControl fullWidth>
+                  <InputLabel>Gender</InputLabel>
+                  <Select
+                    name="gender"
+                    error={errors.gender ? true : undefined}
+                    className={classes.textField}
+                    value={this.state.gender}
+                    onChange={this.handleChange}
+                    fullWidth
+                  >
+                    <MenuItem value="male" fullWidth>
+                      Male
+                    </MenuItem>
+                    <MenuItem value="female" fullWidth>
+                      Female
+                    </MenuItem>
+                  </Select>
+                </FormControl>
                 <FormControlLabel
                   control={
                     <Checkbox

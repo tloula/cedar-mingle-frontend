@@ -281,7 +281,7 @@ class Profile extends Component {
                 <span>{birthday && ", " + age(birthday)}</span>
               </Typography>
               <hr />
-              {about ? (
+              {about &&
                 lines.map((line) => (
                   <Typography
                     key={Math.floor(Math.random() * 1000 + 1)}
@@ -290,8 +290,8 @@ class Profile extends Component {
                   >
                     {line}
                   </Typography>
-                ))
-              ) : (
+                ))}
+              {!name && (
                 <p>
                   Fill out your profile by using the Edit Profile button below.
                 </p>

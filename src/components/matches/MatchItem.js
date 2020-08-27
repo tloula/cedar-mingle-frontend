@@ -35,7 +35,7 @@ const styles = (theme) => ({
   cardActions: {
     paddingLeft: "0px",
     paddingRight: "0px",
-    position: "absolute",
+    //position: "absolute",
     bottom: "0px",
     width: "100%",
   },
@@ -69,7 +69,12 @@ class MatchItem extends Component {
                 <Typography gutterBottom variant="h6" component="h2">
                   {name}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
+
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  style={{ margin: "auto" }}
+                >
                   {dayjs(created).fromNow()}
                 </Typography>
               </CardContent>
@@ -78,7 +83,7 @@ class MatchItem extends Component {
                 <Unmatch match={{ name, uid, image, created }} />
                 <Button
                   size="small"
-                  color="primary"
+                  color="secondary"
                   className={classes.matchButton}
                   component={Link}
                   to={`/conversations/${uid}`}

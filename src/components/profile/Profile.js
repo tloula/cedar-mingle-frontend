@@ -190,7 +190,7 @@ class Profile extends Component {
   handleImageChange = (event) => {
     const file = event.target.files[0];
     // Downsize image
-    reduce.toBlob(file, { max: 1000 }).then((blob) => {
+    reduce.toBlob(file, { max: 720 }).then((blob) => {
       blob.lastModifiedDate = new Date();
       blob.name = file.name;
       const formData = new FormData();

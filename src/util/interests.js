@@ -71,6 +71,12 @@ const music = [
   "Rap",
   "Rock",
   "Worship",
+  "Guitar",
+  "Piano",
+  "Drums",
+  "Bass",
+  "Electric Guitar",
+  "Violin",
 ];
 exports.music = music;
 

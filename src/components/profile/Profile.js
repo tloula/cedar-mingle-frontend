@@ -121,8 +121,9 @@ class Profile extends Component {
         JSON.stringify(this.props.user.profile.images)
       );
       this.setState({ images, originalImages });
-      this.setState({ lines: this.props.user.profile.about.split("\n") });
     }
+    if (this.props.user.profile.about)
+      this.setState({ lines: this.props.user.profile.about.split("\n") });
   }
 
   componentWillMount() {
@@ -132,8 +133,9 @@ class Profile extends Component {
         JSON.stringify(this.props.user.profile.images)
       );
       this.setState({ images, originalImages });
-      this.setState({ lines: this.props.user.profile.about.split("\n") });
     }
+    if (this.props.user.profile.about)
+      this.setState({ lines: this.props.user.profile.about.split("\n") });
   }
 
   onSortEnd = (oldIndex, newIndex) => {

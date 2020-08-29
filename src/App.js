@@ -12,7 +12,6 @@ import {
 } from "./redux/actions/userActions";
 // Axios
 import axios from "axios";
-import LocalStorageService from "./axios/LocalStorageService";
 // Material-UI
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
@@ -46,15 +45,15 @@ axios.defaults.baseURL =
 const FBIdToken = localStorage.FBIdToken;
 if (FBIdToken) {
   const decodedToken = jwtDecode(FBIdToken);
-  if (decodedToken.exp * 1000 < Date.now()) {
-    store.dispatch(logoutUser());
-    window.location.href = "/login";
-  } else {
-    store.dispatch({ type: SET_AUTHENTICATED });
-    axios.defaults.headers.common["Authorization"] = FBIdToken;
-    store.dispatch(getUserData());
-    store.dispatch(getNotifications());
-  }
+  //if (decodedToken.exp * 1000 < Date.now()) {
+  //store.dispatch(logoutUser());
+  //window.location.href = "/login";
+  //} else {
+  store.dispatch({ type: SET_AUTHENTICATED });
+  axios.defaults.headers.common["Authorization"] = FBIdToken;
+  store.dispatch(getUserData());
+  store.dispatch(getNotifications());
+  //}
 }
 
 axios.interceptors.response.use(
@@ -67,16 +66,17 @@ axios.interceptors.response.use(
       originalRequest._retry = true;
       return axios
         .post("/token", {
-          refresh_token: LocalStorageService.getRefreshToken(),
+          refresh_token: localStorage.FBRefreshToken,
         })
         .then((res) => {
           if (res.status === 201) {
+            const FBIdToken = `Bearer ${res.data.FBIdToken}`;
+
             // 1) put token in LocalStorage
-            LocalStorageService.setToken(res.data.FBIdToken);
+            localStorage.setItem("FBIdToken", FBIdToken);
 
             // 2) Change Authorization header
-            axios.defaults.headers.common["Authorization"] =
-              "Bearer " + LocalStorageService.getAccessToken();
+            axios.defaults.headers.common["Authorization"] = FBIdToken;
 
             // 3) return originalRequest object with Axios.
             return axios(originalRequest);

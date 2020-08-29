@@ -14,7 +14,7 @@ function Copyright() {
   return (
     <>
       {"Copyright © "}
-      <Link color="inherit" href="https://cedarmingle.com/">
+      <Link color="inherit" to="/">
         Cedar Mingle
       </Link>{" "}
       {new Date().getFullYear()}

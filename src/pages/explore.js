@@ -62,7 +62,7 @@ class explore extends Component {
 
     return (
       <>
-        {errors ? (
+        {errors.explore || errors.visibility ? (
           <>
             <Alert severity="warning" className={classes.alert}>
               {errors.explore}

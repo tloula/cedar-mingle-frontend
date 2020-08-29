@@ -8,6 +8,8 @@ import {
   SET_AUTHENTICATED,
   SET_ERRORS,
   SET_SETTINGS,
+  SET_SETTINGS_EDITED,
+  SET_SETTINGS_ERROR,
   SET_NOTIFICATIONS,
   SET_UNAUTHENTICATED,
   SET_USER,
@@ -192,10 +194,12 @@ export const editUserSettings = (userSettings) => (dispatch) => {
     .then(() => {
       analytics.logEvent("edit_settings");
       dispatch({ type: CLEAR_ERRORS });
+      dispatch({ type: SET_SETTINGS_EDITED });
       dispatch(getSettings());
     })
     .catch((err) => {
       analytics.logEvent("edit_settings_error", { error: err });
+      dispatch({ type: SET_SETTINGS_ERROR });
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data,

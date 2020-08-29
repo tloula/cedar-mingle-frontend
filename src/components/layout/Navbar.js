@@ -117,9 +117,6 @@ class Navbar extends Component {
           Profile
         </MenuItem>
         <MenuItem onClick={this.handleMenuClose}>
-          <EditSettings toggleTheme={toggleTheme} />
-        </MenuItem>
-        <MenuItem onClick={this.handleMenuClose}>
           <EditAccount />
         </MenuItem>
         <MenuItem
@@ -151,6 +148,10 @@ class Navbar extends Component {
         <MenuItem>
           <Notifications />
           <p>Notifications</p>
+        </MenuItem>
+        <MenuItem>
+          <EditSettings toggleTheme={toggleTheme} />
+          <p>Settings</p>
         </MenuItem>
         <MenuItem onClick={this.handleProfileMenuOpen}>
           <IconButton
@@ -215,6 +216,7 @@ class Navbar extends Component {
                   <div className={classes.sectionDesktop}>
                     <Messages />
                     <Notifications />
+                    <EditSettings toggleTheme={toggleTheme} />
                     <IconButton
                       edge="end"
                       aria-label="account of current user"

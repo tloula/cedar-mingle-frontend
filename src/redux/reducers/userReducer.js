@@ -5,6 +5,8 @@ import {
   SET_FORGOT_PASSWORD_SENT,
   SET_USER,
   SET_SETTINGS,
+  SET_SETTINGS_EDITED,
+  SET_SETTINGS_ERROR,
   SET_NOTIFICATIONS,
   SET_UNAUTHENTICATED,
   SET_VERIFICATION_RESENT,
@@ -42,8 +44,17 @@ export default function (state = initialState, action) {
     case SET_SETTINGS:
       return {
         ...state,
-        edited: true,
         ...action.payload,
+      };
+    case SET_SETTINGS_EDITED:
+      return {
+        ...state,
+        edited: true,
+      };
+    case SET_SETTINGS_ERROR:
+      return {
+        ...state,
+        edited: false,
       };
     case SET_VERIFICATION_RESENT:
       return {

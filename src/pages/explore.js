@@ -12,7 +12,6 @@ import Typography from "@material-ui/core/Typography";
 // Components
 import StaticProfile from "../components/profile/StaticProfile";
 import ExploreAction from "../components/misc/ExploreAction";
-import ResendVerification from "../components/misc/ResendVerification";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -63,12 +62,11 @@ class explore extends Component {
 
     return (
       <>
-        {errors.explore ? (
+        {errors ? (
           <>
             <Alert severity="warning" className={classes.alert}>
               {errors.explore}
             </Alert>
-            <ResendVerification />
           </>
         ) : (
           <>

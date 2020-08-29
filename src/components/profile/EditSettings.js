@@ -16,9 +16,10 @@ import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import IconButton from "@material-ui/core/IconButton";
+import SettingsIcon from "@material-ui/icons/Settings";
 import Switch from "@material-ui/core/Switch";
 import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import ResendVerification from "../misc/ResendVerification";
 
@@ -139,13 +140,15 @@ class EditSettings extends Component {
 
     return (
       <Fragment>
-        <Typography
-          tip="Edit Settings"
-          onClick={this.handleOpen}
-          className={classes.button}
-        >
-          Settings
-        </Typography>
+        <Tooltip placement="top" title="Settings">
+          <IconButton
+            onClick={this.handleOpen}
+            className={classes.button}
+            color="inherit"
+          >
+            <SettingsIcon />
+          </IconButton>
+        </Tooltip>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

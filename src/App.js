@@ -5,11 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { SET_AUTHENTICATED } from "./redux/types";
-import {
-  logoutUser,
-  getUserData,
-  getNotifications,
-} from "./redux/actions/userActions";
+import { getUserData, getNotifications } from "./redux/actions/userActions";
 // Axios
 import axios from "axios";
 // Material-UI
@@ -32,28 +28,19 @@ import conversations from "./pages/conversations";
 import terms from "./pages/terms";
 import privacy from "./pages/privacy";
 import disclaimer from "./pages/disclaimer";
-// Helpers
-import jwtDecode from "jwt-decode";
 // Styles
 import "./App.css";
 
 // http://localhost:5000/cedar-mingle-dev/us-central1/api
 // https://us-central1-cedar-mingle.cloudfunctions.net/api
-axios.defaults.baseURL =
-  "https://us-central1-cedar-mingle.cloudfunctions.net/api";
+axios.defaults.baseURL = "http://localhost:5000/cedar-mingle/us-central1/api";
 
 const FBIdToken = localStorage.FBIdToken;
 if (FBIdToken) {
-  const decodedToken = jwtDecode(FBIdToken);
-  //if (decodedToken.exp * 1000 < Date.now()) {
-  //store.dispatch(logoutUser());
-  //window.location.href = "/login";
-  //} else {
   store.dispatch({ type: SET_AUTHENTICATED });
   axios.defaults.headers.common["Authorization"] = FBIdToken;
   store.dispatch(getUserData());
   store.dispatch(getNotifications());
-  //}
 }
 
 axios.interceptors.response.use(

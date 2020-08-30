@@ -160,6 +160,24 @@ class EditDetails extends Component {
                   />
                 </Grid>
               </Grid>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  clearable
+                  disableFuture
+                  name="birthday"
+                  openTo="year"
+                  format="dd/MM/yyyy"
+                  label="Birthday"
+                  helperText={errors.birthday ? errors.birthday : undefined}
+                  error={errors.birthday ? true : undefined}
+                  className={errors.textField ? errors.textField : undefined}
+                  views={["year", "month", "date"]}
+                  value={this.state.birthday}
+                  onChange={this.handleBirthdayChange}
+                  allowKeyboardControl
+                  fullWidth
+                />
+              </MuiPickersUtilsProvider>
               <Grid container spacing={2}>
                 <Grid item sm={8} xs={12}>
                   <TextField
@@ -251,24 +269,6 @@ class EditDetails extends Component {
                   />
                 )}
               />
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-                  clearable
-                  disableFuture
-                  name="birthday"
-                  openTo="year"
-                  format="dd/MM/yyyy"
-                  label="Birthday"
-                  helperText={errors.birthday ? errors.birthday : undefined}
-                  error={errors.birthday ? true : undefined}
-                  className={errors.textField ? errors.textField : undefined}
-                  views={["year", "month", "date"]}
-                  value={this.state.birthday}
-                  onChange={this.handleBirthdayChange}
-                  allowKeyboardControl
-                  fullWidth
-                />
-              </MuiPickersUtilsProvider>
               <TextField
                 name="website"
                 type="text"

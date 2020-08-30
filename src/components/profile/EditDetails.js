@@ -166,7 +166,7 @@ class EditDetails extends Component {
                   disableFuture
                   name="birthday"
                   openTo="year"
-                  format="dd/MM/yyyy"
+                  format="mm/dd/yyyy"
                   label="Birthday"
                   helperText={errors.birthday ? errors.birthday : undefined}
                   error={errors.birthday ? true : undefined}

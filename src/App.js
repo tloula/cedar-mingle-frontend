@@ -33,7 +33,8 @@ import "./App.css";
 
 // http://localhost:5000/cedar-mingle-dev/us-central1/api
 // https://us-central1-cedar-mingle.cloudfunctions.net/api
-axios.defaults.baseURL = "http://localhost:5000/cedar-mingle/us-central1/api";
+axios.defaults.baseURL =
+  " https://us-central1-cedar-mingle.cloudfunctions.net/api";
 
 const FBIdToken = localStorage.FBIdToken;
 if (FBIdToken) {

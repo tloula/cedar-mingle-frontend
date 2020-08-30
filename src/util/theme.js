@@ -136,7 +136,7 @@ exports.lightTheme = {
       },
     },
     footerContainer: {
-      width: "1200px",
+      maxWidth: "1200px",
       margin: "auto",
     },
     footerItem: {
@@ -284,7 +284,7 @@ exports.darkTheme = {
       },
     },
     footerContainer: {
-      width: "1200px",
+      maxWidth: "1200px",
       margin: "auto",
     },
     footerItem: {

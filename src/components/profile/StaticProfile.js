@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 // Icons
+import CloudIcon from "@material-ui/icons/Cloud";
 import LanguageIcon from "@material-ui/icons/Language";
 import LocationOn from "@material-ui/icons/LocationOn";
 import SchoolIcon from "@material-ui/icons/School";
@@ -49,6 +50,7 @@ class StaticProfile extends Component {
       profile: {
         about,
         age,
+        dream,
         hometown,
         images,
         interests,
@@ -115,6 +117,11 @@ class StaticProfile extends Component {
                 {occupation && (
                   <Typography variant="body2" className={classes.profileItem}>
                     <WorkIcon color="primary" /> <span>{occupation}</span>
+                  </Typography>
+                )}
+                {dream && (
+                  <Typography variant="body2" className={classes.profileItem}>
+                    <CloudIcon color="primary" /> <span>{dream}</span>
                   </Typography>
                 )}
                 {hometown && (

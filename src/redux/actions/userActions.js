@@ -86,7 +86,7 @@ export const getUserData = () => (dispatch) => {
         gender: res.data.profile.gender,
         hometown: res.data.profile.hometown,
         major: res.data.profile.major,
-        year: res.data.profile.year,
+        year: res.data.profile.year.getFullYear(),
       });
       dispatch({
         type: SET_USER,

@@ -86,7 +86,7 @@ const food = [
   "Cooking",
   "Healthy Eating",
   "Vegan",
-  "Vegitarian",
+  "Vegetarian",
 ];
 exports.food = food;
 

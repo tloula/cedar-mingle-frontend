@@ -14,7 +14,7 @@ const sports = [
   "Martial Arts",
   "Running",
   "Skiing",
-  "Showboardig",
+  "Snowboarding",
   "Spikeball",
   "Soccer",
   "Surfing",

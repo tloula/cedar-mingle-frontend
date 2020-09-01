@@ -14,6 +14,7 @@ import {
 
 const initialState = {
   profile: {},
+  explore: {},
   matches: [],
   conversations: [],
   conversation: {},
@@ -29,7 +30,7 @@ export default function (state = initialState, action) {
         ...state,
         match: false,
         reported: false,
-        profile: action.payload,
+        explore: action.payload,
       };
     case LIKE_USER:
       return {

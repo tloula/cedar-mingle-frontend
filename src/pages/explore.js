@@ -40,7 +40,9 @@ class explore extends Component {
   state = { errors: {} };
 
   componentDidMount() {
-    this.props.getExplore();
+    if (!this.props.data.explore.uid) {
+      this.props.getExplore();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,7 +57,7 @@ class explore extends Component {
   render() {
     const {
       classes,
-      data: { match, profile },
+      data: { match, explore },
       UI: { loading },
     } = this.props;
     const errors = this.state.errors;
@@ -70,7 +72,7 @@ class explore extends Component {
           </>
         ) : (
           <>
-            <StaticProfile key={profile.uid} profile={profile} />
+            <StaticProfile key={explore.uid} profile={explore} />
             {match && !loading && (
               <Paper className={classes.matchAlert}>
                 <Typography variant="h6" display="block">
@@ -78,7 +80,7 @@ class explore extends Component {
                 </Typography>
               </Paper>
             )}
-            <ExploreAction uid={profile.uid} className={classes.actions} />
+            <ExploreAction uid={explore.uid} className={classes.actions} />
           </>
         )}
       </>

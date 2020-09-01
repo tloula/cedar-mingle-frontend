@@ -34,7 +34,7 @@ class ResendVerification extends Component {
 
     return (
       !verified && (
-        <div style={{ marginTop: "10px", textAlign: "center" }}>
+        <div style={{ marginTop: "10px", textAlign: "center", display: "inline-block" }}>
           {resent ? (
             <div>
               <CheckIcon
@@ -61,6 +61,9 @@ class ResendVerification extends Component {
                 color="secondary"
                 variant="contained"
                 disabled={sending}
+                style={{
+                  display: "inline-block"
+                }}
               >
                 Resend Verification Email
                 {sending && (

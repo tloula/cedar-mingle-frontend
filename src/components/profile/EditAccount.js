@@ -75,6 +75,10 @@ class EditAccount extends Component {
     this.props.changePassword(data);
   };
 
+  handleDeleteAccount = () => {
+    //TODO Delete Account Function
+  };
+
   render() {
     const { classes } = this.props;
     const { errors, email } = this.state;
@@ -120,7 +124,20 @@ class EditAccount extends Component {
                 onChange={this.handleChange}
                 fullWidth
               />
-              <ResendVerification />
+              <div style={{ marginTop: "10px", textAlign: "center" }}>
+                <ResendVerification />
+                <Button 
+                  onClick={this.handleDeleteAccount}
+                  color="secondary"
+                  variant="contained"
+                  style={{
+                    marginLeft: "10px",
+                    display: "inline-block"
+                  }}
+                >
+                Delete Account
+                </Button>
+              </div>
             </form>
           </DialogContent>
           <DialogActions>

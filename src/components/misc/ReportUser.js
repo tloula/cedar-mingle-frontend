@@ -91,7 +91,7 @@ class ReportUser extends Component {
       <Fragment>
         {reported ? (
           <Tooltip placement="top" title="User Reported">
-            <CheckIcon color="primary" />
+            <CheckIcon color="secondary" />
           </Tooltip>
         ) : (
           <MyButton
@@ -99,7 +99,7 @@ class ReportUser extends Component {
             onClick={this.handleOpen}
             btnClassName={classes.button}
           >
-            <SecurityIcon color="primary" />
+            <SecurityIcon color="secondary" />
           </MyButton>
         )}
         <Dialog

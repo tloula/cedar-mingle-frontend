@@ -11,11 +11,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Typography } from "@material-ui/core";
 
-const styles = {
-  matchButton: {
-    margin: "auto",
-  },
-};
+const styles = {};
 
 class ResendVerification extends Component {
   state = { sending: false };
@@ -38,11 +34,11 @@ class ResendVerification extends Component {
           {resent ? (
             <div>
               <CheckIcon
-                color="secondary"
+                color="primary"
                 style={{ display: "inline", paddingRight: "5px" }}
               />
               <Typography
-                color="secondary"
+                color="primary"
                 style={{
                   display: "inline",
                   verticalAlign: "middle",
@@ -58,9 +54,10 @@ class ResendVerification extends Component {
                 onClick={() => {
                   this.handleResendVerification();
                 }}
-                color="secondary"
+                color="primary"
                 variant="contained"
                 disabled={sending}
+                style={{ width: "100%" }}
               >
                 Resend Verification Email
                 {sending && (

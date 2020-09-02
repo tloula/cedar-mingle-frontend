@@ -10,10 +10,12 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import ResendVerification from "../misc/ResendVerification";
+import DeleteAccount from "./DeleteAccount";
 
 const styles = (theme) => ({
   ...theme.spread,
@@ -120,7 +122,14 @@ class EditAccount extends Component {
                 onChange={this.handleChange}
                 fullWidth
               />
-              <ResendVerification />
+              <Grid container>
+                <Grid item sm={6} xs={12}>
+                  <ResendVerification />
+                </Grid>
+                <Grid item sm={6} xs={12}>
+                  <DeleteAccount />
+                </Grid>
+              </Grid>
             </form>
           </DialogContent>
           <DialogActions>

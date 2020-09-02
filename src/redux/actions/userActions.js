@@ -271,6 +271,24 @@ export const markMessagesRead = (messageIds) => (dispatch) => {
     });
 };
 
+export const deleteAccount = () => (dispatch) => {
+  axios
+    .get("/delete")
+    .then(() => {
+      analytics.logEvent("delete_account");
+      // Logout
+      localStorage.removeItem("FBIdToken");
+      localStorage.removeItem("FBRefreshToken");
+      delete axios.defaults.headers.common["Authorization"];
+      dispatch({ type: SET_UNAUTHENTICATED });
+      dispatch({ type: CLEAR_DATA });
+    })
+    .catch((err) => {
+      analytics.logEvent("delete_account_error", { error: err });
+      console.log(err);
+    });
+};
+
 function setAuthorizationHeader(idToken, refreshToken) {
   const FBIdToken = `Bearer ${idToken}`;
   const FBRefreshToken = refreshToken;

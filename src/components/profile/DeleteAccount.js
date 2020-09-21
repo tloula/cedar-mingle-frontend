@@ -73,7 +73,12 @@ class DeleteAccount extends Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleDeleteAccount} color="secondary">
+            <Button
+              onClick={() => {
+                this.handleDeleteAccount();
+              }}
+              color="secondary"
+            >
               Delete Account
             </Button>
           </DialogActions>

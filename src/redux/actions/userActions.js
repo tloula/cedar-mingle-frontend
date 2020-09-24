@@ -213,6 +213,7 @@ export const changePassword = (data) => (dispatch) => {
     .then(() => {
       analytics.logEvent("change_password");
       dispatch({ type: CLEAR_ERRORS });
+      dispatch({ type: SET_SETTINGS_EDITED });
       dispatch(getSettings());
     })
     .catch((err) => {
